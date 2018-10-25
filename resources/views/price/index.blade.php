@@ -7,17 +7,17 @@ use App\BookIssue;
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Location list</h2>
+                <h2>Price list</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('location.create') }}"> Create new Location</a>
+                <a class="btn btn-success" href="{{ route('price.create') }}"> Create new Price</a>
             </div>
         </div>
     </div>
     <!----------------------search start-------------------------->
     <div class="row">
         <div class="col-lg-4">
-            {!! Form::open(array('route' => 'location.index','method'=>'GET')) !!}
+            {!! Form::open(array('route' => 'price.index','method'=>'GET')) !!}
             <div class="input-group">
                 {!! Form::text('search', null, array('placeholder' => 'Search for...','class' => 'form-control')) !!}
                 <span class="input-group-btn">
@@ -41,21 +41,27 @@ use App\BookIssue;
                 <table class="table table-bordered">
                     <tr>
                         <th>No</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Location Image</th>
+                        <th>route_name</th>
+                        <th>vehicle_type</th>
+                        <th>price</th>
+                        <th>groups_per_person</th>
+                        <th>group_members</th>
+                      
                         <th width="280px">Action</th>
                     </tr>
-                    @foreach ($locations as $key => $location)
+                    @foreach ($prices as $key => $price)
                         <tr>
                             <td>{{ ++$i }}</td>
-                            <td>{{ $location->name }}</td>
-                            <td>{{ $location->description }}</td>
-                            <td><img src="{{Request::root()}}/uploads/location/{{ $location->location_photo }}" width="60" height="45"></td>
-                            <td>
-                                <!--<a class="btn btn-info" href="{{ route('location.show',$location->id) }}">Show</a>-->
-                                <a class="btn btn-primary" href="{{ route('location.edit',$location->id) }}">Edit</a>
-                                {!! Form::open(['method' => 'DELETE','route' => ['location.destroy', $location->id],'style'=>'display:inline', 'class'=>'delete']) !!}
+                            <td>{{ $price->route_name }}</td>
+                            <td>{{ $price->vehicle_type }}</td>
+                            <td>{{ $price->price }}</td>
+                            <td>{{ $price->groups_per_person }}</td>
+                            <td>{{ $price->group_members }}</td>
+                           
+                           <td>
+                                <!--<a class="btn btn-info" href="{{ route('price.show',$price->id) }}">Show</a>-->
+                                <a class="btn btn-primary" href="{{ route('price.edit',$price->id) }}">Edit</a>
+                                {!! Form::open(['method' => 'DELETE','route' => ['price.destroy', $price->id],'style'=>'display:inline', 'class'=>'delete']) !!}
                                 {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                                 {!! Form::close() !!}
                             </td>
@@ -63,7 +69,7 @@ use App\BookIssue;
                     @endforeach
                 </table>
 
-                    {!! $locations->appends(Request::except('page'))->render() !!}
+                    {!! $prices->appends(Request::except('page'))->render() !!}
             </div>
         </div>
     </div>

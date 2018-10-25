@@ -135,6 +135,51 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth','prevent-back-hist
 
 
 
+      //route ticket system
+    Route::get('route',['as'=>'route.index','uses'=>'RouteController@index','middleware' => ['permission:route-list|route-create|route-edit|route-delete']]);
+    Route::get('route/create',['as'=>'route.create','uses'=>'RouteController@create','middleware' => ['permission:route-create']]);
+    Route::post('route/create',['as'=>'route.store','uses'=>'RouteController@store','middleware' => ['permission:route-create']]);
+    Route::get('route/{id}',['as'=>'route.show','uses'=>'RouteController@show']);
+    Route::get('route/{id}/edit',['as'=>'route.edit','uses'=>'RouteController@edit','middleware' => ['permission:route-edit']]);
+    Route::patch('route/{id}',['as'=>'route.update','uses'=>'RouteController@update','middleware' => ['permission:route-edit']]);
+    Route::delete('route/{id}',['as'=>'route.destroy','uses'=>'RouteController@destroy','middleware' => ['permission:route-delete']]);
+
+
+
+     //bus ticket system
+    Route::get('bus',['as'=>'bus.index','uses'=>'BusController@index','middleware' => ['permission:bus-list|bus-create|bus-edit|bus-delete']]);
+    Route::get('bus/create',['as'=>'bus.create','uses'=>'BusController@create','middleware' => ['permission:bus-create']]);
+    Route::post('bus/create',['as'=>'bus.store','uses'=>'BusController@store','middleware' => ['permission:bus-create']]);
+    Route::get('bus/{id}',['as'=>'bus.show','uses'=>'BusController@show']);
+    Route::get('bus/{id}/edit',['as'=>'bus.edit','uses'=>'BusController@edit','middleware' => ['permission:bus-edit']]);
+    Route::patch('bus/{id}',['as'=>'bus.update','uses'=>'BusController@update','middleware' => ['permission:bus-edit']]);
+    Route::delete('bus/{id}',['as'=>'bus.destroy','uses'=>'BusController@destroy','middleware' => ['permission:bus-delete']]);
+
+
+   //bus ticket system
+    Route::get('assign',['as'=>'assign.index','uses'=>'AssignController@index','middleware' => ['permission:assign-list|assign-create|assign-edit|assign-delete']]);
+    Route::get('assign/create',['as'=>'assign.create','uses'=>'AssignController@create','middleware' => ['permission:assign-create']]);
+    Route::post('assign/create',['as'=>'assign.store','uses'=>'AssignController@store','middleware' => ['permission:assign-create']]);
+    Route::get('assign/{id}',['as'=>'assign.show','uses'=>'AssignController@show']);
+    Route::get('assign/{id}/edit',['as'=>'assign.edit','uses'=>'AssignController@edit','middleware' => ['permission:assign-edit']]);
+    Route::patch('assign/{id}',['as'=>'assign.update','uses'=>'AssignController@update','middleware' => ['permission:assign-edit']]);
+    Route::delete('assign/{id}',['as'=>'assign.destroy','uses'=>'AssignController@destroy','middleware' => ['permission:assign-delete']]);
+
+
+
+
+   //price ticket system
+    Route::get('price',['as'=>'price.index','uses'=>'PriceController@index','middleware' => ['permission:price-list|price-create|price-edit|price-delete']]);
+    Route::get('price/create',['as'=>'price.create','uses'=>'PriceController@create','middleware' => ['permission:price-create']]);
+    Route::post('price/create',['as'=>'price.store','uses'=>'PriceController@store','middleware' => ['permission:price-create']]);
+    Route::get('price/{id}',['as'=>'price.show','uses'=>'PriceController@show']);
+    Route::get('price/{id}/edit',['as'=>'price.edit','uses'=>'PriceController@edit','middleware' => ['permission:price-edit']]);
+    Route::patch('price/{id}',['as'=>'price.update','uses'=>'PriceController@update','middleware' => ['permission:price-edit']]);
+    Route::delete('price/{id}',['as'=>'price.destroy','uses'=>'PriceController@destroy','middleware' => ['permission:price-delete']]);
+
+
+
+
     //member
     Route::get('roles',['as'=>'roles.index','uses'=>'RoleController@index','middleware' => ['permission:role-list|role-create|role-edit|role-delete']]);
     Route::get('roles/create',['as'=>'roles.create','uses'=>'RoleController@create','middleware' => ['permission:role-create']]);

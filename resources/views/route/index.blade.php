@@ -7,17 +7,17 @@ use App\BookIssue;
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Location list</h2>
+                <h2>Route list</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('location.create') }}"> Create new Location</a>
+                <a class="btn btn-success" href="{{ route('route.create') }}"> Create new Route</a>
             </div>
         </div>
     </div>
     <!----------------------search start-------------------------->
     <div class="row">
         <div class="col-lg-4">
-            {!! Form::open(array('route' => 'location.index','method'=>'GET')) !!}
+            {!! Form::open(array('route' => 'route.index','method'=>'GET')) !!}
             <div class="input-group">
                 {!! Form::text('search', null, array('placeholder' => 'Search for...','class' => 'form-control')) !!}
                 <span class="input-group-btn">
@@ -42,20 +42,26 @@ use App\BookIssue;
                     <tr>
                         <th>No</th>
                         <th>Name</th>
-                        <th>Description</th>
-                        <th>Location Image</th>
+                        <th>start_point</th>
+                        <th>end_point</th>
+                        <th>stoppage_points</th>
+                        <th>distance</th>
+                        <th>approximate_time</th>
                         <th width="280px">Action</th>
                     </tr>
-                    @foreach ($locations as $key => $location)
+                    @foreach ($routes as $key => $route)
                         <tr>
                             <td>{{ ++$i }}</td>
-                            <td>{{ $location->name }}</td>
-                            <td>{{ $location->description }}</td>
-                            <td><img src="{{Request::root()}}/uploads/location/{{ $location->location_photo }}" width="60" height="45"></td>
-                            <td>
-                                <!--<a class="btn btn-info" href="{{ route('location.show',$location->id) }}">Show</a>-->
-                                <a class="btn btn-primary" href="{{ route('location.edit',$location->id) }}">Edit</a>
-                                {!! Form::open(['method' => 'DELETE','route' => ['location.destroy', $location->id],'style'=>'display:inline', 'class'=>'delete']) !!}
+                            <td>{{ $route->name }}</td>
+                            <td>{{ $route->start_point }}</td>
+                            <td>{{ $route->end_point }}</td>
+                            <td>{{ $route->stoppage_points }}</td>
+                            <td>{{ $route->distance }}</td>
+                            <td>{{ $route->approximate_time }}</td>
+                           <td>
+                                <!--<a class="btn btn-info" href="{{ route('route.show',$route->id) }}">Show</a>-->
+                                <a class="btn btn-primary" href="{{ route('route.edit',$route->id) }}">Edit</a>
+                                {!! Form::open(['method' => 'DELETE','route' => ['route.destroy', $route->id],'style'=>'display:inline', 'class'=>'delete']) !!}
                                 {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                                 {!! Form::close() !!}
                             </td>
@@ -63,7 +69,7 @@ use App\BookIssue;
                     @endforeach
                 </table>
 
-                    {!! $locations->appends(Request::except('page'))->render() !!}
+                    {!! $routes->appends(Request::except('page'))->render() !!}
             </div>
         </div>
     </div>

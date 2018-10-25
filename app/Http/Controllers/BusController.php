@@ -14,10 +14,11 @@ use DB;
 use Hash;
 use App\BookIssue;
 use App\Location;
+use App\Bus;
 use Illuminate\Support\Facades\Auth;
 
 
-class LocationController extends Controller
+class BusController extends Controller
 {
 
     /**
@@ -29,13 +30,13 @@ class LocationController extends Controller
     {
 
         $search=trim($request->input('search'));
-        $locations= Location::orderBy('id','DESC')->paginate(5);
+        $buses= Bus::orderBy('id','DESC')->paginate(5);
 
         if(isset($search)){
-            $locations=Location::where('name','like','%'.$search.'%')->orWhere('description','like','%'.$search.'%')->orderBy('id','DESC')->paginate(5);
+            $buses=Bus::where('registration_no','like','%'.$search.'%')->orWhere('engine_no','like','%'.$search.'%')->orderBy('id','DESC')->paginate(5);
         }
 
-        return view('location.index',compact('locations'))->with('i', ($request->input('page', 1) - 1) * 5);
+        return view('bus.index',compact('buses'))->with('i', ($request->input('page', 1) - 1) * 5);
 
     }
 
@@ -46,7 +47,7 @@ class LocationController extends Controller
      */
     public function create()
     {
-        return view('location.create');
+        return view('bus.create');
     }
 
     /**
@@ -59,40 +60,39 @@ class LocationController extends Controller
     {
 
 
-
-
-
         $this->validate($request, [
-            'name' => 'required',
-            'status' => 'required'
+            'registration_no' => 'required'
         ]);
 
         $input = $request->all();
 
-      
-
-
-        $user = new Location();
-        $user->name=$input['name'];
-        $user->description=$input['description'];
-        $user->status=$input['status'];
+        $user = new Bus();
+        $user->registration_no=$input['registration_no'];
+        $user->fleet_type=$input['fleet_type'];
+        $user->engine_no=$input['engine_no'];
+        $user->model_no=$input['model_no'];
+        $user->total_seat=$input['total_seat'];
+        $user->seat_number=$input['seat_number'];
         $user->admin_id=Auth::user()->id;
-        if($request->file('location_photo')) {
-            $profile_image = $request->file('location_photo');
-            $upload = 'uploads/location';
+
+        if($request->file('bus_photo')) {
+
+            $profile_image = $request->file('bus_photo');
+            $upload = 'uploads/bus';
 
             $extension = $profile_image->getClientOriginalExtension();
             $profile_image_name = time() . "." . $extension;
             $success = $profile_image->move($upload, $profile_image_name);
 
-            $input['location_photo'] = $profile_image_name;
-            $user->location_photo=$input['location_photo'];
+            $input['bus_photo'] = $profile_image_name;
+            $user->bus_photo=$input['bus_photo'];
         }
 
         $user->save();
 
-        return redirect()->route('location.index')
-            ->with('success','Location created successfully');
+        return redirect()->route('bus.index')
+            ->with('success','Bus created successfully');
+            
     }
 
     /**

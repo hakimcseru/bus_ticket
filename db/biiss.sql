@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 22, 2018 at 10:03 AM
+-- Generation Time: Oct 25, 2018 at 01:54 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -19,6 +19,35 @@ SET time_zone = "+00:00";
 --
 -- Database: `biiss`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `assign`
+--
+
+CREATE TABLE IF NOT EXISTS `assign` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fleet_registration_no` varchar(100) NOT NULL,
+  `route_id` int(100) NOT NULL,
+  `route_name` varchar(100) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `driver_name` varchar(100) NOT NULL,
+  `assistants` varchar(100) NOT NULL,
+  `status` enum('0','1') NOT NULL DEFAULT '1',
+  `admin_id` int(100) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `assign`
+--
+
+INSERT INTO `assign` (`id`, `fleet_registration_no`, `route_id`, `route_name`, `start_date`, `end_date`, `driver_name`, `assistants`, `status`, `admin_id`, `created_at`, `updated_at`) VALUES
+(1, '1', 2, 'Dhaka to chittagong', '2018-10-01', '2018-10-31', '24', '["21","23"]', '1', 19, '2018-10-25 03:56:57', '2018-10-25 03:56:57');
 
 -- --------------------------------------------------------
 
@@ -6381,6 +6410,36 @@ INSERT INTO `book_return` (`id`, `book_issue_id`, `user_id`, `admin_id`, `return
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `bus`
+--
+
+CREATE TABLE IF NOT EXISTS `bus` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `registration_no` varchar(100) NOT NULL,
+  `fleet_type` varchar(100) NOT NULL,
+  `engine_no` varchar(100) NOT NULL,
+  `model_no` varchar(100) NOT NULL,
+  `admin_id` int(100) NOT NULL,
+  `total_seat` varchar(100) NOT NULL,
+  `seat_number` varchar(200) NOT NULL,
+  `bus_photo` varchar(100) NOT NULL,
+  `status` enum('0','1') NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `bus`
+--
+
+INSERT INTO `bus` (`id`, `registration_no`, `fleet_type`, `engine_no`, `model_no`, `admin_id`, `total_seat`, `seat_number`, `bus_photo`, `status`, `created_at`, `updated_at`) VALUES
+(1, '1001', 'ac', 'a22', 'a11', 19, '5', '1,2,3,4,5', '1540445448.jpg', '1', '2018-10-24 23:30:48', '2018-10-24 23:30:48'),
+(2, '1002', 'non-ac', 'a33', 'b44', 19, '3', '1,2,3', '1540445724.jpg', '1', '2018-10-24 23:35:24', '2018-10-24 23:35:24');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `category`
 --
 
@@ -6768,14 +6827,18 @@ CREATE TABLE IF NOT EXISTS `location` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `location`
 --
 
 INSERT INTO `location` (`id`, `name`, `description`, `admin_id`, `location_photo`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Dhaka', 'Dhaka, Mohakhali, Road 11', 19, '1540193840.png', '1', '2018-10-22 01:37:20', '2018-10-22 01:37:20');
+(2, 'Dhaka', 'Dhaka mohkhali, road 11', 19, '1540270113.jpg', '1', '2018-10-22 22:48:33', '2018-10-22 22:48:33'),
+(3, 'Naogaon', 'naogaon, road 11', 19, '1540270167.jpg', '1', '2018-10-22 22:49:27', '2018-10-22 22:49:27'),
+(4, 'Chittagong', 'chittagong , road 11', 19, '1540270282.png', '1', '2018-10-22 22:51:22', '2018-10-22 22:51:22'),
+(5, 'Barishal', 'Barishal, road 11', 19, '1540270322.png', '1', '2018-10-22 22:52:02', '2018-10-22 22:52:02'),
+(6, 'Sylet', 'Sylet, road 11', 19, '1540270413.jpeg', '1', '2018-10-22 22:53:33', '2018-10-22 22:53:33');
 
 -- --------------------------------------------------------
 
@@ -6867,7 +6930,7 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `permissions_name_unique` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=50 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=60 ;
 
 --
 -- Dumping data for table `permissions`
@@ -6922,7 +6985,17 @@ INSERT INTO `permissions` (`id`, `name`, `url`, `display_name`, `description`, `
 (46, 'assign-list', 'assign', 'Assign Module', 'role management.png', 45, 35, 0, '1', NULL, NULL),
 (47, 'assign-create', '', 'assign create', 'assign create', 45, 0, 0, '1', NULL, NULL),
 (48, 'assign-edit', '', 'assign edit', 'assign edit', 45, 0, 0, '1', NULL, NULL),
-(49, 'assign-delete', '', 'assign delete', 'assign delete', 45, 0, 0, '1', NULL, NULL);
+(49, 'assign-delete', '', 'assign delete', 'assign delete', 45, 0, 0, '1', NULL, NULL),
+(50, 'fleet_management', 'fleet_management', 'Fleet Management', 'setting.png', NULL, NULL, 0, '1', NULL, NULL),
+(51, 'bus-list', 'bus', 'Bus Module', 'role management.png', 50, 50, 0, '1', NULL, NULL),
+(52, 'bus-create', '', 'bus-create', 'bus-create', 50, 0, 0, '1', NULL, NULL),
+(53, 'bus-edit', '', 'bus-edit', 'bus-edit', 50, 0, 0, '1', NULL, NULL),
+(54, 'bus-delete', '', 'bus-delete', 'bus-delete', 50, 0, 0, '1', NULL, NULL),
+(55, 'price_management', 'price_management', 'Price Management', 'setting.png', NULL, NULL, 0, '1', NULL, NULL),
+(56, 'price-list', 'price', 'Price Module', 'role management.png', 55, 55, 0, '1', NULL, NULL),
+(57, 'price-create', '', 'price-create', 'price-create', 55, 0, 0, '1', NULL, NULL),
+(58, 'price-edit', '', 'price-edit', 'price-edit', 55, 0, 0, '1', NULL, NULL),
+(59, 'price-delete', '', 'price-delete', 'price-delete', 55, 0, 0, '1', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -6962,6 +7035,14 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (47, 1),
 (48, 1),
 (49, 1),
+(51, 1),
+(52, 1),
+(53, 1),
+(54, 1),
+(56, 1),
+(57, 1),
+(58, 1),
+(59, 1),
 (7, 2),
 (7, 3),
 (8, 3),
@@ -6971,6 +7052,34 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (23, 3),
 (24, 3),
 (25, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `price`
+--
+
+CREATE TABLE IF NOT EXISTS `price` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `route_id` int(100) NOT NULL,
+  `route_name` varchar(100) NOT NULL,
+  `vehicle_type` varchar(100) NOT NULL,
+  `price` varchar(100) NOT NULL,
+  `groups_per_person` varchar(100) NOT NULL,
+  `group_members` varchar(100) NOT NULL,
+  `admin_id` int(100) NOT NULL,
+  `status` enum('0','1') NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `price`
+--
+
+INSERT INTO `price` (`id`, `route_id`, `route_name`, `vehicle_type`, `price`, `groups_per_person`, `group_members`, `admin_id`, `status`, `created_at`, `updated_at`) VALUES
+(1, 2, 'Dhaka to chittagong', 'ac', '300', '1', '1', 19, '1', '2018-10-25 05:52:37', '2018-10-25 05:52:37');
 
 -- --------------------------------------------------------
 
@@ -6987,7 +7096,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `roles_name_unique` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `roles`
@@ -6995,8 +7104,9 @@ CREATE TABLE IF NOT EXISTS `roles` (
 
 INSERT INTO `roles` (`id`, `name`, `display_name`, `description`, `created_at`, `updated_at`) VALUES
 (1, 'admin', 'admin', 'admin', '2018-01-01 18:00:00', '2018-01-02 18:00:00'),
-(2, 'member', 'Member', 'All member group', '2018-06-25 04:09:58', '2018-06-25 04:09:58'),
-(3, 'Agent', 'This is agent type type', 'this is description', '2018-10-21 06:10:07', '2018-10-21 06:10:07');
+(2, 'assistants', 'Assistants', 'All member group', '2018-06-25 04:09:58', '2018-06-25 04:09:58'),
+(3, 'agent', 'Agent', 'this is description', '2018-10-21 06:10:07', '2018-10-21 06:10:07'),
+(4, 'driver', 'Driver', 'this is description', '2018-10-21 06:10:07', '2018-10-21 06:10:07');
 
 -- --------------------------------------------------------
 
@@ -7019,8 +7129,38 @@ INSERT INTO `role_user` (`user_id`, `role_id`) VALUES
 (19, 1),
 (21, 2),
 (23, 2),
-(24, 2),
-(25, 2);
+(24, 4),
+(25, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `route`
+--
+
+CREATE TABLE IF NOT EXISTS `route` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `start_point` varchar(100) NOT NULL,
+  `start_point_name` varchar(100) NOT NULL,
+  `end_point` varchar(100) NOT NULL,
+  `end_point_name` varchar(100) NOT NULL,
+  `stoppage_points` varchar(300) NOT NULL,
+  `distance` varchar(100) NOT NULL,
+  `approximate_time` varchar(50) NOT NULL,
+  `admin_id` int(100) NOT NULL,
+  `status` enum('0','1') NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `route`
+--
+
+INSERT INTO `route` (`id`, `name`, `start_point`, `start_point_name`, `end_point`, `end_point_name`, `stoppage_points`, `distance`, `approximate_time`, `admin_id`, `status`, `created_at`, `updated_at`) VALUES
+(2, 'Dhaka to chittagong', '2', 'Dhaka', '4', 'Chittagong', '["hhh","ll","hh"]', '7', '3', 19, '1', '2018-10-23 03:03:00', '2018-10-23 03:20:06');
 
 -- --------------------------------------------------------
 
@@ -7048,7 +7188,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `contact_number`, `address`, `avatar`, `remember_token`, `created_at`, `updated_at`) VALUES
-(19, 'admin', 'admin@gmail.com', '$2y$10$IIeZF6kTSkNY3lUqW/sac.79erCfF1YDUT3yZR1yiJXuj4Kbzkdt6', '45645645654', 'dhaka, bangladesh', '1540119397.png', 'AvzPDmt4QjfxvukriwaQIKnxuU3ZRMMWuolBiqT1jtDyOSJxfyK87xoC05oO', '2018-06-25 02:33:42', '2018-10-21 04:56:37'),
+(19, 'admin', 'admin@gmail.com', '$2y$10$IIeZF6kTSkNY3lUqW/sac.79erCfF1YDUT3yZR1yiJXuj4Kbzkdt6', '45645645654', 'dhaka, bangladesh', '1540268980.png', 'AvzPDmt4QjfxvukriwaQIKnxuU3ZRMMWuolBiqT1jtDyOSJxfyK87xoC05oO', '2018-06-25 02:33:42', '2018-10-22 22:29:40'),
 (21, 'member1', 'karim@gmail.com', '$2y$10$mWSSbEWYi6z2IcnXp5JGDeABLBi4OBsOe1Qhl2DVcOEhLz0nvInUG', '22222', 'dhaka', '1529921518.jpeg', 'EZcBypaO6eAugekSpOKktcMWnhq3WilhxIsv0pLd6jlQ2yLAHs4MMy6kM2RU', '2018-06-25 04:11:58', '2018-06-25 04:11:58'),
 (23, 'member3', 'kanan@gmail.com', '$2y$10$/ZAPbkFTwTsMh1lroB31x.qg0127v4K2czchZVA47xFrNrzixtCKO', '01717888937', 'Mirpur, Dhaka', '1540119319.png', NULL, '2018-06-25 23:08:22', '2018-10-21 04:55:19'),
 (24, 'Khan', 'khan@gmail.com', '$2y$10$qFJeav37LdJ6hTlwFbElqe17mEEVH0HtTLQ7dbxrHZwlTaMs2auHC', '01568756987', 'Baridhara, Dhaka', '1532839625.png', NULL, '2018-07-22 23:37:59', '2018-07-28 22:47:05'),
