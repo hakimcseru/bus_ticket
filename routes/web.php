@@ -29,6 +29,12 @@ Route::get('/', function () {
 });*/
 Route::get('/', ['as'=>'font_web.index','uses'=>'FrontController@index']);
 
+
+
+
+
+Route::get('/bookingfront/{id}', ['as'=>'bookingfront.index','uses'=>'FrontController@bookingfrontfunction']);
+
 /*Route::get('/new-books', function () {
     return view('newbooks');
 });*/
@@ -176,6 +182,25 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth','prevent-back-hist
     Route::get('price/{id}/edit',['as'=>'price.edit','uses'=>'PriceController@edit','middleware' => ['permission:price-edit']]);
     Route::patch('price/{id}',['as'=>'price.update','uses'=>'PriceController@update','middleware' => ['permission:price-edit']]);
     Route::delete('price/{id}',['as'=>'price.destroy','uses'=>'PriceController@destroy','middleware' => ['permission:price-delete']]);
+
+
+
+       //booking ticket system
+    Route::get('booking',['as'=>'booking.index','uses'=>'BookingController@index','middleware' => ['permission:booking-list|booking-create|booking-edit|booking-delete']]);
+    Route::get('booking/create',['as'=>'booking.create','uses'=>'BookingController@create','middleware' => ['permission:booking-create']]);
+    Route::post('booking/create',['as'=>'booking.store','uses'=>'BookingController@store','middleware' => ['permission:booking-create']]);
+    Route::get('booking/{id}',['as'=>'booking.show','uses'=>'BookingController@show']);
+    Route::get('booking/{id}/edit',['as'=>'booking.edit','uses'=>'BookingController@edit','middleware' => ['permission:booking-edit']]);
+    Route::patch('booking/{id}',['as'=>'booking.update','uses'=>'BookingController@update','middleware' => ['permission:booking-edit']]);
+    Route::delete('booking/{id}',['as'=>'booking.destroy','uses'=>'BookingController@destroy','middleware' => ['permission:booking-delete']]);
+
+
+
+
+
+        //book issue
+    Route::get('chancestopes/stopes/{id}',array('as'=>'chancestopes.stopes','uses'=>'BookingController@chancestopes'));
+    Route::get('checkbookingseat/bookingseat/{id}',array('as'=>'bookingseat.seat','uses'=>'BookingController@bookingseat'));
 
 
 

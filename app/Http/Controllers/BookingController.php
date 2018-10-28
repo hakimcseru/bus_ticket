@@ -15,12 +15,13 @@ use Hash;
 use App\BookIssue;
 use App\Location;
 use App\Route;
+use App\Booking;
 use App\Assign;
 use App\Bus;
 use Illuminate\Support\Facades\Auth;
 
 
-class AssignController  extends Controller
+class BookingController  extends Controller
 {
 
     /**
@@ -32,15 +33,16 @@ class AssignController  extends Controller
     {
 
         $search=trim($request->input('search'));
-        $assignes= Assign::orderBy('id','DESC')->paginate(5);
+        $bookings= Booking::orderBy('id','DESC')->paginate(5);
 
         if(isset($search)){
-            $assignes=Assign::where('route_name','like','%'.$search.'%')
-                          ->orWhere('driver_name','like','%'.$search.'%')
+            $bookings=Booking::where('route_name','like','%'.$search.'%')
+                          ->orWhere('pickup_location','like','%'.$search.'%')
+                          ->orWhere('drop_location','like','%'.$search.'%')
                           ->orderBy('id','DESC')->paginate(5);
         }
 
-        return view('assign.index',compact('assignes'))->with('i', ($request->input('page', 1) - 1) * 5);
+        return view('booking.index',compact('bookings'))->with('i', ($request->input('page', 1) - 1) * 5);
 
     }
 
@@ -52,26 +54,75 @@ class AssignController  extends Controller
     public function create()
     {
 
+        $route_ides = Assign::pluck('route_name','id');
 
-        $drivers = User::whereHas('roles', function ($query) {
-            $query->where('name', '=', 'driver');
-         })->pluck('name','id');
-
-
-        $assistants = User::whereHas('roles', function ($query) {
-            $query->where('name', '=', 'assistants');
-         })->pluck('name','id');
-      
-      
-
-        $fleet_registration_noes = Bus::pluck('registration_no','registration_no');
-        $route_ides = Route::pluck('name','id');
-
-        return view('assign.create',compact('fleet_registration_noes','route_ides','assistants','drivers'));
+        return view('booking.create',compact('route_ides'));
 
 
         
     }
+
+
+
+/*    public function mychangecopyAjax($id)
+    {
+
+        $bookinfo=DB::table("books")->where('id', $id)->first();
+
+        $bookscopy = json_decode($bookinfo->qr_string);
+
+        $bookIssueCopyNumer = BookIssue::where('is_returned',0)->where('book_id',$id)->get();
+
+        if(count($bookIssueCopyNumer)>0){
+            foreach ($bookIssueCopyNumer as $singlekey){
+                unset( $bookscopy[array_search( $singlekey->copy_number, $bookscopy )] );
+            }
+        }
+
+        $data['bookscopy'] = $bookscopy;
+
+
+
+       /* $data['cities'] = DB::table("book_issue")
+            ->where("book_issue_code",$id)
+            ->first();*/
+       // $bookinfo=DB::table("books")->where('id', $id)->first();
+
+       // $data['bookscopy'] = json_decode($bookinfo->qr_string);
+
+
+
+
+      //  return json_encode($data['bookscopy']);
+   // }*/
+
+
+    public function chancestopes($id)
+    {
+        $assign=Assign::where('id',$id)->first();
+        $route=Route::where('id',$assign->route_id)->first();
+        $stoppes_points=$route->stoppage_points;
+        $stoppes_points=json_decode($stoppes_points);
+
+        return json_encode($stoppes_points);
+    } 
+
+    public function bookingseat($id)
+    {
+        $assign=Assign::where('id',$id)->first();
+        $bus=Bus::where('registration_no',$assign->fleet_registration_no)->first();
+
+        $bus_info=[];
+        $bus_info['bus_info']= $bus;
+        $bus_info['seat_number']=json_decode($bus->seat_number);
+       
+
+        return json_encode($bus_info);
+    }
+
+
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -82,37 +133,44 @@ class AssignController  extends Controller
     public function store(Request $request)
     {
 
+
+
+
+
         $this->validate($request, [
-            'fleet_registration_no' => 'required'
+            'name' => 'required',
+            'status' => 'required'
         ]);
 
         $input = $request->all();
 
-        $user = new Assign();
-        $user->fleet_registration_no=$input['fleet_registration_no'];
-        $user->route_id=$input['route_id'];
-        $user->route_name=Route::find($input['route_id'])->name;
+      
+         $stoped_point=explode(',', $input['stoppage_points']);
+         $stoped_points=json_encode($stoped_point);
 
-        $user->start_point_name=Route::find($input['route_id'])->start_point_name;
-        $user->end_point_name=Route::find($input['route_id'])->end_point_name;
-        
-        $user->start_date=$input['start_date'];
-        $user->end_date=$input['end_date'];
-
-        $user->start_time=$input['start_time'];
-        $user->end_time=$input['end_time'];
-
-        $user->driver_name=$input['driver_name'];
-        $user->assistants=json_encode($input['assistants']);
+         
        
 
+      
+
+
+        $user = new Route();
+        $user->name=$input['name'];
+        $user->start_point=$input['start_point'];
+        $user->start_point_name=Location::find($input['start_point'])->name;
+        $user->end_point=$input['end_point'];
+        $user->end_point_name=Location::find($input['end_point'])->name;
+        $user->stoppage_points=$stoped_points;
+       
+        $user->distance=$input['distance'];
+        $user->approximate_time=$input['approximate_time'];
         $user->status=$input['status'];
         $user->admin_id=Auth::user()->id;
 
         $user->save();
 
-        return redirect()->route('assign.index')
-            ->with('success','Assign created successfully');
+        return redirect()->route('route.index')
+            ->with('success','Route created successfully');
     }
 
     /**

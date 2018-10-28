@@ -48,22 +48,19 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand biiss-lago" href="{{ url('/') }}"><!--<img src="{{Request::root()}}/images/ticket/logo_web.jpg"">-->Aalbaraka Exclusive Ltd</a>
+            <a class="navbar-brand biiss-lago" href="{{ url('/') }}"><!--<img src="{{Request::root()}}/images/ticket/logo_web.jpg"">-->Albaraka Exclusive Ltd</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="{{ request()->is('/') ? 'active' : '' }}"><a href="{{ url('/') }}">Home<span class="sr-only">(current)</span></a></li>
-                <li class="{{ request()->is('new-books') ? 'active' : '' }}"><a href="{{ url('/new-books') }}">New Books</a></li>
-                <li class="{{ request()->is('top-books') ? 'active' : '' }}"><a href="{{ url('/top-books') }}">Top Books</a></li>
-                <li class="{{ request()->is('top-journals') ? 'active' : '' }}"><a href="{{ url('/top-journals') }}">Top Journals</a></li>
-                <li class="{{ request()->is('top-seminars') ? 'active' : '' }}"><a href="{{ url('/top-seminars') }}">Top Seminars</a></li>
+                <li class="{{ request()->is('new-books') ? 'active' : '' }}"><a href="{{ url('/new-books') }}">About</a></li>
                 <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}">Contact</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{ url('/print') }}">Wishlist ({{ Cart::instance('default')->count(false) }})</a></li>
+                <!--<li><a href="{{ url('/print') }}">Wishlist ({{ Cart::instance('default')->count(false) }})</a></li>-->
 
                 @if (Route::has('login'))
 
@@ -88,7 +85,7 @@
                                 </ul>
                             </li>
                         @else
-                        <li><a href="{{ url('/login') }}"><span class="forcolor"><i class="fa fa-user" aria-hidden="true"></i> Admin Login</span></a></li>
+                        <li><a href="{{ url('/login') }}"><span class="forcolor"><i class="fa fa-user" aria-hidden="true"></i> Login</span></a></li>
                         @endif
 
                 @endif
@@ -113,67 +110,74 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
 <div class="ticket_header_filter_area">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
                 <div class="ticket_header_filter ticket_header_filter_left">
                         <h4>Online Bus Tickets Booking with Zero Booking Fees</h4>
-                        <form>
+                         {!! Form::open(array('route' => 'font_web.index','method'=>'GET')) !!}
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 col-xs-6">
                                   <div class="form-group">
                                     <label for="exampleInputEmail1">From</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="From">
+                                    <input type="text" name="start_point" class="form-control" id="exampleInputEmail1" placeholder="From">
                                   </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 col-xs-6">
                                   <div class="form-group">
                                     <label for="exampleInputPassword1">To</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="To">
+                                    <input type="text" name="end_point" class="form-control" id="exampleInputPassword1" placeholder="To">
                                   </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 col-xs-6">
                                   <div class="form-group ticket_custom_calader_icon">
                                     <label for="exampleInputEmail1">Date of Journey</label>
-                                    <input type="text" class="form-control" id="start_date" placeholder="Start Date">
+                                    <input type="text" name="start_date" class="form-control" id="start_date" placeholder="Start Date">
                                     <i class="fa fa-calendar" aria-hidden="true"></i>
                                   </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 col-xs-6">
                                   <div class="form-group ticket_custom_calader_icon">
                                     <label for="exampleInputPassword1">Date of Return (Optional)</label>
-                                    <input type="text" class="form-control" id="return_date" placeholder="Return Date">
+                                    <input type="text" name="return_date" class="form-control" id="return_date" placeholder="Return Date">
                                     <i class="fa fa-calendar" aria-hidden="true"></i>
                                   </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 col-xs-6">
                                   <div class="form-group">
                                    <button type="reset" class="btn btn-danger" style="width:150px">Reset</button>
                                   </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 col-xs-6">
                                   <div class="form-group">
                                     <button type="submit" class="btn btn-danger" style="width:150px">Submit</button>
                                   </div>
                                 </div>
                             </div>
-                         
-
-                          
-                          
-                        </form>
+                        {!! Form::close() !!}
                 </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6 col-md-6 col-sm-4 col-xs-12">
                 <div class="ticket_header_filter">
-                      <img src="{{Request::root()}}/images/ticket/bus.png">
+                      <img  style="width: 100%;" src="{{Request::root()}}/images/ticket/bus.png">
                 </div>
             </div>
         </div>
     </div>
-</div>  
+</div> 
+
+
+<div class="search_area_for_ticket">
+    <div class="container">
+        
+       @yield('content')
+            
+    </div> 
+</div> 
+
+
 <div class="ticket_middile_area">
     <div class="container">
         <div class="row">
@@ -248,8 +252,8 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script>
   $( function() {
-    $( "#start_date" ).datepicker();
-    $( "#return_date" ).datepicker();
+    $( "#start_date" ).datepicker({ dateFormat: 'yy-mm-dd' });
+    $( "#return_date" ).datepicker({ dateFormat: 'yy-mm-dd' });
   } );
   </script>
 

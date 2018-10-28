@@ -64,7 +64,18 @@ class BusController extends Controller
             'registration_no' => 'required'
         ]);
 
+
+
+
+
         $input = $request->all();
+
+
+
+         $seat_number=explode(',', $input['seat_number']);
+         $seat_number=json_encode($seat_number);
+
+         
 
         $user = new Bus();
         $user->registration_no=$input['registration_no'];
@@ -72,7 +83,7 @@ class BusController extends Controller
         $user->engine_no=$input['engine_no'];
         $user->model_no=$input['model_no'];
         $user->total_seat=$input['total_seat'];
-        $user->seat_number=$input['seat_number'];
+        $user->seat_number=$seat_number;
         $user->admin_id=Auth::user()->id;
 
         if($request->file('bus_photo')) {

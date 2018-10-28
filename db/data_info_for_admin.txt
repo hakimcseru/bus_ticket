@@ -1,0 +1,3 @@
+databasae_name:albarakd_ticket
+user:albarakd_admin
+pass:albarakaex123$%^
