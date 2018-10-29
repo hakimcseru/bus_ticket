@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 28, 2018 at 12:47 PM
+-- Generation Time: Oct 29, 2018 at 01:06 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -6452,7 +6452,7 @@ CREATE TABLE IF NOT EXISTS `bus` (
   `model_no` varchar(100) NOT NULL,
   `admin_id` int(100) NOT NULL,
   `total_seat` varchar(100) NOT NULL,
-  `seat_number` varchar(200) NOT NULL,
+  `seat_number` varchar(900) NOT NULL,
   `bus_photo` varchar(100) NOT NULL,
   `status` enum('0','1') NOT NULL DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -6465,8 +6465,8 @@ CREATE TABLE IF NOT EXISTS `bus` (
 --
 
 INSERT INTO `bus` (`id`, `registration_no`, `fleet_type`, `engine_no`, `model_no`, `admin_id`, `total_seat`, `seat_number`, `bus_photo`, `status`, `created_at`, `updated_at`) VALUES
-(1, '1001', 'ac', 'a22', 'a11', 19, '5', '["1","2","3","4","5"]', '1540639516.jpg', '1', '2018-10-27 05:25:16', '2018-10-27 05:25:16'),
-(2, '1002', 'ac', 'a33', 'b44', 19, '3', '["1","2","3"]', '1540639546.jpg', '1', '2018-10-27 05:25:46', '2018-10-27 05:25:46');
+(1, '1001', 'ac', 'a22', 'a11', 19, '41', '["A1","A2","A3","A4","B1","B2","B3","B4","C1","C2","C3","C4","D1","D2","D3","D4","E1","E2","E3","E4","F1","F2","F3","F4","G1","G2","G3","G4","H1","H2","H3","H4","I1","I2","I3","I4","J1","J2","J3","J4","J5"]', '1540639516.jpg', '1', '2018-10-27 05:25:16', '2018-10-27 05:25:16'),
+(2, '1002', 'ac', 'a33', 'b44', 19, '41', '["A1","A2","A3","A4","B1","B2","B3","B4","C1","C2","C3","C4","D1","D2","D3","D4","E1","E2","E3","E4","F1","F2","F3","F4","G1","G2","G3","G4","H1","H2","H3","H4","I1","I2","I3","I4","J1","J2","J3","J4","J5"]', '1540639546.jpg', '1', '2018-10-27 05:25:46', '2018-10-27 05:25:46');
 
 -- --------------------------------------------------------
 
