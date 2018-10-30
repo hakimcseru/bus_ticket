@@ -52,6 +52,9 @@ class FrontController extends Controller
        // exit();
 
 
+       $data['locations']= Location::pluck('name','name');
+
+
        $data['availablebus']=Assign::where('start_point_name',$start_point)
         ->where('end_point_name',$end_point)
         ->where('start_date', '<=', $start_date)
@@ -87,7 +90,8 @@ class FrontController extends Controller
         if(count($data['availablebus'])>0){
              return view('frontend.result',$data)->with('i', ($request->input('page', 1) - 1) * 10);
         }else{
-            return view('frontend.app');
+
+            return view('frontend.app',$data);
         }
 
         //return view('book.index',compact('items'))->with('i', ($request->input('page', 1) - 1) * 5);
@@ -116,6 +120,7 @@ class FrontController extends Controller
 
         $bus_info=[];
         $bus_info['bus_info']= $bus;
+        $bus_info['assign']= $assign;
         $bus_info['seat_number']=json_decode($bus->seat_number);
         $bus_info['route_info']=$route;
         $bus_info['price_info']=$price;
@@ -123,6 +128,11 @@ class FrontController extends Controller
        
 
         return json_encode($bus_info);
+    }
+
+
+    public function bookingdatafunction(Request $request){
+
     }
 
 
