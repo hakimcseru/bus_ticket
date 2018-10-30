@@ -19,6 +19,8 @@
 
     <!-- Bootstrap Core Css -->
     <link href="{{asset('/plugins/bootstrap/css/bootstrap.css')}}" rel="stylesheet">
+    <!-- jQuery news Ticker-->
+    <!-- <link href="{{asset('/plugins/jQuery-News-Ticker-master/styles/ticker-style.css')}}" rel="stylesheet"> -->
 
     <!-- Custom Css -->
     <link href="{{asset('/css/frontend/style.css')}}" rel="stylesheet">
@@ -48,21 +50,26 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand biiss-lago" href="{{ url('/') }}"><!--<img src="{{Request::root()}}/images/ticket/logo_web.jpg"">-->Albaraka Exclusive Ltd</a>
+            <a class="navbar-brand biiss-lago" href="{{ url('/') }}"><img src="{{Request::root()}}/images/ticket/imgpsh_fullsize.png"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="{{ request()->is('/') ? 'active' : '' }}"><a href="{{ url('/') }}">Home<span class="sr-only">(current)</span></a></li>
-                <li class="{{ request()->is('new-books') ? 'active' : '' }}"><a href="{{ url('/new-books') }}">About</a></li>
-                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}">Contact</a></li>
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}">Agent List</a></li>
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}">Agent Registration</a></li>
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}">Complain</a></li>
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}">Sign In</a></li>
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}">Create Account</a></li>
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}">Cancel Ticket</a></li>
+                
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
                 <!--<li><a href="{{ url('/print') }}">Wishlist ({{ Cart::instance('default')->count(false) }})</a></li>-->
 
-                @if (Route::has('login'))
+               <!--  @if (Route::has('login'))
 
                         @if (Auth::check())
                             <li class="dropdown">
@@ -88,7 +95,7 @@
                         <li><a href="{{ url('/login') }}"><span class="forcolor"><i class="fa fa-user" aria-hidden="true"></i> Login</span></a></li>
                         @endif
 
-                @endif
+                @endif -->
 
 
 
@@ -104,9 +111,14 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
 
 ?>
 
-<div class="ticket_header_shadow_area">
+<div class="bnews">
+    <marquee behavior="" direction="" class="marquee">
+        <span style="font-size: 16px;font-weight: bold;color: #FFF;">Al-Baraka Exclusive LTD.</span>
+    </marquee>
+</div>
+<!-- <div class="ticket_header_shadow_area">
         <img src="{{Request::root()}}/images/ticket/shadow.png" style="width:100%">
-</div>    
+</div> -->    
 <div class="ticket_header_filter_area">
     <div class="container">
         <div class="row">
@@ -161,12 +173,15 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
             </div>
             <div class="col-lg-6 col-md-6 col-sm-4 col-xs-12">
                 <div class="ticket_header_filter">
-                      <img  style="width: 100%;" src="{{Request::root()}}/images/ticket/bus.png">
+                      <img  style="width: 73%;float: right;padding-top: 35px;" src="{{Request::root()}}/images/ticket/bus_transparent.png">
                 </div>
             </div>
         </div>
     </div>
-</div> 
+</div>
+
+
+
 
 
 <div class="search_area_for_ticket">
@@ -216,6 +231,19 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
 
 
 
+<div class="bank-items">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h4 class="text-center text-uppercase">We Accept :</h4>
+                <div class="text-center">
+                    <img src="{{Request::root()}}/images/payment_system/bank_logo.png" alt="" class="img-responsive" style="width: 100%;padding-bottom: 5px;">
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -223,19 +251,31 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
 
 
 
+<style>
+   
+</style>
 
 
 
 
-
-
+<div class="bottom_navigation">
+    <ul class="nav text-center">
+        <li><a href="">About Us</a></li>
+        <li><a href="">FAQs</a></li>
+        <li><a href="">Terms & Conditions</a></li>
+        <li><a href="">Terms of Use</a></li>
+        <li><a href="">Privacy Policy</a></li>
+        <li><a href="">Feedback</a></li>
+    </ul>
+</div>
 <div class="footer_area">
     <div class="container">
+        
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="footer_content_left">
                     <!--<a href="{{ url('/') }}"><img src="{{Request::root()}}/images/biiss.jpg"></a>-->
-                    <p style="padding-top: 20px; color: #000;">© <?php echo date('Y')?> Online Bus Tickets Booking System.</p>
+                    <p style="color: #FFF;">© <?php echo date('Y')?> Online Bus Tickets Booking System.</p>
                 </div>
             </div>
             
@@ -244,18 +284,30 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
 </div>
 
 <!-- Jquery Core Js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
 <!-- Bootstrap Core Js -->
 <script src="{{asset('/plugins/bootstrap/js/bootstrap.js')}}"></script>
 
+
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <!-- jQuery news Ticker-->
+<script src="{{asset('/plugins/jquery-ticker-master/jquery.ticker.min.js')}}" type="text/javascript"></script>
+
   <script>
   $( function() {
     $( "#start_date" ).datepicker({ dateFormat: 'yy-mm-dd' });
     $( "#return_date" ).datepicker({ dateFormat: 'yy-mm-dd' });
   } );
   </script>
+
+<script type="text/javascript">
+    $(function () {
+        $('.ticker').ticker();
+    });
+</script>
+
 
 
 @yield('ownjs')
