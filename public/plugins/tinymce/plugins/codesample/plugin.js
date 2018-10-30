@@ -862,7 +862,7 @@ if (Prism.languages.markup) {
 		});
 	});
 
-	// Restore env.code for other plugins (e.g. line-numbers)
+	// Restore .env.code for other plugins (e.g. line-numbers)
 	Prism.hooks.add('before-insert', function(env) {
 		if (env.language === 'php') {
 			env.code = env.backupCode;
