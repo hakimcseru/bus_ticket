@@ -52,6 +52,9 @@ class FrontController extends Controller
        // exit();
 
 
+       $data['locations']= Location::pluck('name','name');
+
+
        $data['availablebus']=Assign::where('start_point_name',$start_point)
         ->where('end_point_name',$end_point)
         ->where('start_date', '<=', $start_date)
@@ -87,7 +90,8 @@ class FrontController extends Controller
         if(count($data['availablebus'])>0){
              return view('frontend.result',$data)->with('i', ($request->input('page', 1) - 1) * 10);
         }else{
-            return view('frontend.app');
+
+            return view('frontend.app',$data);
         }
 
         //return view('book.index',compact('items'))->with('i', ($request->input('page', 1) - 1) * 5);

@@ -507,8 +507,8 @@ use App\Price;
 //next booking
 
    $(document).ready(function(){
-        $('.bookingnext').click(function(){
-        
+        $('.bookingnext').click(function(e){
+                e.preventDefault();
                 $.ajaxSetup({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -521,7 +521,7 @@ use App\Price;
                 var order_seat = $("#bookingdata-item").find("input[name='order_seat']").val();
                 var grand_total_price = $("#bookingdata-item").find("input[name='grand_total_price']").val();
 
-                alert(order_seat);
+                //alert(order_seat);
 
                 $('#myModal').modal('hide');  
                 $('#myModalnext').modal('show');  

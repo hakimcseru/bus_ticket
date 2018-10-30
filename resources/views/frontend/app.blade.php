@@ -118,13 +118,15 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
                                 <div class="col-lg-6 col-xs-6">
                                   <div class="form-group">
                                     <label for="exampleInputEmail1">From</label>
-                                    <input type="text" name="start_point" class="form-control" id="exampleInputEmail1" placeholder="From">
+                                    
+                                     {!! Form::select('start_point', $locations, [], array('required' => 'required','class' => 'form-control')) !!}
                                   </div>
                                 </div>
                                 <div class="col-lg-6 col-xs-6">
                                   <div class="form-group">
                                     <label for="exampleInputPassword1">To</label>
-                                    <input type="text" name="end_point" class="form-control" id="exampleInputPassword1" placeholder="To">
+                                    
+                                     {!! Form::select('end_point', $locations, [], array('required' => 'required','class' => 'form-control')) !!}
                                   </div>
                                 </div>
                             </div>
