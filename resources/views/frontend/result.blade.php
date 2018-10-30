@@ -278,7 +278,9 @@ use App\Price;
                                 str += '<span class="listiteam'+index+'"><ul>'
                               }
                                
-                              str += '<li class="listiteam'+index+'"><input type="checkbox" class="check" name="select_seat_number" value="'+item+'">'+item+'</li>';
+                              str += '<li class="listiteam'+index+'"><div  style="position:relative;"><input type="checkbox" id="'+item+'" class="check trigger" name="select_seat_number" value="'+item+'"> <label for="'+item+'" class="checker"><span class="pob" style="    position: absolute;\n' +
+                                  '    left: 30%;\n' +
+                                  '    top: 20%;">'+item+'</span></label></div></li>';
                               if(index!=0 && count%4==0){
                                  str += '</ul></span><span class="listiteam'+index+'"><ul>'
                               }
@@ -289,8 +291,37 @@ use App\Price;
                             document.getElementById("seat_plan_number").innerHTML = str;
 
 
+                        var click =0;
+                        $(".pob").click(function () {
+                            click = click+1;
+                            // $(this).css("color","#fff");
+                            if (click % 2 == 0) {
+                                console.log('even')
+                                $(this).css("color","#000");
+                            }
+                            else {
 
-                           
+                                console.log('odd')
+                                $(this).css("color","#fff");
+                            }
+                            console.log(click)
+                        });
+                        $(".checker").click(function () {
+                            click = click+1;
+                            // $(this).css("color","#fff");
+                            if (click % 2 == 0) {
+                                console.log('even')
+                                $(this).css("color","#000");
+                            }
+                            else {
+
+                                console.log('odd')
+                                $(this).css("color","#fff");
+                            }
+                            console.log(click)
+                        });
+
+
 
                             $.each(data.stoppes_pointes, function(index,item){
                                $('select[name="pickup_location"]').append('<option value="'+ item +'">'+ item +'</option>');

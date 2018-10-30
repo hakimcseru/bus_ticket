@@ -30,6 +30,20 @@
         .adminHoverChange button:hover{
             background-color: white !important;
         }
+        .trigger {
+            display: none;
+        }
+        .checker {
+            background-image: url({{asset('images/icon/demo.png')}});
+            background-position: left center;
+            background-size: auto 100%;
+            width: 40px;
+            height: 40px;
+            background-repeat: no-repeat;
+        }
+        .trigger:checked + .checker {
+            background-position: right center;
+        }
     </style>
 
 </head>
