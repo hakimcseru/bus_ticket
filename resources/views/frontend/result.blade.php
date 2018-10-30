@@ -127,8 +127,8 @@ use App\Price;
                                         </div>
                                         
                                     </div>  
-                                    <div class="col-xs-6 col-sm-6 col-md-6">  
-                                      {!! Form::open(array('route' => 'booking.store','method'=>'POST', 'files' => true, 'runat'=>'server')) !!}
+                                    <div class="col-xs-6 col-sm-6 col-md-6" id="bookingdata-item">  
+                                   {!! Form::open(array('route' => 'bookingdata.index','method'=>'POST', 'files' => true, 'runat'=>'server')) !!}
     
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group form-float">
@@ -210,7 +210,7 @@ use App\Price;
                                             </div>
                                         </div> 
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <button type="submit" class="btn btn-success">Continue</button>
+                                            <button type="submit" class="btn btn-success bookingnext">Continue</button>
                                         </div>
 
                                         {!! Form::close() !!}
@@ -224,6 +224,138 @@ use App\Price;
                         </div>
                     </div>
                 </div>
+
+
+                <!--next modal open-->
+                <!--next modal open-->
+                <!--next modal open-->
+                <!--modal-->
+                <div class="modal fade" id="myModalnext" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog  modal-lg" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Booking User Information</h4>
+                          </div>
+                          <div class="modal-body">
+                              {!! Form::open(array('route' => 'booking.store','method'=>'POST', 'files' => true, 'runat'=>'server')) !!}
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                          <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group form-float">
+                                                <strong>Name :</strong>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                                     {!! Form::text('name', null, array('placeholder' => 'Name', 'required' => 'required','class' => 'form-control')) !!}
+                                                </div>
+                                            </div>
+                                          </div>
+                                          <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group form-float">
+                                                <strong>Email <span style="color: red">*</span> :</strong>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
+                                                    {!! Form::text('email', null, array('placeholder' => 'Email', 'required' => 'required','class' => 'form-control')) !!}
+
+                                                </div>
+                                            </div>
+                                          </div>
+                                          <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group form-float">
+                                                <strong>Contact number <span style="color: red">*</span>:</strong>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                                                    {!! Form::text('contact_number', null, array('placeholder' => 'Contact number', 'required' => 'required','class' => 'form-control')) !!}
+
+                                                </div>
+                                            </div>
+                                          </div>
+
+                                          <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group form-float">
+                                                <strong>Address :</strong>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                                                    {!! Form::textarea('address', null, array('placeholder' => 'Address','class' => 'form-control','rows'=>6)) !!}
+                                                </div>
+                                            </div>
+                                          </div> 
+                                    </div>  
+                                    <div class="col-xs-6 col-sm-6 col-md-6">  
+                                     
+    
+                                          <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group form-float">
+                                                <table class="table">
+                                                      <tbody>
+                                                        <tr>
+                                                          <td>Seat</td>
+                                                          <td><div id="show_selected_seat"></div>  </td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td>Price</td>
+                                                          <td><div id="show_price"></div></td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td>Total</td>
+                                                          <td><div id="show_total_price"></div></td>
+                                                         
+                                                        </tr>
+                                                        <tr>
+                                                          <td>Discount</td>
+                                                          <td><div id="show_discount"></div></td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td>Grand Total</td>
+                                                          <td><div id="grand_total_price"></div></td>
+                                                        </tr>
+                                                      </tbody>
+                                                </table>
+                                            </div>
+                                          </div>
+
+                                          <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group form-float">
+                                                <strong>Hand cash <span style="color: red">*</span>:</strong>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                                                    {!! Form::text('grand_toal', null, array('placeholder' => 'grnd_total','class' => 'form-control')) !!}
+
+                                                </div>
+                                            </div>
+                                          </div>
+
+                                          <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group form-float">
+                                                <strong>Payment System<span style="color: red">*</span>:</strong>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                                                    {!! Form::text('ssl', null, array('placeholder' => 'ssl','class' => 'form-control')) !!}
+                                                </div>
+                                            </div>
+                                          </div>
+
+                                         
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <button type="submit" class="btn btn-success bookingnext">Submit</button>
+                                        </div>
+
+                                       
+                                    </div> 
+                                  </div> 
+                                {!! Form::close() !!} 
+                          </div>
+                          <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                           
+                          </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--next modal open-->
+                <!--next modal open-->
+                <!--next modal open-->
 
                
             </div>       
@@ -367,6 +499,46 @@ use App\Price;
                 $('select[name="pickup_location"]').empty();
                 $('select[name="drop_location"]').empty();
                 $("#count").empty();
+        });
+    });
+
+
+
+//next booking
+
+   $(document).ready(function(){
+        $('.bookingnext').click(function(){
+        
+                $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                });
+
+                var form_action = $("#bookingdata-item").find("form").attr("action");
+                var pickup_location = $("#bookingdata-item").find("select[name='pickup_location']").val();
+                var drop_location = $("#bookingdata-item").find("select[name='drop_location']").val();
+                var order_seat = $("#bookingdata-item").find("input[name='order_seat']").val();
+                var grand_total_price = $("#bookingdata-item").find("input[name='grand_total_price']").val();
+
+                alert(order_seat);
+
+                $('#myModal').modal('hide');  
+                $('#myModalnext').modal('show');  
+
+                $.ajax({
+                    url: form_action,
+                    type: "POST",
+                    dataType: "json",
+                    data:{pickup_location:pickup_location, drop_location:drop_location, order_seat:order_seat,grand_total_price:grand_total_price},
+                    success:function(data) {
+                            
+
+                                                     
+                    }
+                });
+
+                
         });
     });
 

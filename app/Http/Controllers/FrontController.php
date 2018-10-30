@@ -116,6 +116,7 @@ class FrontController extends Controller
 
         $bus_info=[];
         $bus_info['bus_info']= $bus;
+        $bus_info['assign']= $assign;
         $bus_info['seat_number']=json_decode($bus->seat_number);
         $bus_info['route_info']=$route;
         $bus_info['price_info']=$price;
@@ -123,6 +124,11 @@ class FrontController extends Controller
        
 
         return json_encode($bus_info);
+    }
+
+
+    public function bookingdatafunction(Request $request){
+
     }
 
 
