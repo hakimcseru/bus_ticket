@@ -293,7 +293,7 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
 
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <!-- jQuery news Ticker-->
-<script src="{{asset('/plugins/jquery-ticker-master/jquery.ticker.min.js')}}" type="text/javascript"></script>
+
 
   <script>
   $( function() {
@@ -302,11 +302,7 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
   } );
   </script>
 
-<script type="text/javascript">
-    $(function () {
-        $('.ticker').ticker();
-    });
-</script>
+
 
 
 

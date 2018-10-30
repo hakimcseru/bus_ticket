@@ -35,6 +35,12 @@ Route::get('/', ['as'=>'font_web.index','uses'=>'FrontController@index']);
 
 Route::get('/bookingfront/{id}', ['as'=>'bookingfront.index','uses'=>'FrontController@bookingfrontfunction']);
 
+
+
+
+Route::post('/bookingdata', ['as'=>'bookingdata.index','uses'=>'FrontController@bookingdatafunction']);
+
+
 /*Route::get('/new-books', function () {
     return view('newbooks');
 });*/
