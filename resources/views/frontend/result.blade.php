@@ -182,7 +182,7 @@ use App\Price;
                                                 <table class="table">
                                                     <tbody>
                                                       <tr>
-                                                        <td>Seat</td>
+                                                        <td width="50%">Seat</td>
                                                         <td><div id="show_selected_seat"></div>  </td>
                                                       </tr>
                                                       <tr>
