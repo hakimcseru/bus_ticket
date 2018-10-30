@@ -38,7 +38,7 @@ Route::get('/bookingfront/{id}', ['as'=>'bookingfront.index','uses'=>'FrontContr
 
 
 
-Route::post('/bookingdata', ['as'=>'bookingdata.index','uses'=>'FrontController@bookingdatafunction']);
+Route::post('/bookingdata/reserve', ['as'=>'bookingdata.index','uses'=>'FrontController@bookingdatafunction']);
 
 
 /*Route::get('/new-books', function () {
