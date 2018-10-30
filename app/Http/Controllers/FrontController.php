@@ -53,7 +53,7 @@ class FrontController extends Controller
 
 
        $data['locations']= Location::pluck('name','name');
-
+       $data['start_date_resarve']=null;
 
        $data['availablebus']=Assign::where('start_point_name',$start_point)
         ->where('end_point_name',$end_point)
@@ -88,6 +88,7 @@ class FrontController extends Controller
 
 
         if(count($data['availablebus'])>0){
+             $data['start_date_resarve']=$start_date;
              return view('frontend.result',$data)->with('i', ($request->input('page', 1) - 1) * 10);
         }else{
 
@@ -132,7 +133,63 @@ class FrontController extends Controller
 
 
     public function bookingdatafunction(Request $request){
+              
+            $order_seat=explode(',', $request->order_seat);
+            $order_seats=json_encode($order_seat);
 
+              $bookinginfo=[];
+              $bookinginfo['hidden_selected_assign']= $request->hidden_selected_assign;
+              $bookinginfo['grand_total_price']= $request->grand_total_price;
+              $bookinginfo['order_seat']= $request->order_seat;
+              $bookinginfo['drop_location']= $request->drop_location;
+              $bookinginfo['pickup_location']= $request->pickup_location;
+              $bookinginfo['start_date_resarve']= $request->start_date_resarve;
+              $bookinginfo['total_seat_reserve']= $request->total_seat_reserve;
+
+
+               
+             
+                $user = new Booking();
+                $user->assign_id=$request->hidden_selected_assign;
+                $user->route_id=Assign::find($request->hidden_selected_assign)->route_id;
+                $user->route_name=Assign::find($request->hidden_selected_assign)->route_name;
+                $user->booking_date=$request->start_date_resarve;
+                $user->total_seat=$request->total_seat_reserve;
+                $user->user_id=1;
+                $user->seat_number=$order_seats;
+                $user->price=$request->grand_total_price;
+                $user->pickup_location=$request->pickup_location;
+                $user->drop_location=$request->drop_location;
+                $user->discount=1;
+                $user->admin_id=1;
+                $user->save();
+
+
+             /*    $user = new Booking();
+                $user->assign_id=1;
+                $user->route_id=1;
+                $user->route_name=1;
+                $user->booking_date='2018-10-01';
+                $user->total_seat=1;
+                $user->user_id=1;
+                $user->seat_number=1;
+                $user->price=1;
+                $user->pickup_location=1;
+                $user->drop_location=1;
+                $user->admin_id=1;
+                $user->discount=1;
+                $user->save();
+               */
+
+
+
+               
+
+               /* return redirect()->route('route.index')
+                ->with('success','Route created successfully');*/
+
+
+              return json_encode($bookinginfo);
     }
 
 

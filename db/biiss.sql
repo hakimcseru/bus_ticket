@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 29, 2018 at 01:06 PM
+-- Generation Time: Oct 30, 2018 at 02:42 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -63,6 +63,7 @@ INSERT INTO `assign` (`id`, `fleet_registration_no`, `route_id`, `route_name`, `
 
 CREATE TABLE IF NOT EXISTS `booking` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `assign_id` int(100) NOT NULL,
   `route_id` int(100) NOT NULL,
   `route_name` varchar(100) NOT NULL,
   `booking_date` date NOT NULL,
@@ -78,7 +79,20 @@ CREATE TABLE IF NOT EXISTS `booking` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+
+--
+-- Dumping data for table `booking`
+--
+
+INSERT INTO `booking` (`id`, `assign_id`, `route_id`, `route_name`, `booking_date`, `user_id`, `total_seat`, `seat_number`, `price`, `discount`, `pickup_location`, `drop_location`, `admin_id`, `status`, `created_at`, `updated_at`) VALUES
+(10, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["A3","A4","B3","B4"]', '1200', '1', 'hhh', 'hhh', 1, '1', '2018-10-30 07:26:16', '2018-10-30 07:26:16'),
+(11, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '6', '["A3","A4","B3","B4","C3","C4"]', '1800', '1', 'hhh', 'hhh', 1, '1', '2018-10-30 07:28:21', '2018-10-30 07:28:21'),
+(12, 4, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["E3","E4","F3","F4"]', '1200', '1', 'hhh', 'hhh', 1, '1', '2018-10-30 07:30:29', '2018-10-30 07:30:29'),
+(13, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["B1","B2","C1","C2"]', '1200', '1', 'hhh', 'hhh', 1, '1', '2018-10-30 07:32:37', '2018-10-30 07:32:37'),
+(14, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["D1","D2","E1","E2"]', '1200', '1', 'hhh', 'hhh', 1, '1', '2018-10-30 07:33:48', '2018-10-30 07:33:48'),
+(15, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["D1","D2","E1","E2"]', '1200', '1', 'hhh', 'hhh', 1, '1', '2018-10-30 07:34:06', '2018-10-30 07:34:06'),
+(16, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '5', '["B3","B4","C3","F3","F4"]', '1500', '1', 'hhh', 'hhh', 1, '1', '2018-10-30 07:37:59', '2018-10-30 07:37:59');
 
 -- --------------------------------------------------------
 

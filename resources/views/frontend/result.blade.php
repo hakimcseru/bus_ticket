@@ -130,6 +130,41 @@ use App\Price;
                                     <div class="col-xs-6 col-sm-6 col-md-6" id="bookingdata-item">  
                                    {!! Form::open(array('route' => 'bookingdata.index','method'=>'POST', 'files' => true, 'runat'=>'server')) !!}
     
+                                        
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group form-float">
+
+                                                <table class="table">
+                                                    <tbody>
+                                                      <tr>
+                                                        <td width="50%">Seat</td>
+                                                        <td><div id="show_selected_seat"></div>  </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Price</td>
+                                                        <td><div id="show_price"></div></td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Total</td>
+                                                        <td><div id="show_total_price"></div></td>
+                                                       
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Discount</td>
+                                                        <td><div id="show_discount"></div></td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Grand Total</td>
+                                                        <td><div id="grand_total_price"></div></td>
+                                                      </tr>
+                                                    </tbody>
+                                                  </table>
+
+
+                                                
+                                            </div>
+                                        </div>
+
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group form-float">
                                                 <strong>pickup_location :</strong>
@@ -163,52 +198,29 @@ use App\Price;
 
                                                 </div>
                                             </div>
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group form-float">
+                                                 {!! Form::hidden('start_date_resarve', $start_date_resarve, array('placeholder' => 'start date resarve', 'id'=>'start_date_resarve','class' => 'form-control')) !!}
+
+                                            </div>
                                         </div> 
 
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group form-float">
                                                 <div id="hidden_selected_seat"></div>  
+                                                <div id="hidden_selected_assign"></div>  
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group form-float">
                                                 <div id="grand_total_price2"></div>  
+                                                <div id="total_seat_reserve"></div>  
                                             </div>
                                         </div>
 
-                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group form-float">
-
-                                                <table class="table">
-                                                    <tbody>
-                                                      <tr>
-                                                        <td width="50%">Seat</td>
-                                                        <td><div id="show_selected_seat"></div>  </td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td>Price</td>
-                                                        <td><div id="show_price"></div></td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td>Total</td>
-                                                        <td><div id="show_total_price"></div></td>
-                                                       
-                                                      </tr>
-                                                      <tr>
-                                                        <td>Discount</td>
-                                                        <td><div id="show_discount"></div></td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td>Grand Total</td>
-                                                        <td><div id="grand_total_price"></div></td>
-                                                      </tr>
-                                                    </tbody>
-                                                  </table>
-
-
-                                                
-                                            </div>
-                                        </div> 
+                                          
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <button type="submit" class="btn btn-success bookingnext">Continue</button>
                                         </div>
@@ -290,40 +302,19 @@ use App\Price;
                                                       <tbody>
                                                         <tr>
                                                           <td>Seat</td>
-                                                          <td><div id="show_selected_seat"></div>  </td>
+                                                          <td><div id="show_selected_seat_final"></div>  </td>
                                                         </tr>
-                                                        <tr>
-                                                          <td>Price</td>
-                                                          <td><div id="show_price"></div></td>
-                                                        </tr>
-                                                        <tr>
-                                                          <td>Total</td>
-                                                          <td><div id="show_total_price"></div></td>
-                                                         
-                                                        </tr>
-                                                        <tr>
-                                                          <td>Discount</td>
-                                                          <td><div id="show_discount"></div></td>
-                                                        </tr>
+                                                        
                                                         <tr>
                                                           <td>Grand Total</td>
-                                                          <td><div id="grand_total_price"></div></td>
+                                                          <td><div id="grand_total_price_final"></div></td>
                                                         </tr>
                                                       </tbody>
                                                 </table>
                                             </div>
                                           </div>
 
-                                          <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group form-float">
-                                                <strong>Hand cash <span style="color: red">*</span>:</strong>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-phone" aria-hidden="true"></i></span>
-                                                    {!! Form::text('grand_toal', null, array('placeholder' => 'grnd_total','class' => 'form-control')) !!}
-
-                                                </div>
-                                            </div>
-                                          </div>
+                                          
 
                                           <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group form-float">
@@ -400,6 +391,11 @@ use App\Price;
                             });
                             str += '</ul>';
                             document.getElementById("seat_plan_number").innerHTML = str;*/
+
+                            $("#hidden_selected_assign").html('<input type="hidden" class="check" name="hidden_selected_assign" value="'+data.assign.id+'">');
+
+
+
 
                             var count=0; 
                             var str = '<div class="total_seat">'
@@ -508,6 +504,7 @@ use App\Price;
                                  $("#grand_total_price").html(grand_total_price);
 
                                  $("#grand_total_price2").html('<input type="hidden" class="check" name="grand_total_price" value="'+grand_total_price+'">');
+                                 $("#total_seat_reserve").html('<input type="hidden" class="check" name="total_seat_reserve" value="'+$("input[type=checkbox]:checked").length+'">');
                                
 
 
@@ -540,32 +537,37 @@ use App\Price;
    $(document).ready(function(){
         $('.bookingnext').click(function(e){
                 e.preventDefault();
-                $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                });
+               
 
                 var form_action = $("#bookingdata-item").find("form").attr("action");
                 var pickup_location = $("#bookingdata-item").find("select[name='pickup_location']").val();
                 var drop_location = $("#bookingdata-item").find("select[name='drop_location']").val();
                 var order_seat = $("#bookingdata-item").find("input[name='order_seat']").val();
                 var grand_total_price = $("#bookingdata-item").find("input[name='grand_total_price']").val();
+                var hidden_selected_assign = $("#bookingdata-item").find("input[name='hidden_selected_assign']").val();
+                var start_date_resarve = $("#bookingdata-item").find("input[name='start_date_resarve']").val();
+                var total_seat_reserve = $("#bookingdata-item").find("input[name='total_seat_reserve']").val();
 
                 //alert(order_seat);
 
                 $('#myModal').modal('hide');  
                 $('#myModalnext').modal('show');  
 
+                $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                });
+
                 $.ajax({
-                    url: form_action,
+                    url: '{{Request::root()}}/bookingdata/reserve',
                     type: "POST",
                     dataType: "json",
-                    data:{pickup_location:pickup_location, drop_location:drop_location, order_seat:order_seat,grand_total_price:grand_total_price},
+                    data:{pickup_location:pickup_location, drop_location:drop_location, order_seat:order_seat,grand_total_price:grand_total_price,hidden_selected_assign:hidden_selected_assign,start_date_resarve:start_date_resarve,total_seat_reserve:total_seat_reserve},
                     success:function(data) {
-                            
-
-                                                     
+                           console.log(data); 
+                            $("#grand_total_price_final").html(data.grand_total_price);
+                            $("#show_selected_seat_final").html(data.order_seat);
                     }
                 });
 

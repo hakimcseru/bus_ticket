@@ -154,12 +154,14 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="{{ request()->is('/') ? 'active' : '' }}"><a href="{{ url('/') }}">Home<span class="sr-only">(current)</span></a></li>
-                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}">Agent List</a></li>
-                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}">Agent Registration</a></li>
-                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}">Complain</a></li>
-                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}">Sign In</a></li>
-                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}">Create Account</a></li>
-                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}">Cancel Ticket</a></li>
+
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Agent List</a></li>
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Agent Registration</a></li>
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Complain</a></li>
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Sign In</a></li>
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Create Account</a></li>
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Cancel Ticket</a></li>
+                
 
             </ul>
 
