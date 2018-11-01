@@ -55,6 +55,71 @@
 .table td:nth-child(2){
 
 }
+
+                                   
+                                    .journey_total h4, .fare_total h4{
+
+                                        color: #fff;
+                                        background: #079d49;
+                                        padding: 5px;
+                                        margin-bottom: 0px;
+                                    }
+  
+                                    .journal_details{
+                                       background: #fafafa;
+                                       border: 1px solid #079d49;
+                                       padding: 5px;
+                                    }
+                                    .journal_details h5{border-bottom: 1px solid #ddd;}
+
+                                    .fare_details{
+                                      background: #fafafa;
+                                      border: 1px solid #079d49;
+                                      padding: 5px;
+                                    }
+                                    .fare_details h5{border-bottom: 1px solid #ddd;}
+                                    .fare_details ul{margin:0;padding:0;list-style: none}
+                                    .fare_details ul li{}
+                                    .fare_details ul li span{float: right;}
+
+                                    .custom_payment_area_total{}
+                                    .custom_payment_area_total #paydetails{
+                                      background: #079d49;
+                                      color: #fff;
+                                      padding: 5px;
+                                      margin-bottom: 0;
+                                      display: block;
+                                    }
+                                    .custom_payment_area h4 {
+                                             padding: 20px 0;
+                                    }
+                                    .custom_payment_area #total_amount_payable{
+                                       color: #079d49;
+                                    }
+
+
+                                    .custom_payment_area{
+                                      border: 1px solid #079d49;
+                                      text-align: center;
+                                    }
+                                    .custom_payment_area h3{}
+                                  
+                                    .custom_payment_area .nav-tabs{}
+                                    .custom_payment_area .nav-tabs li{
+                                      display: inline-block;
+                                      float: none !important;
+                                    }
+                                    .custom_payment_area .nav-tabs li a{}
+                                    .custom_payment_area .tab-content{}
+                                    .custom_payment_area .tab-content div{}
+
+                                    .passenger_details_total{}
+                                    .passenger_details_total h4{color:#079d49;}
+                                    .passenger_details{}
+
+
+
+
 </style>
 @endsection
 
@@ -202,8 +267,9 @@ use App\Price;
 
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group form-float">
-                                                 {!! Form::hidden('start_date_resarve', $start_date_resarve, array('placeholder' => 'start date resarve', 'id'=>'start_date_resarve','class' => 'form-control')) !!}
+                                              
 
+                                              <input placeholder="start_date_resarve" id="start_date_resarve" class="form-control" value="<?php if($start_date_resarve!=null){echo $start_date_resarve; } ?>" name="start_date_resarve" type="hidden">
                                             </div>
                                         </div> 
 
@@ -247,92 +313,127 @@ use App\Price;
                         <div class="modal-content">
                           <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Booking User Information</h4>
+                            <h4 class="modal-title" id="myModalLabel">Buy bus tickets</h4>
                           </div>
                           <div class="modal-body">
                               {!! Form::open(array('route' => 'booking.store','method'=>'POST', 'files' => true, 'runat'=>'server')) !!}
                                 <div class="row">
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
-                                          <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group form-float">
-                                                <strong>Name :</strong>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                                     {!! Form::text('name', null, array('placeholder' => 'Name', 'required' => 'required','class' => 'form-control')) !!}
-                                                </div>
-                                            </div>
-                                          </div>
-                                          <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group form-float">
-                                                <strong>Email <span style="color: red">*</span> :</strong>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
-                                                    {!! Form::text('email', null, array('placeholder' => 'Email', 'required' => 'required','class' => 'form-control')) !!}
+                                    <div class="col-xs-8 col-sm-8 col-md-8">
+                                        <div class="passenger_details_total"> 
+                                          <h4>Passenger Details</h4>
+                                          <div class="passenger_details"> 
+                                              <div class="form-group form-float">
+                                                  <strong>Name :</strong>
+                                                  <div class="input-group">
+                                                      <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                                       {!! Form::text('name', null, array('placeholder' => 'Name', 'required' => 'required','class' => 'form-control')) !!}
+                                                  </div>
+                                              </div>
+                                           
+                                            
+                                              <div class="form-group form-float">
+                                                  <strong>Email <span style="color: red">*</span> :</strong>
+                                                  <div class="input-group">
+                                                      <span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
+                                                      {!! Form::text('email', null, array('placeholder' => 'Email', 'required' => 'required','class' => 'form-control')) !!}
 
-                                                </div>
-                                            </div>
-                                          </div>
-                                          <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group form-float">
-                                                <strong>Contact number <span style="color: red">*</span>:</strong>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-phone" aria-hidden="true"></i></span>
-                                                    {!! Form::text('contact_number', null, array('placeholder' => 'Contact number', 'required' => 'required','class' => 'form-control')) !!}
+                                                  </div>
+                                              </div>
+                                           
+                                              <div class="form-group form-float">
+                                                  <strong>Contact number <span style="color: red">*</span>:</strong>
+                                                  <div class="input-group">
+                                                      <span class="input-group-addon" id="basic-addon1"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                                                      {!! Form::text('contact_number', null, array('placeholder' => 'Contact number', 'required' => 'required','class' => 'form-control')) !!}
 
-                                                </div>
-                                            </div>
-                                          </div>
-
-                                          <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group form-float">
-                                                <strong>Address :</strong>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
-                                                    {!! Form::textarea('address', null, array('placeholder' => 'Address','class' => 'form-control','rows'=>6)) !!}
-                                                </div>
-                                            </div>
-                                          </div> 
+                                                  </div>
+                                              </div>
+                                              <div class="form-group form-float">
+                                                  <div class="input-group" id="order_id_final">
+                                                     
+                                                  </div>
+                                              </div>
+                                            </div>  
+                                         </div>  
                                     </div>  
-                                    <div class="col-xs-6 col-sm-6 col-md-6">  
+                                  
+                                    <div class="col-xs-4 col-sm-4 col-md-4">  
                                      
-    
-                                          <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group form-float">
-                                                <table class="table">
-                                                      <tbody>
-                                                        <tr>
-                                                          <td>Seat</td>
-                                                          <td><div id="show_selected_seat_final"></div>  </td>
-                                                        </tr>
-                                                        
-                                                        <tr>
-                                                          <td>Grand Total</td>
-                                                          <td><div id="grand_total_price_final"></div></td>
-                                                        </tr>
-                                                      </tbody>
-                                                </table>
-                                            </div>
-                                          </div>
+                                        
+                                              <div class="journey_total">
+                                                 <h4>Journey Details</h4>
+                                                <div class="journal_details">
+                                                   
 
-                                          
-
-                                          <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group form-float">
-                                                <strong>Payment System<span style="color: red">*</span>:</strong>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-phone" aria-hidden="true"></i></span>
-                                                    {!! Form::text('ssl', null, array('placeholder' => 'ssl','class' => 'form-control')) !!}
+                                                    <p id="show_selected_seat_final"></p>
+                                                    <p id="start_date_resarve"></p>
+                                                    <p id="drop_location_pickup_location"></p>
                                                 </div>
+                                              </div>
+                                           
+                                         
+                                    </div> 
+                                </div> 
+
+                                <div class="row">   
+                                    <div class="col-xs-8 col-sm-8 col-md-8"> 
+                                      <div class="custom_payment_area_total">    
+                                        <h4 id="paydetails">Payment Details</h4>
+                                        <div class="custom_payment_area">
+                                           <h4>Total Amount Payable ৳.<span id="total_amount_payable"> 7000</span></h4>
+                                          <ul class="nav nav-tabs">
+                                            <li class="active"><a data-toggle="tab" href="#home">bKash</a></li>
+                                            <li><a data-toggle="tab" href="#menu1">Cash on Delivery</a></li>
+                                            <li><a data-toggle="tab" href="#menu2">Credit or Debit Card</a></li>
+                                            <li><a data-toggle="tab" href="#menu3">Internet Banking</a></li>
+                                          </ul>
+
+                                          <div class="tab-content">
+                                            <div id="home" class="tab-pane fade in active">
+                                             
+                                              <p>Your journey time is too close. Payment through bKash is not available. Try paying through Credit / Debit Cards or Internet banking.</p>
+                                            </div>
+                                            <div id="menu1" class="tab-pane fade">
+                                             
+                                              <p>Cash on Delivery is not available at this moment. Try paying through bKash, Credit / Debit Cards or Internet banking.</p>
+                                            </div>
+                                            <div id="menu2" class="tab-pane fade">
+                                             
+                                              <p>You would be redirected to a third party payment gateway where you can pay with your credit or debit cards. Your payment transactions are 100% secure. On successful payment, you would get a confirmed ticket.</p>
+                                            </div>
+                                            <div id="menu3" class="tab-pane fade">
+                                             
+                                              <p>You would be redirected to a third party payment gateway where you can pay with your internet banking accounts. Your payment transactions are 100% secure. On successful payment, you would get a confirmed ticket.</p>
                                             </div>
                                           </div>
 
-                                         
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <button type="submit" class="btn btn-success bookingnext">Submit</button>
+                                        </div>
                                         </div>
 
-                                       
-                                    </div> 
+                                   </div> 
+
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
+                                          <div class="fare_total">
+                                             <h4>Fare Details</h4>
+                                             <div class="fare_details">
+                                                       
+
+                                                        <ul>
+                                                          <li>Ticket Price <span id="grand_total_price_final" class="fare_right"></span></li>
+                                                          <li>Albaraka Fee <span id="albaraka_free" class="fare_right">2200</span></li>
+                                                          <li>Bank Charges <span id="bankcharge" class="fare_right">2200</span></li>
+                                                          <li>Discount <span id="discount" class="fare_right">2200</span></li>
+                                                          <li>Total <span id="total" class="fare_right">2200</span></li>
+                                                        </ul>
+                                                    
+                                               </div>
+                                           </div>
+                                     </div>  
+                                  </div> 
+                                  <div class="row">
+                                      <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <button type="submit" class="btn btn-success bookingnext">Submit</button>
+                                      </div>
                                   </div> 
                                 {!! Form::close() !!} 
                           </div>
@@ -568,6 +669,7 @@ use App\Price;
                            console.log(data); 
                             $("#grand_total_price_final").html(data.grand_total_price);
                             $("#show_selected_seat_final").html(data.order_seat);
+                            $("#order_id_final").html('<input type="hidden" class="check" name="order_id_final" value="'+data.order_id+'">');
                     }
                 });
 

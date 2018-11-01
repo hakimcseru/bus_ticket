@@ -53,7 +53,7 @@
             background-color: #e24548 !important;
         }
         .marquee {
-            padding: 5px;
+           /* padding: 5px 5px 5px 20px;*/
             background-color: #d9edf7;
         }
         .right_navigation li a{
@@ -71,6 +71,14 @@
         .right_navigation li a:hover{
             background-color:transparent !important;
             color:#5cb75c !important;
+        }
+        .marquee:before {
+            content: 'News';
+            position: absolute;
+            z-index: 999;
+            background: #5cb75c;
+            color: #FFF;
+            padding: 1px 15px;
         }
     </style>
 
@@ -211,14 +219,21 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
 ?>
 
 <div class="bnews" style="margin-bottom: -6px;">
-    <marquee behavior="" direction="" class="marquee">
-        <span style="font-size: 16px;font-weight: bold;color: #f91919;">Al-Baraka Exclusive LTD.</span>
-    </marquee>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <marquee behavior="" direction="" class="marquee">
+                    <span style="font-size: 16px;font-weight: bold;color: #f91919;">Welcome to Al-Baraka Exclusive LTD.</span>
+                </marquee>
+            </div>
+        </div>
+    </div>
+    
 </div>
 <!-- <div class="ticket_header_shadow_area">
         <img src="{{Request::root()}}/images/ticket/shadow.png" style="width:100%">
 </div> -->
-<div class="ticket_header_filter_area" style="background-image: url(http://127.0.0.1:8000/images/ticket/header_img.png);
+<div class="ticket_header_filter_area" style="background-image: url({{Request::root()}}/images/ticket/header_img.png);
     background-repeat: no-repeat, repeat;
     background-size: cover;
     background-position: center;
@@ -336,22 +351,51 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
     </div>
 </div> 
 
-
+<style type="text/css">
+    .bank-items ul li img{
+        border-radius: 5px;
+        box-shadow: 5px 3px 10px 1px #546d79;
+    }
+    .bank-items ul li{
+       padding: 5px;
+    }
+    .border-top{
+        border-top: 1px solid #cacaca;
+        padding-top: 12px;
+    }
+</style>
 
 
 
 <div class="bank-items">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h4 class="text-center text-uppercase">We Accept :</h4>
-                <div class="text-center">
-                    <img src="{{Request::root()}}/images/payment_system/bank_logo.png" alt="" class="img-responsive" style="width: 100%;padding-bottom: 5px;">
-                </div>
-                
-            </div>
-        </div>
+    
+    <h4 class="text-center text-uppercase">We Accept </h4>
+    <div class="text-center border-top">
+    <ul class="list-inline">
+        <li><img src="{{Request::root()}}/images/payment_system/1.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/2.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/3.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/4.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/5.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/6.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/7.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/8.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/9.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/10.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/11.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/12.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/13.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/14.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/15.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/16.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/17.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/18.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/19.png" alt="" class="img-responsive" width="50" ></li>
+    </ul>
+        <!-- <img src="{{Request::root()}}/images/payment_system/bank_logo.png" alt="" class="img-responsive" style="width: 100%;padding-bottom: 5px;"> -->
     </div>
+                
+            
 </div>
 
 
@@ -369,12 +413,13 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
 
 <div class="bottom_navigation">
     <ul class="nav text-center">
-        <li><a href="">About Us</a></li>
-        <li><a href="">FAQs</a></li>
-        <li><a href="">Terms & Conditions</a></li>
-        <li><a href="">Terms of Use</a></li>
-        <li><a href="">Privacy Policy</a></li>
-        <li><a href="">Feedback</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">FAQs</a></li>
+        <li><a href="#">Terms & Conditions</a></li>
+        <li><a href="#">Terms of Use</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Feedback</a></li>
+        <li><a href="#">Contact Us</a></li>
     </ul>
 </div>
 <div class="footer_area">

@@ -42,6 +42,8 @@ class FrontController extends Controller
 
 
 
+
+
         $start_point=trim($request->input('start_point'));
         $end_point=trim($request->input('end_point'));
         $start_date=trim($request->input('start_date'));
@@ -91,7 +93,7 @@ class FrontController extends Controller
              $data['start_date_resarve']=$start_date;
              return view('frontend.result',$data)->with('i', ($request->input('page', 1) - 1) * 10);
         }else{
-
+            $data['start_date_resarve']=null;
             return view('frontend.app',$data);
         }
 
@@ -148,7 +150,7 @@ class FrontController extends Controller
 
 
                
-             
+           
                 $user = new Booking();
                 $user->assign_id=$request->hidden_selected_assign;
                 $user->route_id=Assign::find($request->hidden_selected_assign)->route_id;
@@ -162,24 +164,16 @@ class FrontController extends Controller
                 $user->drop_location=$request->drop_location;
                 $user->discount=1;
                 $user->admin_id=1;
-                $user->save();
+               
 
+                if($user->save()){
+                    $bookinginfo['order_id']=$user->id;
+                }
 
-             /*    $user = new Booking();
-                $user->assign_id=1;
-                $user->route_id=1;
-                $user->route_name=1;
-                $user->booking_date='2018-10-01';
-                $user->total_seat=1;
-                $user->user_id=1;
-                $user->seat_number=1;
-                $user->price=1;
-                $user->pickup_location=1;
-                $user->drop_location=1;
-                $user->admin_id=1;
-                $user->discount=1;
-                $user->save();
-               */
+                $bookinginfo['total_seat_reserve']= $request->total_seat_reserve;
+
+               
+              
 
 
 
