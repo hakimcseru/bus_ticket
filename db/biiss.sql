@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 30, 2018 at 02:42 PM
+-- Generation Time: Nov 01, 2018 at 05:54 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -19,6 +19,31 @@ SET time_zone = "+00:00";
 --
 -- Database: `biiss`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `albarakanews`
+--
+
+CREATE TABLE IF NOT EXISTS `albarakanews` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `admin_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `status` enum('0','1') NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `albarakanews`
+--
+
+INSERT INTO `albarakanews` (`id`, `admin_id`, `title`, `description`, `status`, `created_at`, `updated_at`) VALUES
+(1, 19, 'test news', 'asdfgghhjj kghig uyto7t ilutyoy juyhtt jhyt87t buitgit jyuuy uhjgi7t', '1', '2018-10-31 11:20:29', '2018-10-31 11:20:29'),
+(2, 19, 'test for NOC sss', 'szrsdh fdhgdfh d re  r rtg rt r', '1', '2018-10-31 06:17:26', '2018-10-31 06:17:26');
 
 -- --------------------------------------------------------
 
@@ -75,24 +100,60 @@ CREATE TABLE IF NOT EXISTS `booking` (
   `pickup_location` varchar(100) NOT NULL,
   `drop_location` varchar(100) NOT NULL,
   `admin_id` int(100) NOT NULL,
-  `status` enum('0','1') NOT NULL DEFAULT '1',
+  `status` enum('0','1') NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=44 ;
 
 --
 -- Dumping data for table `booking`
 --
 
 INSERT INTO `booking` (`id`, `assign_id`, `route_id`, `route_name`, `booking_date`, `user_id`, `total_seat`, `seat_number`, `price`, `discount`, `pickup_location`, `drop_location`, `admin_id`, `status`, `created_at`, `updated_at`) VALUES
-(10, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["A3","A4","B3","B4"]', '1200', '1', 'hhh', 'hhh', 1, '1', '2018-10-30 07:26:16', '2018-10-30 07:26:16'),
-(11, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '6', '["A3","A4","B3","B4","C3","C4"]', '1800', '1', 'hhh', 'hhh', 1, '1', '2018-10-30 07:28:21', '2018-10-30 07:28:21'),
-(12, 4, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["E3","E4","F3","F4"]', '1200', '1', 'hhh', 'hhh', 1, '1', '2018-10-30 07:30:29', '2018-10-30 07:30:29'),
-(13, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["B1","B2","C1","C2"]', '1200', '1', 'hhh', 'hhh', 1, '1', '2018-10-30 07:32:37', '2018-10-30 07:32:37'),
-(14, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["D1","D2","E1","E2"]', '1200', '1', 'hhh', 'hhh', 1, '1', '2018-10-30 07:33:48', '2018-10-30 07:33:48'),
-(15, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["D1","D2","E1","E2"]', '1200', '1', 'hhh', 'hhh', 1, '1', '2018-10-30 07:34:06', '2018-10-30 07:34:06'),
-(16, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '5', '["B3","B4","C3","F3","F4"]', '1500', '1', 'hhh', 'hhh', 1, '1', '2018-10-30 07:37:59', '2018-10-30 07:37:59');
+(1, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '2', '["A1","A2"]', '600', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 03:05:04', '2018-10-31 03:05:04'),
+(2, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '2', '["A1","A2"]', '600', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 03:17:42', '2018-10-31 03:17:42'),
+(3, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '2', '["D3","D4"]', '600', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 03:25:46', '2018-10-31 03:25:46'),
+(4, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '2', '["D3","D4"]', '600', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 03:27:45', '2018-10-31 03:27:45'),
+(5, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '2', '["C3","C4"]', '600', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 03:29:10', '2018-10-31 03:29:10'),
+(6, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '2', '["D4","D3"]', '600', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 03:29:51', '2018-10-31 03:29:51'),
+(7, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '2', '["A3","A4"]', '600', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 03:40:43', '2018-10-31 03:40:43'),
+(8, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["B3","B4","C3","C4"]', '1200', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 03:44:22', '2018-10-31 03:44:22'),
+(9, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '2', '["E3","E4"]', '600', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 04:01:04', '2018-10-31 04:01:04'),
+(10, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '2', '["A3","A4"]', '600', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 04:01:55', '2018-10-31 04:01:55'),
+(11, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '2', '["A1","A2"]', '600', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 04:09:38', '2018-10-31 04:09:38'),
+(12, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["A1","A2","B1","B2"]', '1200', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 04:13:35', '2018-10-31 04:13:35'),
+(13, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '2', '["B3","B4"]', '600', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 04:15:13', '2018-10-31 04:15:13'),
+(14, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '2', '["A3","A4"]', '600', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 04:16:18', '2018-10-31 04:16:18'),
+(15, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '2', '["A3","A4"]', '600', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 04:18:49', '2018-10-31 04:18:49'),
+(16, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["A3","A4","B3","B4"]', '1200', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 04:24:22', '2018-10-31 04:24:22'),
+(17, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '2', '["A3","A4"]', '600', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 04:25:08', '2018-10-31 04:25:08'),
+(18, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '2', '["B3","B4"]', '600', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 04:26:53', '2018-10-31 04:26:53'),
+(19, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["B1","B2","C1","C2"]', '1200', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 04:29:13', '2018-10-31 04:29:13'),
+(20, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '2', '["B3","B4"]', '600', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 04:30:55', '2018-10-31 04:30:55'),
+(21, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '2', '["A3","A4"]', '600', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 04:34:30', '2018-10-31 04:34:30'),
+(22, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '2', '["A1","A2"]', '600', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 04:38:41', '2018-10-31 04:38:41'),
+(23, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '2', '["A3","A4"]', '600', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 04:47:36', '2018-10-31 04:47:36'),
+(24, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '2', '["A1","A2"]', '600', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 05:06:35', '2018-10-31 05:06:35'),
+(25, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '2', '["A3","A4"]', '600', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 05:08:27', '2018-10-31 05:08:27'),
+(26, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["A3","A4","B3","B4"]', '1200', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 05:09:02', '2018-10-31 05:09:02'),
+(27, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["A3","A4","B3","B4"]', '1200', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 05:11:13', '2018-10-31 05:11:13'),
+(28, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '2', '["C4","C3"]', '600', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 05:14:06', '2018-10-31 05:14:06'),
+(29, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '6', '["A3","A4","B3","B4","C3","C4"]', '1800', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 05:18:03', '2018-10-31 05:18:03'),
+(30, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["D3","D4","E3","E4"]', '1200', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 05:22:10', '2018-10-31 05:22:10'),
+(31, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["C3","C4","D3","D4"]', '1200', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 05:24:05', '2018-10-31 05:24:05'),
+(32, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["C3","C4","D3","D4"]', '1200', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 05:26:51', '2018-10-31 05:26:51'),
+(33, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["A3","A4","B3","B4"]', '1200', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 05:31:10', '2018-10-31 05:31:10'),
+(34, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["C4","C3","C2","C1"]', '1200', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 05:40:26', '2018-10-31 05:40:26'),
+(35, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["A1","A2","A3","A4"]', '1200', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 05:41:18', '2018-10-31 05:41:18'),
+(36, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["A1","A2","A3","A4"]', '1200', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 05:44:38', '2018-10-31 05:44:38'),
+(37, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["C3","C4","D3","D4"]', '1200', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 05:47:01', '2018-10-31 05:47:01'),
+(38, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["A1","A2","A3","A4"]', '1200', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 05:49:20', '2018-10-31 05:49:20'),
+(39, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["B3","B4","C3","C4"]', '1200', '1', 'll', 'll', 1, '0', '2018-10-31 05:54:10', '2018-10-31 05:54:10'),
+(40, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '2', '["C3","C4"]', '600', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 06:08:37', '2018-10-31 06:08:37'),
+(41, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["A1","A2","B1","B2"]', '1200', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 06:11:05', '2018-10-31 06:11:05'),
+(42, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["A1","A2","B1","B2"]', '1200', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 06:12:09', '2018-10-31 06:12:09'),
+(43, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '2', '["A3","A4"]', '600', '1', 'hhh', 'hhh', 1, '0', '2018-10-31 06:43:54', '2018-10-31 06:43:54');
 
 -- --------------------------------------------------------
 
@@ -6975,7 +7036,7 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `permissions_name_unique` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=65 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=70 ;
 
 --
 -- Dumping data for table `permissions`
@@ -7045,7 +7106,12 @@ INSERT INTO `permissions` (`id`, `name`, `url`, `display_name`, `description`, `
 (61, 'booking-list', 'booking', 'booking Module', 'role management.png', 60, 60, 0, '1', NULL, NULL),
 (62, 'booking-create', '', 'booking-create', 'booking-create', 60, 0, 0, '1', NULL, NULL),
 (63, 'booking-edit', '', 'booking-edit', 'booking-edit', 60, 0, 0, '1', NULL, NULL),
-(64, 'booking-delete', '', 'booking-delete', 'booking-delete', 60, 0, 0, '1', NULL, NULL);
+(64, 'booking-delete', '', 'booking-delete', 'booking-delete', 60, 0, 0, '1', NULL, NULL),
+(65, 'albarakanews', 'albarakanews', 'Al-baraka News', 'member.png', NULL, NULL, 1, '1', NULL, NULL),
+(66, 'albarakanews-list', 'albarakanews', 'Al-baraka news', 'employee management.png', 65, 0, 0, '1', '2018-01-11 05:11:22', '2018-01-11 05:11:22'),
+(67, 'albarakanews-create', '', 'Al-baraknews create', 'Al-baraknews create', 65, 0, 0, '1', '2018-01-11 05:11:22', '2018-01-11 05:11:22'),
+(68, 'albarakanews-edit', '', 'Edit albarakanews', 'Edit albarakanews', 65, 0, 0, '1', '2018-01-11 05:11:22', '2018-01-11 05:11:22'),
+(69, 'albarakanews-delete', '', 'Delete albarakanews', 'Delete albarakanews', 65, 0, 0, '1', '2018-01-11 05:11:22', '2018-01-11 05:11:22');
 
 -- --------------------------------------------------------
 
@@ -7097,6 +7163,10 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (62, 1),
 (63, 1),
 (64, 1),
+(66, 1),
+(67, 1),
+(68, 1),
+(69, 1),
 (7, 2),
 (7, 3),
 (8, 3),
