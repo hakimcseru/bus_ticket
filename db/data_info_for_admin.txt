@@ -1,3 +1,8 @@
 databasae_name:albarakd_ticket
 user:albarakd_admin
 pass:albarakaex123$%^
+
+
+https://merchant.sslcommerz.com
+user:albarakaexclusiveltd@ssl
+pass:Albaraka@2018

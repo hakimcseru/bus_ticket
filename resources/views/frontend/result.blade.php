@@ -339,7 +339,7 @@ use App\Booking;
                             <h4 class="modal-title" id="myModalLabel">Buy bus tickets</h4>
                           </div>
                           <div class="modal-body">
-                              {!! Form::open(array('route' => 'booking.store','method'=>'POST', 'files' => true, 'runat'=>'server')) !!}
+                              {!! Form::open(array('route' => 'pay.index','method'=>'GET', 'files' => true, 'runat'=>'server')) !!}
                                 <div class="row">
                                     <div class="col-xs-8 col-sm-8 col-md-8">
                                         <div class="passenger_details_total"> 
@@ -458,7 +458,7 @@ use App\Booking;
                                   </div> 
                                   <div class="row">
                                       <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <button type="submit" class="btn btn-success bookingnext">Submit</button>
+                                        <button type="submit" class="btn btn-success">Proceed To Order</button>
                                       </div>
                                   </div> 
                                 {!! Form::close() !!} 
@@ -728,6 +728,8 @@ use App\Booking;
                     data:{pickup_location:pickup_location, drop_location:drop_location, order_seat:order_seat,grand_total_price:grand_total_price,hidden_selected_assign:hidden_selected_assign,start_date_resarve:start_date_resarve,total_seat_reserve:total_seat_reserve},
                     success:function(data) {
                            console.log(data); 
+
+                            
                             $("#total_amount_payable").html(data.grand_total_price);
                             $("#total_with_bank_free").html(data.grand_total_price);
                             $("#total_amount_payable_hidden").html('<input type="hidden" class="check" name="total_amount_payable_hidden" value="'+data.grand_total_price+'">');

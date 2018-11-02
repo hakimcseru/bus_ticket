@@ -22,6 +22,46 @@ Route::get('/home', 'HomeController@index')->name('home');*/
 
 
 
+/*sslcommerce url start*/
+    Route::get('/pay',  ['as'=>'pay.index','uses'=>'PublicSslCommerzPaymentController@index']);
+    Route::POST('/success', 'PublicSslCommerzPaymentController@success');
+    Route::POST('/fail', 'PublicSslCommerzPaymentController@fail');
+    Route::POST('/cancel', 'PublicSslCommerzPaymentController@cancel');
+    Route::POST('/ipn', 'PublicSslCommerzPaymentController@ipn');
+
+/*sslcommerce url end*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 Route::get('/', function () {
    return view('welcome');
