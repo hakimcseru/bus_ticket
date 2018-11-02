@@ -33,7 +33,7 @@ Route::get('/', ['as'=>'font_web.index','uses'=>'FrontController@index']);
 
 
 
-Route::get('/bookingfront/{id}', ['as'=>'bookingfront.index','uses'=>'FrontController@bookingfrontfunction']);
+Route::get('/bookingfront/{id}/{data_date}', ['as'=>'bookingfront.index','uses'=>'FrontController@bookingfrontfunction']);
 
 
 

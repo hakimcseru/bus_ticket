@@ -117,6 +117,22 @@
                                     .passenger_details_total h4{color:#079d49;}
                                     .passenger_details{}
 
+                                    #seat_plan_number .booked_seat .checker{
+                                      background-position: right center;
+                                    }
+
+                                    .pasenger_information .form-float{
+                                         overflow: hidden;
+                                    }
+                                    .floatleftcon{float: left;}
+                                    .floatrightcon{
+                                      float: right;
+                                      padding-top: 24px;
+                                      padding-left: 20px;
+                                    }
+
+                                        
+
 
 
 
@@ -126,6 +142,7 @@
 <?php
 
 use App\Price;
+use App\Booking;
 
 ?>
     @section('content')
@@ -168,8 +185,14 @@ use App\Price;
                            
                             <td>
                                
+
+                              
+                                <input placeholder="start_date_resarve2" id="start_date_resarve2" class="form-control" value="<?php if($start_date_resarve!=null){echo $start_date_resarve; } ?>" name="start_date_resarve2" type="hidden">
+
                                
-                                <button type="button" id="{{ $available_single_bus->id }}"  class="booking btn btn-primary">booking</button>
+                                <button type="button" id="{{ $available_single_bus->id }}" data-date="<?php if($start_date_resarve!=null){echo $start_date_resarve; } ?>" class="booking btn btn-primary">booking</button>
+
+
                             </td>
                         </tr>
                     @endforeach
@@ -322,13 +345,15 @@ use App\Price;
                                         <div class="passenger_details_total"> 
                                           <h4>Passenger Details</h4>
                                           <div class="passenger_details"> 
-                                              <div class="form-group form-float">
-                                                  <strong>Name :</strong>
-                                                  <div class="input-group">
-                                                      <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                                       {!! Form::text('name', null, array('placeholder' => 'Name', 'required' => 'required','class' => 'form-control')) !!}
+                                              
+
+                                            
+                                               <div class="form-group form-float">
+                                                  <div class="input-group" id="pas_details_place">
                                                   </div>
                                               </div>
+
+                                             
                                            
                                             
                                               <div class="form-group form-float">
@@ -380,7 +405,8 @@ use App\Price;
                                       <div class="custom_payment_area_total">    
                                         <h4 id="paydetails">Payment Details</h4>
                                         <div class="custom_payment_area">
-                                           <h4>Total Amount Payable ৳.<span id="total_amount_payable"> 7000</span></h4>
+                                          <p id="total_amount_payable_hidden"></p>
+                                           <h4>Total Amount Payable ৳.<span id="total_amount_payable"> 0</span></h4>
                                           <ul class="nav nav-tabs">
                                             <li class="active"><a data-toggle="tab" href="#home">bKash</a></li>
                                             <li><a data-toggle="tab" href="#menu1">Cash on Delivery</a></li>
@@ -420,10 +446,10 @@ use App\Price;
 
                                                         <ul>
                                                           <li>Ticket Price <span id="grand_total_price_final" class="fare_right"></span></li>
-                                                          <li>Albaraka Fee <span id="albaraka_free" class="fare_right">2200</span></li>
-                                                          <li>Bank Charges <span id="bankcharge" class="fare_right">2200</span></li>
-                                                          <li>Discount <span id="discount" class="fare_right">2200</span></li>
-                                                          <li>Total <span id="total" class="fare_right">2200</span></li>
+                                                          <li>Albaraka Fee <span id="albaraka_free" class="fare_right">0</span></li>
+                                                          <li>Bank Charges <span id="bankcharge" class="fare_right">0</span></li>
+                                                          <li>Discount <span id="discount" class="fare_right">0</span></li>
+                                                          <li>Total <span id="total_with_bank_free" class="fare_right">0</span></li>
                                                         </ul>
                                                     
                                                </div>
@@ -475,10 +501,20 @@ use App\Price;
                var grand_total_price =0;
               
                 var assign_id=$(this).attr('id');
+
+                var data_date=$(this).attr('data-date');
+
+
+
+                
+
+                //alert(data_date);
+
+
                 $('#myModal').modal('show');  
 
                 $.ajax({
-                    url: '{{Request::root()}}/bookingfront/'+assign_id,
+                    url: '{{Request::root()}}/bookingfront/'+assign_id+'/'+data_date,
                     type: "GET",
                     dataType: "json",
                     success:function(data) {
@@ -507,9 +543,21 @@ use App\Price;
                                 str += '<span class="listiteam'+index+'"><ul>'
                               }
                                
-                              str += '<li class="listiteam'+index+'"><div  style="position:relative;"><input type="checkbox" id="'+item+'" class="check trigger" name="select_seat_number" value="'+item+'"> <label for="'+item+'" class="checker"><span class="pob" style="    position: absolute;\n' +
+                             
+                              if($.inArray(item, data.bookingcheck) !== -1){
+                                 str += '<li class="listiteam'+index+' booked_seat"><div  style="position:relative;"><input disabled readonly type="checkbox" id="'+item+'" class="check trigger" name="select_seat_number" value="'+item+'"> <label for="'+item+'" class="checker"><span class="pob" style="    position: absolute;\n' +
                                   '    left: 30%;\n' +
                                   '    top: 20%;">'+item+'</span></label></div></li>';
+                              }else{
+                                 str += '<li class="listiteam'+index+'"><div  style="position:relative;"><input type="checkbox" id="'+item+'" class="check trigger" name="select_seat_number" value="'+item+'"> <label for="'+item+'" class="checker"><span class="pob" style="    position: absolute;\n' +
+                                  '    left: 30%;\n' +
+                                  '    top: 20%;">'+item+'</span></label></div></li>';
+                              }
+
+                             
+
+
+
                               if(index!=0 && count%4==0){
                                  str += '</ul></span><span class="listiteam'+index+'"><ul>'
                               }
@@ -519,8 +567,16 @@ use App\Price;
                             str += '<ul></span></div>';
                             document.getElementById("seat_plan_number").innerHTML = str;
 
+                       
 
-                        var click =0;
+                       
+                        //$(".booked_seat").off('click');
+                        //$( ".pop" ).unbind();
+                        //$( ".checker" ).unbind();
+                       
+
+
+                      var click =0;
                         $(".pob").click(function () {
                             click = click+1;
                             // $(this).css("color","#fff");
@@ -589,7 +645,7 @@ use App\Price;
                                 // alert("My favourite sports are: " + selected.join(", "));
                                 //document.getElementById("seat_plan_number").innerHTML = selected.join(", ");
                                  //$("#hidden_selected_seat").html(selected);
-                                 $("#hidden_selected_seat").html('<input type="hidden" class="check" name="order_seat" value="'+show_selected.join(",")+'">');
+                                 $("#hidden_selected_seat").html('<input type="hidden" class="check" name="order_seat" value="'+show_selected.join(",")+'" required>');
 
                                  $("#show_selected_seat").html(show_selected.join(", "));
                                      
@@ -649,29 +705,50 @@ use App\Price;
                 var start_date_resarve = $("#bookingdata-item").find("input[name='start_date_resarve']").val();
                 var total_seat_reserve = $("#bookingdata-item").find("input[name='total_seat_reserve']").val();
 
-                //alert(order_seat);
+               
 
-                $('#myModal').modal('hide');  
-                $('#myModalnext').modal('show');  
+               if(order_seat==undefined || grand_total_price==0){
+                     alert("Please select Seat");
+                     $('#myModal').modal('show');  
+               }else{
 
-                $.ajaxSetup({
+                 $('#myModal').modal('hide');  
+                 $('#myModalnext').modal('show');  
+
+                 $.ajaxSetup({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         }
-                });
+                 });
 
-                $.ajax({
+                 $.ajax({
                     url: '{{Request::root()}}/bookingdata/reserve',
                     type: "POST",
                     dataType: "json",
                     data:{pickup_location:pickup_location, drop_location:drop_location, order_seat:order_seat,grand_total_price:grand_total_price,hidden_selected_assign:hidden_selected_assign,start_date_resarve:start_date_resarve,total_seat_reserve:total_seat_reserve},
                     success:function(data) {
                            console.log(data); 
+                            $("#total_amount_payable").html(data.grand_total_price);
+                            $("#total_with_bank_free").html(data.grand_total_price);
+                            $("#total_amount_payable_hidden").html('<input type="hidden" class="check" name="total_amount_payable_hidden" value="'+data.grand_total_price+'">');
                             $("#grand_total_price_final").html(data.grand_total_price);
                             $("#show_selected_seat_final").html(data.order_seat);
                             $("#order_id_final").html('<input type="hidden" class="check" name="order_id_final" value="'+data.order_id+'">');
+
+                            var str2 = '<div class="pasenger_information">'
+                            for (var i=0; i<data.total_seat_reserve; i++) {
+                              
+                                str2 += '<div class="form-group form-float"><div class="floatleftcon"><strong>Passenger Name '+i+':</strong><div class="input-group"><span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span><input placeholder="Name" required="required" class="form-control" name="name'+i+'" type="text"></div></div><div class="floatrightcon"><div class="demo-radio-button"><input name="status" type="radio" id="radio_1" value="1" checked=""><label for="radio_1">Male</label><input name="status" type="radio" id="radio_2" value="0" ><label for="radio_2">Female</label></div></div></div>';
+                            };
+                            str2 += '</div>';
+
+                            document.getElementById("pas_details_place").innerHTML = str2;
                     }
-                });
+                 });
+
+               }
+
+               
 
                 
         });

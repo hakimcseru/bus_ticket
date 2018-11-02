@@ -451,7 +451,7 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
 
   <script>
   $( function() {
-    $( "#start_date" ).datepicker({ dateFormat: 'yy-mm-dd' });
+    $( "#start_date" ).datepicker({ dateFormat: 'yy-mm-dd'});
     $( "#return_date" ).datepicker({ dateFormat: 'yy-mm-dd' });
       $( "#start_date1" ).datepicker({ dateFormat: 'yy-mm-dd' });
       $( "#return_date1" ).datepicker({ dateFormat: 'yy-mm-dd' });

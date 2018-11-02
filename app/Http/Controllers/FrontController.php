@@ -109,7 +109,7 @@ class FrontController extends Controller
     }
 
 
-    public function bookingfrontfunction($id){
+    public function bookingfrontfunction($id,$data_date){
         $assign=Assign::where('id',$id)->first();
         $bus=Bus::where('registration_no',$assign->fleet_registration_no)->first();
 
@@ -128,6 +128,18 @@ class FrontController extends Controller
         $bus_info['route_info']=$route;
         $bus_info['price_info']=$price;
         $bus_info['stoppes_pointes']=$stoppes_pointss;
+
+
+
+
+        $total_selected_seat=[];
+        $bookingcheck=Booking::where('assign_id',$id)->where('booking_date',$data_date)->get();
+        foreach ($bookingcheck as $singlevalue) {
+                    $single_selected_seat=json_decode($singlevalue->seat_number);
+                    $total_selected_seat=array_merge($total_selected_seat,$single_selected_seat);
+        }
+        $bus_info['bookingcheck']=$total_selected_seat;
+                             
        
 
         return json_encode($bus_info);
