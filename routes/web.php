@@ -35,9 +35,9 @@ Route::get('/home', 'HomeController@index')->name('home');*/
 
 
 
+/*agentdashbord*/
 
-
-
+ Route::get('/agentdashbord',  ['as'=>'agentdashbord.index','uses'=>'FrontController@agentdashbord']);
 
 
 
@@ -173,6 +173,23 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth','prevent-back-hist
     Route::patch('members/{id}',['as'=>'users.update','uses'=>'UserController@update','middleware' => ['permission:user-edit']]);
 
     Route::delete('members/{id}',['as'=>'users.destroy','uses'=>'UserController@destroy','middleware' => ['permission:user-delete']]);
+
+
+
+
+    Route::get('agents',['as'=>'agents.index','uses'=>'AgentsController@index','middleware' => ['permission:agents-list|agents-create|agents-edit|agents-delete']]);
+
+    Route::get('agents/create',['as'=>'agents.create','uses'=>'AgentsController@create','middleware' => ['permission:agents-create']]);
+
+    Route::post('agents/create',['as'=>'agents.store','uses'=>'AgentsController@store','middleware' => ['permission:agents-create']]);
+
+    Route::get('agents/{id}',['as'=>'agents.show','uses'=>'AgentsController@show']);
+
+    Route::get('agents/{id}/edit',['as'=>'agents.edit','uses'=>'AgentsController@edit','middleware' => ['permission:agents-edit']]);
+
+    Route::patch('agents/{id}',['as'=>'agents.update','uses'=>'AgentsController@update','middleware' => ['permission:agents-edit']]);
+
+    Route::delete('agents/{id}',['as'=>'agents.destroy','uses'=>'AgentsController@destroy','middleware' => ['permission:agents-delete']]);
 
 
 

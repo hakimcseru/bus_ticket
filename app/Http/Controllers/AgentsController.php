@@ -13,8 +13,9 @@ use App\Role;
 use DB;
 use Hash;
 use App\BookIssue;
+use App\Agentsbalance;
 
-class UserController extends Controller
+class AgentsController extends Controller
 {
 
     /**
@@ -26,25 +27,29 @@ class UserController extends Controller
     {
 
         $search=trim($request->input('search'));
-        //$members = User::orderBy('id','DESC')->paginate(5);
+       // $members = User::orderBy('id','DESC')->paginate(5);
 
-         $members = User::whereHas('roles', function ($query) {
-            $query->where('name', '!=', 'agent');
+
+       $members = User::whereHas('roles', function ($query) {
+            $query->where('name', '=', 'agent');
          })->paginate(5);
-       
 
 
-        if(isset($search)){
+      // dd($members);
+      // exit();
 
-            //$members=User::where('name','like','%'.$search.'%')->orWhere('email','like','%'.$search.'%')->orWhere('contact_number','like','%'.$search.'%')->orWhere('address','like','%'.$search.'%')->orderBy('id','DESC')->paginate(5);
-       
+
+
+       if(isset($search)){
             $members=User::whereHas('roles', function ($query) {
-              $query->where('name', '!=', 'agent');
+              $query->where('name', '=', 'agent');
             })->where('name','like','%'.$search.'%')->orderBy('id','DESC')->paginate(5);
-
         }
 
-        return view('users.index',compact('members'))->with('i', ($request->input('page', 1) - 1) * 5);
+
+      /* dd($members);
+        exit();*/
+        return view('agents.index',compact('members'))->with('i', ($request->input('page', 1) - 1) * 5);
 
     }
 
@@ -61,7 +66,7 @@ class UserController extends Controller
         $roles = Role::pluck('display_name','id');
 
 
-        return view('users.create',compact('roles'));
+        return view('agents.create',compact('roles'));
     }
 
     /**
@@ -77,13 +82,13 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
-            'roles' => 'required'
+            'password' => 'required|same:confirm-password'
+        
         ]);
 
         $input = $request->all();
 
-        print_r($input);
+     
 
 
         $user = new User();
@@ -118,8 +123,8 @@ class UserController extends Controller
 
         }
 
-        return redirect()->route('users.index')
-            ->with('success','User created successfully');
+        return redirect()->route('agents.index')
+            ->with('success','Agents created successfully');
     }
 
     /**
@@ -150,7 +155,7 @@ class UserController extends Controller
         $roles = Role::pluck('display_name','id');
         $userRole = $member->roles->pluck('id','id')->toArray();
 
-        return view('users.edit',compact('member','roles','userRole'));
+        return view('agents.edit',compact('member','roles','userRole'));
     }
 
     /**
@@ -163,58 +168,41 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
-            'password' => 'same:confirm-password',
-            'roles' => 'required'
+            'name' => 'required'
+            
         ]);
 
         $input = $request->all();
 
+        //dd($input);
+        //exit();
+
         $user = User::find($id);
 
 
-        $user->name=$input['name'];
-        $user->email=$input['email'];
-        if(!empty($input['password'])) {
-            $user->password = Hash::make($input['password']);
-        }
-        $user->contact_number=$input['contact_number'];
-        $user->address=$input['address'];
+        
+        $agents_bill=new Agentsbalance();
+        $agents_bill->agent_id=$user->id;
+        $agents_bill->name=$user->name;
+        $agents_bill->contact_number=$user->contact_number;;
+        $agents_bill->how_many_ticket=$input['how_many_ticket'];
+        $agents_bill->amount=$input['amount'];
+        $agents_bill->date_of_bill=$input['date_of_bill'];
+        $agents_bill->save();
 
 
 
-        if($request->file('avatar')) {
-            if($user->avatar!=""){
-                $upload_file="uploads/profile/".$user->avatar;
-                //unlink($upload_file);
-            }
-            $profile_image = $request->file('avatar');
-            $upload = 'uploads/profile';
-
-            $extension = $profile_image->getClientOriginalExtension();
-            $profile_image_name = time() . "." . $extension;
-            $success = $profile_image->move($upload, $profile_image_name);
-
-            $input['avatar'] = $profile_image_name;
-            $user->avatar=$input['avatar'];
-        }
-
-        $user->save();
-
-
-
-        DB::table('role_user')->where('user_id',$id)->delete();
+      /*  DB::table('role_user')->where('user_id',$id)->delete();
 
         foreach ($request->input('roles') as $key => $value) {
             $user->attachRole($value);
-        }
+        }*/
 
 
 
 
-        return redirect()->route('users.index')
-            ->with('success','User updated successfully');
+        return redirect()->route('agents.index')
+            ->with('success','agents bill successfully');
     }
 
     /**
@@ -233,10 +221,13 @@ class UserController extends Controller
                 $upload_file="uploads/profile/".$user->avatar;
                 unlink($upload_file);
             }
-           // $user_check_info=Employee::find($user_other_info->id);
-           // $user->delete();
+           $agent_billes=Agentsbalance::where('agent_id',$id)->get();
+           foreach ($agent_billes as $single_agent_billes) {
+              $single_agent_billes->delete();
+           }
+          
         }
-        return redirect()->route('users.index')
-            ->with('success','User deleted successfully');
+        return redirect()->route('agents.index')
+            ->with('success','Agent deleted successfully');
     }
 }

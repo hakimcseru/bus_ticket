@@ -19,6 +19,11 @@ use App\Price;
 use App\Category;
 use App\Book;
 
+use Illuminate\Support\Facades\Auth;
+
+
+
+
 
 
 
@@ -106,6 +111,20 @@ class FrontController extends Controller
 
 
 
+    }
+
+
+    public function agentdashbord(){
+
+        
+
+         $member = User::where('id',Auth::user()->id)->first();
+
+        if($member->hasRole('agent')) {
+             $data['member']= $member;
+
+            return view('agentdashbord.app',$data);
+        }
     }
 
 

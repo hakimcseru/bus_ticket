@@ -7,6 +7,12 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+
+
+
+use App\User;
 
 
 class LoginController extends Controller
@@ -21,6 +27,28 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
+
+   protected function authenticated(Request $request, $user)
+    {
+        
+        $user_other_info = User::where('id',Auth::user()->id)->first();
+             
+           
+        if($user_other_info->hasRole('agent')) {
+            return redirect()->intended('/agentdashbord');
+        }
+
+        if($user_other_info->hasRole('user')) {
+            return redirect()->intended('/userdashbord');
+        }
+
+        return redirect()->intended('/dashboard');
+    }
+
+
+
+
+
 
     use AuthenticatesUsers;
 
