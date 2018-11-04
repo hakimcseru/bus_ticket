@@ -27,7 +27,7 @@ class LoginController extends Controller
     */
     protected function authenticated(Request $request, $user){
         $user_other_info = User::where('id',Auth::user()->id)->first();                                
-        if($user_other_info->hasRole('admin')) {
+        if($user_other_info->hasRole('agent')) {
             return redirect()->intended('/agentdashbord');
         } if($user_other_info->hasRole('user')) {
             return redirect()->intended('/userdashboard');
@@ -35,22 +35,6 @@ class LoginController extends Controller
         return redirect()->intended('/dashboard');
     }
 
-   protected function authenticated(Request $request, $user)
-    {
-        
-        $user_other_info = User::where('id',Auth::user()->id)->first();
-             
-           
-        if($user_other_info->hasRole('agent')) {
-            return redirect()->intended('/agentdashbord');
-        }
-
-        if($user_other_info->hasRole('user')) {
-            return redirect()->intended('/userdashbord');
-        }
-
-        return redirect()->intended('/dashboard');
-    }
 
 
 

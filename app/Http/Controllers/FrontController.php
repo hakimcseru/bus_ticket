@@ -21,7 +21,6 @@ use App\Book;
 use App\Albarakanews;
 use Illuminate\Support\Facades\Auth;
 
-use Illuminate\Support\Facades\Auth;
 
 
 
@@ -109,7 +108,7 @@ class FrontController extends Controller
 
             $data['start_date_resarve']=null;
 
-            return view('frontend.app',$data);
+            return view('frontend.index',$data);
 
         }
 

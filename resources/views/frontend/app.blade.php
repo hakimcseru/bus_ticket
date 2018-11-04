@@ -266,10 +266,10 @@
             <ul class="nav navbar-nav">
                 <li class="{{ request()->is('/') ? 'active' : '' }}"><a href="{{ url('/') }}">Home<span class="sr-only">(current)</span></a></li>
 
-                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Complain</a></li>
+                
                 <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{route('passenger.create')}}">Create Account</a></li>
                 <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Cancel Ticket</a></li>
-
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Complain</a></li>
             </ul>
 
             
