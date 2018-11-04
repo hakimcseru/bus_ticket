@@ -1,3 +1,4 @@
+
 <?php
 
 /*
@@ -22,29 +23,64 @@ Route::get('/home', 'HomeController@index')->name('home');*/
 
 
 
-/*
-Route::get('/', function () {
-   return view('welcome');
+/*sslcommerce url start*/
+    Route::get('/pay',  ['as'=>'pay.index','uses'=>'PublicSslCommerzPaymentController@index']);
+    Route::POST('/success', 'PublicSslCommerzPaymentController@success');
+    Route::POST('/fail', 'PublicSslCommerzPaymentController@fail');
+    Route::POST('/cancel', 'PublicSslCommerzPaymentController@cancel');
+    Route::POST('/ipn', 'PublicSslCommerzPaymentController@ipn');
 
-});*/
-Route::get('/', ['as'=>'font_web.index','uses'=>'FrontController@index']);
-//Route::get('/agentdashbord',  ['as'=>'agentdashbord.index','uses'=>'FrontController@agentdashbord']);
+/*sslcommerce url end*/
+
+
+
+
+
+/*agentdashbord*/
+
+ Route::get('/agentdashbord',  ['as'=>'agentdashbord.index','uses'=>'FrontController@agentdashbord']);
+
 Route::get('/userdashboard',  ['as'=>'userdashboard.index','uses'=>'FrontController@userdashboard']);
 
 
 
 
 
-Route::get('/bookingfront/{id}', ['as'=>'bookingfront.index','uses'=>'FrontController@bookingfrontfunction']);
+
+Route::get('/user/create', ['as'=>'passenger.create','uses'=>'PassengerController@create']);
+Route::post('/user/registration', ['as'=>'passenger.store','uses'=>'PassengerController@store']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+Route::get('/', function () {
+   return view('welcome');
+
+});*/
+Route::get('/', ['as'=>'font_web.index','uses'=>'FrontController@index']);
+
+
+
+
+
+Route::get('/bookingfront/{id}/{data_date}', ['as'=>'bookingfront.index','uses'=>'FrontController@bookingfrontfunction']);
 
 
 
 
 Route::post('/bookingdata/reserve', ['as'=>'bookingdata.index','uses'=>'FrontController@bookingdatafunction']);
-
-
-Route::get('/user/create', ['as'=>'passenger.create','uses'=>'PassengerController@create']);
-Route::post('/user/registration', ['as'=>'passenger.store','uses'=>'PassengerController@store']);
 
 
 /*Route::get('/new-books', function () {
@@ -139,6 +175,23 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth','prevent-back-hist
     Route::patch('members/{id}',['as'=>'users.update','uses'=>'UserController@update','middleware' => ['permission:user-edit']]);
 
     Route::delete('members/{id}',['as'=>'users.destroy','uses'=>'UserController@destroy','middleware' => ['permission:user-delete']]);
+
+
+
+
+    Route::get('agents',['as'=>'agents.index','uses'=>'AgentsController@index','middleware' => ['permission:agents-list|agents-create|agents-edit|agents-delete']]);
+
+    Route::get('agents/create',['as'=>'agents.create','uses'=>'AgentsController@create','middleware' => ['permission:agents-create']]);
+
+    Route::post('agents/create',['as'=>'agents.store','uses'=>'AgentsController@store','middleware' => ['permission:agents-create']]);
+
+    Route::get('agents/{id}',['as'=>'agents.show','uses'=>'AgentsController@show']);
+
+    Route::get('agents/{id}/edit',['as'=>'agents.edit','uses'=>'AgentsController@edit','middleware' => ['permission:agents-edit']]);
+
+    Route::patch('agents/{id}',['as'=>'agents.update','uses'=>'AgentsController@update','middleware' => ['permission:agents-edit']]);
+
+    Route::delete('agents/{id}',['as'=>'agents.destroy','uses'=>'AgentsController@destroy','middleware' => ['permission:agents-delete']]);
 
 
 
@@ -535,5 +588,6 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth','prevent-back-hist
 
     Route::get('/{slug}', 'SubmenupageController@index')->where('slug', '[\w\d\-\_]+');
 });
+
 
 

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 30, 2018 at 02:42 PM
+-- Generation Time: Nov 04, 2018 at 10:19 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -19,6 +19,59 @@ SET time_zone = "+00:00";
 --
 -- Database: `biiss`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `agents_balance`
+--
+
+CREATE TABLE IF NOT EXISTS `agents_balance` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `agent_id` varchar(355) NOT NULL,
+  `route_id` varchar(355) NOT NULL,
+  `name` varchar(355) NOT NULL,
+  `contact_number` varchar(355) NOT NULL,
+  `per_ticket_discount` varchar(355) NOT NULL,
+  `amount` varchar(355) NOT NULL,
+  `ticket_amount` varchar(355) NOT NULL,
+  `date_of_bill` date NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `agents_balance`
+--
+
+INSERT INTO `agents_balance` (`id`, `agent_id`, `route_id`, `name`, `contact_number`, `per_ticket_discount`, `amount`, `ticket_amount`, `date_of_bill`, `created_at`, `updated_at`) VALUES
+(4, '30', '380', 'agentname1', '01750637793', '20', '360', '380', '2018-11-29', '2018-11-04 03:18:55', '2018-11-04 03:18:55');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `albarakanews`
+--
+
+CREATE TABLE IF NOT EXISTS `albarakanews` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `admin_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `status` enum('0','1') NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `albarakanews`
+--
+
+INSERT INTO `albarakanews` (`id`, `admin_id`, `title`, `description`, `status`, `created_at`, `updated_at`) VALUES
+(1, 19, 'test news', 'asdfgghhjj kghig uyto7t ilutyoy juyhtt jhyt87t buitgit jyuuy uhjgi7t', '1', '2018-10-31 11:20:29', '2018-10-31 11:20:29'),
+(2, 19, 'test for NOC sss', 'szrsdh fdhgdfh d re  r rtg rt r', '1', '2018-10-31 06:17:26', '2018-10-31 06:17:26');
 
 -- --------------------------------------------------------
 
@@ -75,24 +128,13 @@ CREATE TABLE IF NOT EXISTS `booking` (
   `pickup_location` varchar(100) NOT NULL,
   `drop_location` varchar(100) NOT NULL,
   `admin_id` int(100) NOT NULL,
-  `status` enum('0','1') NOT NULL DEFAULT '1',
+  `status` enum('0','1') NOT NULL DEFAULT '0',
+  `order_status` varchar(355) DEFAULT NULL,
+  `currency` varchar(355) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
-
---
--- Dumping data for table `booking`
---
-
-INSERT INTO `booking` (`id`, `assign_id`, `route_id`, `route_name`, `booking_date`, `user_id`, `total_seat`, `seat_number`, `price`, `discount`, `pickup_location`, `drop_location`, `admin_id`, `status`, `created_at`, `updated_at`) VALUES
-(10, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["A3","A4","B3","B4"]', '1200', '1', 'hhh', 'hhh', 1, '1', '2018-10-30 07:26:16', '2018-10-30 07:26:16'),
-(11, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '6', '["A3","A4","B3","B4","C3","C4"]', '1800', '1', 'hhh', 'hhh', 1, '1', '2018-10-30 07:28:21', '2018-10-30 07:28:21'),
-(12, 4, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["E3","E4","F3","F4"]', '1200', '1', 'hhh', 'hhh', 1, '1', '2018-10-30 07:30:29', '2018-10-30 07:30:29'),
-(13, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["B1","B2","C1","C2"]', '1200', '1', 'hhh', 'hhh', 1, '1', '2018-10-30 07:32:37', '2018-10-30 07:32:37'),
-(14, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["D1","D2","E1","E2"]', '1200', '1', 'hhh', 'hhh', 1, '1', '2018-10-30 07:33:48', '2018-10-30 07:33:48'),
-(15, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '4', '["D1","D2","E1","E2"]', '1200', '1', 'hhh', 'hhh', 1, '1', '2018-10-30 07:34:06', '2018-10-30 07:34:06'),
-(16, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '5', '["B3","B4","C3","F3","F4"]', '1500', '1', 'hhh', 'hhh', 1, '1', '2018-10-30 07:37:59', '2018-10-30 07:37:59');
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 -- --------------------------------------------------------
 
@@ -6466,13 +6508,13 @@ CREATE TABLE IF NOT EXISTS `bus` (
   `model_no` varchar(100) NOT NULL,
   `admin_id` int(100) NOT NULL,
   `total_seat` varchar(100) NOT NULL,
-  `seat_number` varchar(900) NOT NULL,
+  `seat_number` text NOT NULL,
   `bus_photo` varchar(100) NOT NULL,
   `status` enum('0','1') NOT NULL DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `bus`
@@ -6480,7 +6522,8 @@ CREATE TABLE IF NOT EXISTS `bus` (
 
 INSERT INTO `bus` (`id`, `registration_no`, `fleet_type`, `engine_no`, `model_no`, `admin_id`, `total_seat`, `seat_number`, `bus_photo`, `status`, `created_at`, `updated_at`) VALUES
 (1, '1001', 'ac', 'a22', 'a11', 19, '41', '["A1","A2","A3","A4","B1","B2","B3","B4","C1","C2","C3","C4","D1","D2","D3","D4","E1","E2","E3","E4","F1","F2","F3","F4","G1","G2","G3","G4","H1","H2","H3","H4","I1","I2","I3","I4","J1","J2","J3","J4","J5"]', '1540639516.jpg', '1', '2018-10-27 05:25:16', '2018-10-27 05:25:16'),
-(2, '1002', 'ac', 'a33', 'b44', 19, '41', '["A1","A2","A3","A4","B1","B2","B3","B4","C1","C2","C3","C4","D1","D2","D3","D4","E1","E2","E3","E4","F1","F2","F3","F4","G1","G2","G3","G4","H1","H2","H3","H4","I1","I2","I3","I4","J1","J2","J3","J4","J5"]', '1540639546.jpg', '1', '2018-10-27 05:25:46', '2018-10-27 05:25:46');
+(2, '1002', 'ac', 'a33', 'b44', 19, '41', '["A1","A2","A3","A4","B1","B2","B3","B4","C1","C2","C3","C4","D1","D2","D3","D4","E1","E2","E3","E4","F1","F2","F3","F4","G1","G2","G3","G4","H1","H2","H3","H4","I1","I2","I3","I4","J1","J2","J3","J4","J5"]', '1540639546.jpg', '1', '2018-10-27 05:25:46', '2018-10-27 05:25:46'),
+(3, '6666', 'ac', '6666', '6666', 19, '47', '["fghffffffffffffffff","ghhhhhhhhhhhhhh","yuuuuuuuuuuu","jklllllllll","jklj","dfgdg","gfhjgggg","trrrrrrr","fgffffffffffff","fggggggggggggg","sdfffffffffff","fgggggh","jhhhhhhhhhhh","werrrrrrrrrr","tyyyyyyyyyyyy","yuuuuuuuuuuuu","cvvvvvvvvv","ghhhhhhhhhhhhhh"]', '1541222923.png', '1', '2018-11-02 23:28:43', '2018-11-02 23:28:43');
 
 -- --------------------------------------------------------
 
@@ -6872,7 +6915,7 @@ CREATE TABLE IF NOT EXISTS `location` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `location`
@@ -6883,7 +6926,8 @@ INSERT INTO `location` (`id`, `name`, `description`, `admin_id`, `location_photo
 (3, 'Naogaon', 'naogaon, road 11', 19, '1540270167.jpg', '1', '2018-10-22 22:49:27', '2018-10-22 22:49:27'),
 (4, 'Chittagong', 'chittagong , road 11', 19, '1540270282.png', '1', '2018-10-22 22:51:22', '2018-10-22 22:51:22'),
 (5, 'Barishal', 'Barishal, road 11', 19, '1540270322.png', '1', '2018-10-22 22:52:02', '2018-10-22 22:52:02'),
-(6, 'Sylet', 'Sylet, road 11', 19, '1540270413.jpeg', '1', '2018-10-22 22:53:33', '2018-10-22 22:53:33');
+(6, 'Sylet', 'Sylet, road 11', 19, '1540270413.jpeg', '1', '2018-10-22 22:53:33', '2018-10-22 22:53:33'),
+(7, 'ddd', 'ffff', 19, NULL, '1', '2018-11-02 23:09:58', '2018-11-02 23:09:58');
 
 -- --------------------------------------------------------
 
@@ -6938,6 +6982,31 @@ INSERT INTO `options` (`id`, `name`, `value`, `details`, `is_active`, `created_a
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `orders`
+--
+
+CREATE TABLE IF NOT EXISTS `orders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` varchar(355) NOT NULL,
+  `order_status` varchar(355) NOT NULL,
+  `currency` varchar(355) NOT NULL,
+  `grand_total` varchar(500) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `order_id` (`order_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `order_id`, `order_status`, `currency`, `grand_total`, `created_at`, `updated_at`) VALUES
+(1, '76176590', 'Pending', 'BDT', '', '2018-11-02 08:04:53', '2018-11-02 08:04:53');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `password_resets`
 --
 
@@ -6975,7 +7044,7 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `permissions_name_unique` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=65 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=75 ;
 
 --
 -- Dumping data for table `permissions`
@@ -7045,7 +7114,17 @@ INSERT INTO `permissions` (`id`, `name`, `url`, `display_name`, `description`, `
 (61, 'booking-list', 'booking', 'booking Module', 'role management.png', 60, 60, 0, '1', NULL, NULL),
 (62, 'booking-create', '', 'booking-create', 'booking-create', 60, 0, 0, '1', NULL, NULL),
 (63, 'booking-edit', '', 'booking-edit', 'booking-edit', 60, 0, 0, '1', NULL, NULL),
-(64, 'booking-delete', '', 'booking-delete', 'booking-delete', 60, 0, 0, '1', NULL, NULL);
+(64, 'booking-delete', '', 'booking-delete', 'booking-delete', 60, 0, 0, '1', NULL, NULL),
+(65, 'albarakanews', 'albarakanews', 'Al-baraka News', 'member.png', NULL, NULL, 1, '1', NULL, NULL),
+(66, 'albarakanews-list', 'albarakanews', 'Al-baraka news', 'employee management.png', 65, 0, 0, '1', '2018-01-11 05:11:22', '2018-01-11 05:11:22'),
+(67, 'albarakanews-create', '', 'Al-baraknews create', 'Al-baraknews create', 65, 0, 0, '1', '2018-01-11 05:11:22', '2018-01-11 05:11:22'),
+(68, 'albarakanews-edit', '', 'Edit albarakanews', 'Edit albarakanews', 65, 0, 0, '1', '2018-01-11 05:11:22', '2018-01-11 05:11:22'),
+(69, 'albarakanews-delete', '', 'Delete albarakanews', 'Delete albarakanews', 65, 0, 0, '1', '2018-01-11 05:11:22', '2018-01-11 05:11:22'),
+(70, 'agents', 'agents', 'Agents', 'member.png', NULL, NULL, 1, '1', NULL, NULL),
+(71, 'agents-list', 'agents', 'agents news', 'employee management.png', 70, 0, 0, '1', '2018-01-11 05:11:22', '2018-01-11 05:11:22'),
+(72, 'agents-create', '', 'agents create', 'agents create', 70, 0, 0, '1', '2018-01-11 05:11:22', '2018-01-11 05:11:22'),
+(73, 'agents-edit', '', 'Edit agents', 'Edit agents', 70, 0, 0, '1', '2018-01-11 05:11:22', '2018-01-11 05:11:22'),
+(74, 'agents-delete', '', 'Delete agents', 'Delete agents', 70, 0, 0, '1', '2018-01-11 05:11:22', '2018-01-11 05:11:22');
 
 -- --------------------------------------------------------
 
@@ -7097,6 +7176,14 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (62, 1),
 (63, 1),
 (64, 1),
+(66, 1),
+(67, 1),
+(68, 1),
+(69, 1),
+(71, 1),
+(72, 1),
+(73, 1),
+(74, 1),
 (7, 2),
 (7, 3),
 (8, 3),
@@ -7137,7 +7224,7 @@ CREATE TABLE IF NOT EXISTS `price` (
 --
 
 INSERT INTO `price` (`id`, `route_id`, `route_name`, `vehicle_type`, `price`, `groups_per_person`, `group_members`, `admin_id`, `status`, `created_at`, `updated_at`) VALUES
-(1, 2, 'Dhaka to chittagong', 'ac', '300', '1', '1', 19, '1', '2018-10-25 05:52:37', '2018-10-25 05:52:37');
+(1, 2, 'Dhaka to chittagong', 'ac', '380', '1', '1', 19, '1', '2018-10-25 05:52:37', '2018-10-25 05:52:37');
 
 -- --------------------------------------------------------
 
@@ -7188,7 +7275,7 @@ INSERT INTO `role_user` (`user_id`, `role_id`) VALUES
 (19, 1),
 (21, 2),
 (23, 2),
-(26, 3),
+(30, 3),
 (24, 4),
 (25, 4);
 
@@ -7205,7 +7292,7 @@ CREATE TABLE IF NOT EXISTS `route` (
   `start_point_name` varchar(100) NOT NULL,
   `end_point` varchar(100) NOT NULL,
   `end_point_name` varchar(100) NOT NULL,
-  `stoppage_points` varchar(300) NOT NULL,
+  `stoppage_points` text NOT NULL,
   `distance` varchar(100) NOT NULL,
   `approximate_time` varchar(50) NOT NULL,
   `admin_id` int(100) NOT NULL,
@@ -7213,7 +7300,7 @@ CREATE TABLE IF NOT EXISTS `route` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `route`
@@ -7221,7 +7308,8 @@ CREATE TABLE IF NOT EXISTS `route` (
 
 INSERT INTO `route` (`id`, `name`, `start_point`, `start_point_name`, `end_point`, `end_point_name`, `stoppage_points`, `distance`, `approximate_time`, `admin_id`, `status`, `created_at`, `updated_at`) VALUES
 (2, 'Dhaka to chittagong', '2', 'Dhaka', '4', 'Chittagong', '["hhh","ll","hh"]', '7', '3', 19, '1', '2018-10-23 03:03:00', '2018-10-23 03:20:06'),
-(3, 'Dhaka to Naogaon', '2', 'Dhaka', '3', 'Naogaon', '["natore","bogra"]', '9', '6', 19, '1', '2018-10-27 01:48:57', '2018-10-27 01:48:57');
+(3, 'Dhaka to Naogaon', '2', 'Dhaka', '3', 'Naogaon', '["natore","bogra"]', '9', '6', 19, '1', '2018-10-27 01:48:57', '2018-10-27 01:48:57'),
+(4, 'dfffffffffff', '2', 'Dhaka', '7', 'ddd', '["dfffffffffffffff","fgggggggggggggggg","hjjjjjjjjjjjjj","errrrrrrrrrrrrrrrrrrtyyyyyyyyyy","yuuuuuuuuuuuuuuuuuu","sdffffffffff","cvbcvb","sdffffffffffffffffff","qweeeeeeeeeeeee","sdffffffff","dfdfdfdfdfdfdfdfdfdfdfdf","ghhhhhhhhhhhhh","cxbv","qweee","sdffffff"]', '4', '6', 19, '1', '2018-11-02 23:31:22', '2018-11-02 23:31:22');
 
 -- --------------------------------------------------------
 
@@ -7242,19 +7330,20 @@ CREATE TABLE IF NOT EXISTS `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=31 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `contact_number`, `address`, `avatar`, `remember_token`, `created_at`, `updated_at`) VALUES
-(19, 'admin', 'admin@gmail.com', '$2y$10$IIeZF6kTSkNY3lUqW/sac.79erCfF1YDUT3yZR1yiJXuj4Kbzkdt6', '45645645654', 'dhaka, bangladesh', '1540268980.png', '0bDAL1juBSGwhWd76TAoHhtjjNelY4TQEdLA1QBjIRnAAsaKqCtM6H35BkdL', '2018-06-25 02:33:42', '2018-10-22 22:29:40'),
+(19, 'admin', 'admin@gmail.com', '$2y$10$IIeZF6kTSkNY3lUqW/sac.79erCfF1YDUT3yZR1yiJXuj4Kbzkdt6', '45645645654', 'dhaka, bangladesh', '1540268980.png', 'XfgtCvJgu8RPNOuRFWqDmqUfrXYdafvOTuMqcK2cABv2D6Ba9D69NmSHKquI', '2018-06-25 02:33:42', '2018-10-22 22:29:40'),
 (21, 'member1', 'karim@gmail.com', '$2y$10$mWSSbEWYi6z2IcnXp5JGDeABLBi4OBsOe1Qhl2DVcOEhLz0nvInUG', '22222', 'dhaka', '1529921518.jpeg', 'EZcBypaO6eAugekSpOKktcMWnhq3WilhxIsv0pLd6jlQ2yLAHs4MMy6kM2RU', '2018-06-25 04:11:58', '2018-06-25 04:11:58'),
 (23, 'member3', 'kanan@gmail.com', '$2y$10$/ZAPbkFTwTsMh1lroB31x.qg0127v4K2czchZVA47xFrNrzixtCKO', '01717888937', 'Mirpur, Dhaka', '1540119319.png', NULL, '2018-06-25 23:08:22', '2018-10-21 04:55:19'),
 (24, 'Khan', 'khan@gmail.com', '$2y$10$qFJeav37LdJ6hTlwFbElqe17mEEVH0HtTLQ7dbxrHZwlTaMs2auHC', '01568756987', 'Baridhara, Dhaka', '1532839625.png', NULL, '2018-07-22 23:37:59', '2018-07-28 22:47:05'),
 (25, 'kanan', 'kanans@gmail.com', '$2y$10$mDrs3SKusy.Ub2UHTDt/UeTn0QEXB2ccomNnw/DUFyXKJY4XroNWS', '015354', 'Dhaka', '1532839613.jpg', NULL, '2018-07-23 03:12:01', '2018-07-28 22:46:53'),
-(26, 'tarek', 'tarek@gmail.com', '$2y$10$zj6zNxgUHPnnYPQSsSQCSuVmK3p0sYPGbkUdZ4PL8vjE9eB2qqv.S', '0175000000', 'this is agent', '1540715161.ico', 'BG12zMoWt3Y95O0V6H4IORpnovcmIwJhv9kS5Y1OdmbZrHMU7zKbGSBhPp43', '2018-10-28 02:26:01', '2018-10-28 02:26:01');
+(27, 'ggggggg', 'adminnnnn@gmail.com', '$2y$10$TAwtgNL03RgtE6Zo0Lpsde41BnExweQBd3k3pmA5fD..N22AbIvU2', '01750637790', 'ffffff', '1541228527.jpg', NULL, '2018-11-03 01:02:07', '2018-11-03 01:02:07'),
+(30, 'agentname1', 'agentemail1@gmail.com', '$2y$10$qfVhPVxoi.Dw4i1C5SqXYOGSA/fBvY1aV1fa64EXEGpKjte4I52iO', '01750637793', 'I am agent user', '1541244420.png', 'ogCmcS9JdUP67Dh054ppsiXBm2svjk7d58i1oclaeXcyP5aDXpqxEQ2Ou16e', '2018-11-03 05:27:00', '2018-11-03 05:27:00');
 
 -- --------------------------------------------------------
 

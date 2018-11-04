@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 <?php
 use App\BookIssue;
@@ -80,4 +81,5 @@ use App\BookIssue;
             return confirm("Do you want to delete this?");
         });
     </script>
+
 @endsection

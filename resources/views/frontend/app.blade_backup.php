@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 
@@ -20,7 +19,6 @@
 
     <!-- Bootstrap Core Css -->
     <link href="{{asset('/plugins/bootstrap/css/bootstrap.css')}}" rel="stylesheet">
-    <link href="{{asset('/plugins/bxslider/jquery.bxslider.css')}}" rel="stylesheet">
     <!-- jQuery news Ticker-->
     <!-- <link href="{{asset('/plugins/jQuery-News-Ticker-master/styles/ticker-style.css')}}" rel="stylesheet"> -->
 
@@ -49,29 +47,14 @@
             background-position: right center;
         }
         .navbar-default .navbar-nav>li>a, .navbar-default .navbar-text {
-            color: #fff;
+            color: #fff !important;
         }
         .navbar-nav>li>a:hover{
             background-color: #e24548 !important;
         }
-        .navbar-collapse {
-            padding-left: 0px;
-        }
         .marquee {
-           /* padding: 5px 5px 5px 20px;*/
+            padding: 5px;
             background-color: #d9edf7;
-        }
-        .top_navigation{
-            padding: 10px 0px;
-        }
-        .biiss-lago{
-            float: left;
-        }
-        .right_navigation{
-            float: right;
-        }
-        .right_navigation li{
-            padding: 0 5px 5px 0px;
         }
         .right_navigation li a{
                 padding: 0;
@@ -80,13 +63,6 @@
                 color: #FF0000 !important;
                 font-size: 14px;
         }
-
-        .right_navigation li a i{
-            font-size:18px;
-            color: #5cb75c !important;
-            
-        }
-        
         .search_wrapper{
             top: 5px;
             background-color: #ffffffb3;
@@ -96,119 +72,32 @@
             background-color:transparent !important;
             color:#5cb75c !important;
         }
-        .marquee:before {
-            content: 'News';
-            position: absolute;
-            z-index: 999;
-            background: #5cb75c;
-            color: #FFF;
-            padding: 1px 15px;
-        }
-        .marquee ul li{
-            font-size: 16px;
-            font-weight: bold;
-            color: #f91919;
-            padding:0px 40px;
-        }
-
-        .ticket_header_filter_area{
-            /*margin-top: 50px;*/
-            position: relative;
-            top: -375px;
-            z-index: 999;
-            margin-bottom: -376px;
-
-        }
-        .bx-controls{
-            display: none;
-        }
-
-        
-@media (min-width: 768px){
-    .ticket_header_filter_area{
-        position: unset;
-        top: 0;
-        z-index: 999;
-        margin-bottom: 0px;
-
-    }
-}
-@media (max-width: 768px){
-.ticket_header_filter_area{
-        position: unset;
-        top: 0;
-        z-index: 999;
-        margin-bottom: 0px;
-
-    }
-    .logo{
-        height: 50px;
-        width: 120px;
-    }
-    .navbar-nav {
-        margin: 0.5px -15px;
-    }
-    .navbar-brand {
-        padding: 0 0 0 5px;
-    }
-    .marquee ul li{
-        font-size: 12px;
-        font-weight: bold;
-        color: #f91919;
-        padding:0px 20px;
-    }
-    .marquee:before {
-        content: 'News';
-        position: absolute;
-        z-index: 999;
-        background: #5cb75c;
-        color: #FFF;
-        padding: 0px 15px;
-    }
-    .right_navigation li a i{
-        font-size:18px;
-        color: #5cb75c !important;
-        width: 18px !important;
-        height: 18px !important;
-    }
-}
-@media (min-width: 1200px){
-    .bx-wrapper img {
-        height: 450px;
-    }
-    .ticket_header_filter_area{
-        position: relative;
-        top: -375px;
-        z-index: 999;
-        margin-bottom: -376px;
-    }
-    
-        
-}
- </style>
+    </style>
 
 </head>
 
 <body>
-<hr style="padding: 0px;border: .5px solid #e24648;margin:0px;">
 
-<nav class="navbar navbar-default top_navigation">
+
+
+<nav class="navbar navbar-default">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header" style="float: left;">
+        <div class="navbar-header">
 
-            <a class="navbar-brand biiss-lago" href="{{ url('/') }}"><img src="{{Request::root()}}/images/ticket/imgpsh_fullsize.png" class="logo"></a>
+            <a class="navbar-brand biiss-lago" href="{{ url('/') }}"><img src="{{Request::root()}}/images/ticket/imgpsh_fullsize.png"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        
-            
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-11">
+            <ul class="nav navbar-nav">
+                
+            </ul>
 
-            <ul class="nav navbar-nav navbar-right right_navigation">
+            <ul class="nav custom_contact navbar-nav navbar-right right_navigation" style="margin-top: 30px;">
 
-                <li class=""><a href="#" style=""><i class="fa fa-envelope" style=""></i> albarakaexclusive@gmail.com</a></li>
-                <li class=""><a href="#" style=""><i class="fa fa-phone" style=""></i> 01733376701-4</a></li>
-               
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}" style="color: #5cb75c  !important;"><i class="fa fa-envelope" style="font-size:18px;"></i> Email@gmail.com</a></li>
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}" style="color: #5cb75c  !important;"><i class="fa fa-phone" style="font-size:18px;"></i> 0123456789</a></li>
 
 
                 <!--<li><a href="{{ url('/print') }}">Wishlist ({{ Cart::instance('default')->count(false) }})</a></li>-->
@@ -239,13 +128,13 @@
                         <li><a href="{{ url('/login') }}"><span class="forcolor"><i class="fa fa-user" aria-hidden="true"></i> Login</span></a></li>
                         @endif
 
-                @endif
- -->
+                @endif -->
+
 
 
 
             </ul>
-        
+        </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
 
@@ -266,20 +155,20 @@
             <ul class="nav navbar-nav">
                 <li class="{{ request()->is('/') ? 'active' : '' }}"><a href="{{ url('/') }}">Home<span class="sr-only">(current)</span></a></li>
 
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Agent List</a></li>
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Agent Registration</a></li>
                 <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Complain</a></li>
-                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{route('passenger.create')}}">Create Account</a></li>
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Sign In</a></li>
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Create Account</a></li>
                 <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Cancel Ticket</a></li>
+                
 
             </ul>
-
-            
-
-
 
             <ul class="nav navbar-nav navbar-right">
                 <!--<li><a href="{{ url('/print') }}">Wishlist ({{ Cart::instance('default')->count(false) }})</a></li>-->
 
-                @if (Route::has('login'))
+               <!--  @if (Route::has('login'))
 
                         @if (Auth::check())
                             <li class="dropdown">
@@ -287,8 +176,7 @@
                                 <ul class="dropdown-menu">
 
 
-                                    
-                                    
+                                    <li><a href="{{ url('/dashboard') }}" style="border: medium none;background: #fff; padding-left: 28px;">Admin</a></li>
 
                                     <li><a href="#" class="adminHoverChange">
                                             {{--<i class="material-icons">input</i>--}}
@@ -303,10 +191,10 @@
                                 </ul>
                             </li>
                         @else
-                        <li><a href="{{ url('/login') }}"><span class="forcolor"><i class="fa fa-user" aria-hidden="true"></i> Sign In</span></a></li>
+                        <li><a href="{{ url('/login') }}"><span class="forcolor"><i class="fa fa-user" aria-hidden="true"></i> Login</span></a></li>
                         @endif
 
-                @endif
+                @endif -->
 
 
 
@@ -323,43 +211,83 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
 ?>
 
 <div class="bnews" style="margin-bottom: -6px;">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <marquee behavior="" direction="" class="marquee">
-                <ul class="list-inline" style="margin-bottom: 0px;">
-                <?php 
-                use App\Albarakanews;
-                $abnews = Albarakanews::where('status','1')->get();
-                $count = 0;
-                $i =count($abnews);
-                //dd($i);
-                ?>
-                @foreach($abnews as $news)
-                <?php $count++;?>
-                    <li style="">{{ $news->title }} </li><?php if($count<$i){echo '|';} ?>
-                @endforeach
-                </ul>
-                    
-                    
-                </marquee>
-            </div>
-        </div>
-    </div>
-    
+    <marquee behavior="" direction="" class="marquee">
+        <span style="font-size: 16px;font-weight: bold;color: #f91919;">Al-Baraka Exclusive LTD.</span>
+    </marquee>
 </div>
 <!-- <div class="ticket_header_shadow_area">
         <img src="{{Request::root()}}/images/ticket/shadow.png" style="width:100%">
 </div> -->
-
-
-<!-- <div id="slider" class="nivoSlider">
-    <img src="http://localhost:8000/images/image-gallery/slider4.jpg" alt="" />
-    <img src="http://localhost:8000/images/image-gallery/slider5.jpg" alt="" />
-    <img src="http://localhost:8000/images/image-gallery/slider6.jpg" alt="" />
-</div> -->
-@yield('slider')
-
+<div class="ticket_header_filter_area" style="background-image: url({{Request::root()}}/images/ticket/header_img.png);
+    background-repeat: no-repeat, repeat;
+    background-size: cover;
+    background-position: center;
+    background-position: 100% 100%;
+    padding: 130px 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12 search_wrapper">
+                <div class="ticket_header_filter ticket_header_filter_left">
+                        <h4  style="
+    text-align: center;
+    color: #e34b4d;
+">Online Bus Tickets Booking with Zero Booking Fees</h4>
+                         {!! Form::open(array('route' => 'font_web.index','method'=>'GET')) !!}
+                            <div class="row">
+                                <div class="col-lg-6 col-xs-6">
+                                  <div class="form-group">
+                                    <label for="exampleInputEmail1">From</label>
+                                    
+                                     {!! Form::select('start_point', $locations, [], array('required' => 'required','class' => 'form-control')) !!}
+                                  </div>
+                                </div>
+                                <div class="col-lg-6 col-xs-6">
+                                  <div class="form-group">
+                                    <label for="exampleInputPassword1">To</label>
+                                    
+                                     {!! Form::select('end_point', $locations, [], array('required' => 'required','class' => 'form-control')) !!}
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-xs-6">
+                                  <div class="form-group ticket_custom_calader_icon">
+                                    <label for="exampleInputEmail1">Date of Journey</label>
+                                    <input type="text" name="start_date" class="form-control" id="start_date" placeholder="Start Date">
+                                      <i class="fa fa-calendar" id="start_date5" aria-hidden="true"></i>
+                                  </div>
+                                </div>
+                                <div class="col-lg-6 col-xs-6">
+                                  <div class="form-group ticket_custom_calader_icon">
+                                    <label for="exampleInputPassword1">Date of Return (Optional)</label>
+                                    <input type="text" name="return_date" class="form-control" id="return_date" placeholder="Return Date">
+                                    <i class="fa fa-calendar" id="return_date1" aria-hidden="true"></i>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                {{-- <div class="col-lg-6 col-xs-6">
+                                  <div class="form-group">
+                                   <button type="reset" class="btn btn-danger" style="width:150px">Reset</button>
+                                  </div>
+                                </div> --}}
+                                <div class="col-lg-6 col-xs-6 col-md-6 col-md-offset-3 col-lg-offset-3 col-xs-offset-3">
+                                  <div class="form-group">
+                                    <button type="submit" class="btn btn-success btn-block" style=""><i class="fa fa-search"></i> Search Buses</button>
+                                  </div>
+                                </div>
+                            </div>
+                        {!! Form::close() !!}
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-4 col-xs-12">
+                <div class="ticket_header_filter">
+                      {{--<img  style="width: 73%;float: right;padding-top: 35px;" src="{{Request::root()}}/images/ticket/bus_transparent.png">--}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -408,51 +336,22 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
     </div>
 </div> 
 
-<style type="text/css">
-    .bank-items ul li img{
-        border-radius: 5px;
-        box-shadow: 5px 3px 10px 1px #546d79;
-    }
-    .bank-items ul li{
-       padding: 5px;
-    }
-    .border-top{
-        border-top: 1px solid #cacaca;
-        padding-top: 12px;
-    }
-</style>
+
 
 
 
 <div class="bank-items">
-    
-    <h4 class="text-center text-uppercase">We Accept </h4>
-    <div class="text-center border-top">
-    <ul class="list-inline">
-        <li><img src="{{Request::root()}}/images/payment_system/1.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/2.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/3.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/4.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/5.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/6.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/7.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/8.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/9.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/10.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/11.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/12.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/13.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/14.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/15.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/16.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/17.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/18.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/19.png" alt="" class="img-responsive" width="50" ></li>
-    </ul>
-        <!-- <img src="{{Request::root()}}/images/payment_system/bank_logo.png" alt="" class="img-responsive" style="width: 100%;padding-bottom: 5px;"> -->
-    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h4 class="text-center text-uppercase">We Accept :</h4>
+                <div class="text-center">
+                    <img src="{{Request::root()}}/images/payment_system/bank_logo.png" alt="" class="img-responsive" style="width: 100%;padding-bottom: 5px;">
+                </div>
                 
-            
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -470,13 +369,12 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
 
 <div class="bottom_navigation">
     <ul class="nav text-center">
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">FAQs</a></li>
-        <li><a href="#">Terms & Conditions</a></li>
-        <li><a href="#">Terms of Use</a></li>
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Feedback</a></li>
-        <li><a href="#">Contact Us</a></li>
+        <li><a href="">About Us</a></li>
+        <li><a href="">FAQs</a></li>
+        <li><a href="">Terms & Conditions</a></li>
+        <li><a href="">Terms of Use</a></li>
+        <li><a href="">Privacy Policy</a></li>
+        <li><a href="">Feedback</a></li>
     </ul>
 </div>
 <div class="footer_area">
@@ -500,7 +398,6 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
 <!-- Bootstrap Core Js -->
 <script src="{{asset('/plugins/bootstrap/js/bootstrap.js')}}"></script>
-<script src="{{asset('/plugins/bxslider/jquery.bxslider.js')}}"></script>
 
 
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -518,62 +415,6 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
 
   </script>
 
-<script type="text/javascript">
-
-
-$(document).ready(function(){
-        $('.bxslider').bxSlider({
-            mode: 'fade',
-            moveSlides: 1,
-            slideMargin: 40,
-            infiniteLoop: true,
-            slideWidth: 'auto',
-            minSlides: 3,
-            maxSlides: 3,
-            speed: 800,
-            auto:true,
-        });
-    });
-</script>
-
-</script>
-<script>
-
-    function readURL(input) {
-
-        if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function(e) {
-        $('#blah').attr('src', e.target.result);
-        }
-
-        reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-    $("#imgInp").change(function() {
-        readURL(this);
-     });
-
-  </script>
-
-  <script type="text/javascript">
-      $(document).on('click','#user_reg',function(e){
-        e.preventDefault();
-        var url = "{{route('passenger.create')}}";
-        $.ajax({
-            method: 'get',
-            url: url,
-            data:{"_token": "{{ csrf_token() }}"},
-            dataType:'json',
-            success:function(data){
-                console.log(data[0].id);
-                $('#type').val(data[0].id);
-            }
-        })
-      })
-  </script>
 
 
 
@@ -582,6 +423,5 @@ $(document).ready(function(){
 
 
 </body>
-
 
 </html>

@@ -9,3 +9,4 @@ class Albarakanews extends Model
     protected $table = 'albarakanews';
     protected $fillable = ['title','description','status'];
 }
+

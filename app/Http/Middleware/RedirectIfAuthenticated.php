@@ -17,9 +17,25 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check()) {
+        
+        //$user->hasRole('owner'); 
+        //dd(Auth::guard($guard)->check());
+
+       // exit();
+      if (Auth::guard($guard)->check()) {
+
+           // $user_other_info = User::where('id',Auth::user()->id)->first();
+
+           // dd(Auth::user()->id);
+           // exit();
+           // $this->auth->guest();
             return redirect('/dashboard');
         }
+
+        // dd($request);
+
+
+       // dd(Auth::user()->id);
 
         return $next($request);
     }

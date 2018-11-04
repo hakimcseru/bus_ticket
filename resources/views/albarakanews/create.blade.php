@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 @section('owncss')
     <link rel="stylesheet" href="{{asset('/date/jquery.datetimepicker.css') }}" />
@@ -121,4 +122,5 @@
 
         });
     </script>
+
 @endsection

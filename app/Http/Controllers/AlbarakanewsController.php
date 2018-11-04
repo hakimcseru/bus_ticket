@@ -192,3 +192,4 @@ class AlbarakanewsController  extends Controller
             ->with('success','Route deleted successfully');
     }
 }
+

@@ -21,6 +21,11 @@ use App\Book;
 use App\Albarakanews;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Auth;
+
+
+
+
 
 
 
@@ -41,6 +46,8 @@ class FrontController extends Controller
      */
     public function index(Request $request)
     {
+
+
 
 
 
@@ -97,7 +104,13 @@ class FrontController extends Controller
              return view('frontend.result',$data)->with('i', ($request->input('page', 1) - 1) * 10);
         }else{
 
-            return view('frontend.index',$data);
+
+          
+
+            $data['start_date_resarve']=null;
+
+            return view('frontend.app',$data);
+
         }
 
         //return view('book.index',compact('items'))->with('i', ($request->input('page', 1) - 1) * 5);
@@ -112,7 +125,21 @@ class FrontController extends Controller
     }
 
 
-    public function bookingfrontfunction($id){
+    public function agentdashbord(){
+
+        
+
+         $member = User::where('id',Auth::user()->id)->first();
+
+        if($member->hasRole('agent')) {
+             $data['member']= $member;
+
+            return view('agentdashbord.app',$data);
+        }
+    }
+
+
+    public function bookingfrontfunction($id,$data_date){
         $assign=Assign::where('id',$id)->first();
         $bus=Bus::where('registration_no',$assign->fleet_registration_no)->first();
 
@@ -131,6 +158,18 @@ class FrontController extends Controller
         $bus_info['route_info']=$route;
         $bus_info['price_info']=$price;
         $bus_info['stoppes_pointes']=$stoppes_pointss;
+
+
+
+
+        $total_selected_seat=[];
+        $bookingcheck=Booking::where('assign_id',$id)->where('booking_date',$data_date)->get();
+        foreach ($bookingcheck as $singlevalue) {
+                    $single_selected_seat=json_decode($singlevalue->seat_number);
+                    $total_selected_seat=array_merge($total_selected_seat,$single_selected_seat);
+        }
+        $bus_info['bookingcheck']=$total_selected_seat;
+                             
        
 
         return json_encode($bus_info);
@@ -153,7 +192,7 @@ class FrontController extends Controller
 
 
                
-             
+           
                 $user = new Booking();
                 $user->assign_id=$request->hidden_selected_assign;
                 $user->route_id=Assign::find($request->hidden_selected_assign)->route_id;
@@ -167,24 +206,16 @@ class FrontController extends Controller
                 $user->drop_location=$request->drop_location;
                 $user->discount=1;
                 $user->admin_id=1;
-                $user->save();
+               
 
+                if($user->save()){
+                    $bookinginfo['order_id']=$user->id;
+                }
 
-             /*    $user = new Booking();
-                $user->assign_id=1;
-                $user->route_id=1;
-                $user->route_name=1;
-                $user->booking_date='2018-10-01';
-                $user->total_seat=1;
-                $user->user_id=1;
-                $user->seat_number=1;
-                $user->price=1;
-                $user->pickup_location=1;
-                $user->drop_location=1;
-                $user->admin_id=1;
-                $user->discount=1;
-                $user->save();
-               */
+                $bookinginfo['total_seat_reserve']= $request->total_seat_reserve;
+
+               
+              
 
 
 
