@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('owncss')
+    <link rel="stylesheet" href="{{asset('/css/select2.min.css') }}" />
     <link rel="stylesheet" href="{{asset('/date/jquery.datetimepicker.css') }}" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="{{asset('/tinymce/parsley.css') }}" />
@@ -106,6 +107,9 @@
                             </div>
                         </div>
 
+
+                       
+
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group form-float">
                                 <strong>Contact number <span style="color: red">*</span>:</strong>
@@ -164,25 +168,11 @@
 
 @section('ownjs')
 
-  <script>
 
-    function readURL(input) {
 
-        if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function(e) {
-        $('#blah').attr('src', e.target.result);
-        }
-
-        reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-    $("#imgInp").change(function() {
-        readURL(this);
-     });
-
-  </script>
+     <script src="{{asset('/js/select22.min.js')}}"></script>
+     <script type="text/javascript">
+      $(".multi-select").select2();
+     </script>
 
 @endsection

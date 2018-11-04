@@ -58,12 +58,27 @@
                             </div>
                         </div>
 
+                         <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group form-float">
+                                <strong>Select Route <span style="color: red">*</span> :</strong>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                   
+
+                                   {!! Form::select('route_id[]', $routes,[], array('required' => 'required','class' => 'form-control multi-select')) !!}
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group form-float">
-                                <strong>How many ticket <span style="color: red">*</span>:</strong>
+                                <strong>Per ticket Discount <span style="color: red">*</span>:</strong>
                                 <div class="input-group">
                                     <span class="input-group-addon" id="basic-addon1"><i class="fa fa-phone" aria-hidden="true"></i></span>
-                                    {!! Form::number('how_many_ticket', null, array('placeholder' => 'How many ticket', 'required' => 'required','class' => 'form-control')) !!}
+                                    {!! Form::number('per_ticket_discount', null, array('placeholder' => 'Per ticket Discount', 'required' => 'required','class' => 'form-control')) !!}
 
                                 </div>
                             </div>

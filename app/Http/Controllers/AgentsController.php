@@ -14,6 +14,9 @@ use DB;
 use Hash;
 use App\BookIssue;
 use App\Agentsbalance;
+use App\Assign;
+use App\Route;
+use App\Price;
 
 class AgentsController extends Controller
 {
@@ -64,6 +67,7 @@ class AgentsController extends Controller
 
 
         $roles = Role::pluck('display_name','id');
+       
 
 
         return view('agents.create',compact('roles'));
@@ -155,7 +159,9 @@ class AgentsController extends Controller
         $roles = Role::pluck('display_name','id');
         $userRole = $member->roles->pluck('id','id')->toArray();
 
-        return view('agents.edit',compact('member','roles','userRole'));
+         $routes = Route::pluck('name','id');
+
+        return view('agents.edit',compact('member','roles','userRole','routes'));
     }
 
     /**
@@ -180,13 +186,36 @@ class AgentsController extends Controller
         $user = User::find($id);
 
 
+         $route_ids=$input['route_id'];
+
+        
+
+         $find_price=Price::where('route_id', $route_ids[0])->first();
+         $search_price=380;
+
+
+        $user_ticket_price=$search_price;
+
+
+
+
+        $agent_ticket_price=$user_ticket_price-$input['per_ticket_discount'];
+        
+        $agent_same_amount_user=($user_ticket_price/$agent_ticket_price)*$input['amount'];
+
+
+           
+         
+
         
         $agents_bill=new Agentsbalance();
         $agents_bill->agent_id=$user->id;
+        $agents_bill->route_id=$user_ticket_price;
         $agents_bill->name=$user->name;
         $agents_bill->contact_number=$user->contact_number;;
-        $agents_bill->how_many_ticket=$input['how_many_ticket'];
+        $agents_bill->per_ticket_discount=$input['per_ticket_discount'];
         $agents_bill->amount=$input['amount'];
+        $agents_bill->ticket_amount=$agent_same_amount_user;
         $agents_bill->date_of_bill=$input['date_of_bill'];
         $agents_bill->save();
 

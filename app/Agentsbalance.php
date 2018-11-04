@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Agentsbalance extends Model
 {
     protected $table = 'agents_balance';
-    protected $fillable = ['agent_id','name','contact_number','how_many_ticket','amount','date_of_bill'];
+    protected $fillable = ['agent_id','route_id','name','contact_number','per_ticket_discount','ticket_amount','amount','date_of_bill'];
 }

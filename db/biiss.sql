@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 03, 2018 at 01:06 PM
+-- Generation Time: Nov 04, 2018 at 10:19 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -29,15 +29,24 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `agents_balance` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `agent_id` varchar(355) NOT NULL,
+  `route_id` varchar(355) NOT NULL,
   `name` varchar(355) NOT NULL,
   `contact_number` varchar(355) NOT NULL,
-  `how_many_ticket` varchar(355) NOT NULL,
+  `per_ticket_discount` varchar(355) NOT NULL,
   `amount` varchar(355) NOT NULL,
+  `ticket_amount` varchar(355) NOT NULL,
   `date_of_bill` date NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `agents_balance`
+--
+
+INSERT INTO `agents_balance` (`id`, `agent_id`, `route_id`, `name`, `contact_number`, `per_ticket_discount`, `amount`, `ticket_amount`, `date_of_bill`, `created_at`, `updated_at`) VALUES
+(4, '30', '380', 'agentname1', '01750637793', '20', '360', '380', '2018-11-29', '2018-11-04 03:18:55', '2018-11-04 03:18:55');
 
 -- --------------------------------------------------------
 
@@ -126,22 +135,6 @@ CREATE TABLE IF NOT EXISTS `booking` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
-
---
--- Dumping data for table `booking`
---
-
-INSERT INTO `booking` (`id`, `assign_id`, `route_id`, `route_name`, `booking_date`, `user_id`, `total_seat`, `seat_number`, `price`, `discount`, `pickup_location`, `drop_location`, `admin_id`, `status`, `order_status`, `currency`, `created_at`, `updated_at`) VALUES
-(4, 2, 2, 'Dhaka to chittagong', '2018-10-04', 1, '2', '["B3","B4"]', '600', '1', 'hhh', 'hhh', 1, '0', 'Pending', 'BDT', '2018-11-02 06:04:40', '2018-11-02 06:04:40'),
-(5, 2, 2, 'Dhaka to chittagong', '2018-10-04', 1, '2', '["C3","C4"]', '600', '1', 'hhh', 'hhh', 1, '0', 'Pending', 'BDT', '2018-11-02 06:06:01', '2018-11-02 06:06:01'),
-(6, 2, 2, 'Dhaka to chittagong', '2018-10-04', 1, '2', '["A3","A4"]', '600', '1', 'hhh', 'hhh', 1, '0', 'Pending', 'BDT', '2018-11-02 23:02:25', '2018-11-02 23:02:25'),
-(7, 2, 2, 'Dhaka to chittagong', '2018-10-04', 1, '2', '["D3","D4"]', '600', '1', 'hhh', 'hhh', 1, '0', 'Pending', 'BDT', '2018-11-02 23:03:05', '2018-11-02 23:03:05'),
-(8, 4, 2, 'Dhaka to chittagong', '2018-10-04', 1, '2', '["A3","A4"]', '600', '1', 'hhh', 'hhh', 1, '0', NULL, NULL, '2018-11-02 23:04:15', '2018-11-02 23:04:15'),
-(9, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '2', '["A3","A4"]', '600', '1', 'hhh', 'hhh', 1, '0', 'Pending', 'BDT', '2018-11-02 23:41:39', '2018-11-02 23:41:39'),
-(10, 2, 2, 'Dhaka to chittagong', '2018-10-03', 1, '2', '["B3","B4"]', '600', '1', 'hhh', 'hhh', 1, '0', NULL, NULL, '2018-11-02 23:55:50', '2018-11-02 23:55:50'),
-(11, 2, 2, 'Dhaka to chittagong', '2018-10-05', 1, '2', '["A1","A2"]', '600', '1', 'hhh', 'hhh', 1, '0', 'Pending', 'BDT', '2018-11-03 03:41:29', '2018-11-03 03:41:29'),
-(12, 2, 2, 'Dhaka to chittagong', '2018-10-07', 1, '2', '["A1","A2"]', '600', '1', 'hhh', 'hhh', 1, '0', 'Pending', 'BDT', '2018-11-03 03:50:16', '2018-11-03 03:50:16'),
-(13, 2, 2, 'Dhaka to chittagong', '2018-10-04', 1, '2', '["E3","E4"]', '600', '1', 'hhh', 'hhh', 1, '0', NULL, NULL, '2018-11-03 03:52:22', '2018-11-03 03:52:22');
 
 -- --------------------------------------------------------
 
@@ -7231,7 +7224,7 @@ CREATE TABLE IF NOT EXISTS `price` (
 --
 
 INSERT INTO `price` (`id`, `route_id`, `route_name`, `vehicle_type`, `price`, `groups_per_person`, `group_members`, `admin_id`, `status`, `created_at`, `updated_at`) VALUES
-(1, 2, 'Dhaka to chittagong', 'ac', '300', '1', '1', 19, '1', '2018-10-25 05:52:37', '2018-10-25 05:52:37');
+(1, 2, 'Dhaka to chittagong', 'ac', '380', '1', '1', 19, '1', '2018-10-25 05:52:37', '2018-10-25 05:52:37');
 
 -- --------------------------------------------------------
 
@@ -7350,7 +7343,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `contact_number`, `addre
 (24, 'Khan', 'khan@gmail.com', '$2y$10$qFJeav37LdJ6hTlwFbElqe17mEEVH0HtTLQ7dbxrHZwlTaMs2auHC', '01568756987', 'Baridhara, Dhaka', '1532839625.png', NULL, '2018-07-22 23:37:59', '2018-07-28 22:47:05'),
 (25, 'kanan', 'kanans@gmail.com', '$2y$10$mDrs3SKusy.Ub2UHTDt/UeTn0QEXB2ccomNnw/DUFyXKJY4XroNWS', '015354', 'Dhaka', '1532839613.jpg', NULL, '2018-07-23 03:12:01', '2018-07-28 22:46:53'),
 (27, 'ggggggg', 'adminnnnn@gmail.com', '$2y$10$TAwtgNL03RgtE6Zo0Lpsde41BnExweQBd3k3pmA5fD..N22AbIvU2', '01750637790', 'ffffff', '1541228527.jpg', NULL, '2018-11-03 01:02:07', '2018-11-03 01:02:07'),
-(30, 'agentname1', 'agentemail1@gmail.com', '$2y$10$qfVhPVxoi.Dw4i1C5SqXYOGSA/fBvY1aV1fa64EXEGpKjte4I52iO', '01750637793', 'I am agent user', '1541244420.png', 'njVddkWNof7vyMH43sJbKZ1QLwPHDpN51fauUhCgaRTbAbIFxqWQTL3FW0Yn', '2018-11-03 05:27:00', '2018-11-03 05:27:00');
+(30, 'agentname1', 'agentemail1@gmail.com', '$2y$10$qfVhPVxoi.Dw4i1C5SqXYOGSA/fBvY1aV1fa64EXEGpKjte4I52iO', '01750637793', 'I am agent user', '1541244420.png', 'ogCmcS9JdUP67Dh054ppsiXBm2svjk7d58i1oclaeXcyP5aDXpqxEQ2Ou16e', '2018-11-03 05:27:00', '2018-11-03 05:27:00');
 
 -- --------------------------------------------------------
 
