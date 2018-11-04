@@ -48,7 +48,7 @@
             background-position: right center;
         }
         .navbar-default .navbar-nav>li>a, .navbar-default .navbar-text {
-            color: #fff;
+            color: #fff !important;
         }
         .navbar-nav>li>a:hover{
             background-color: #e24548 !important;
@@ -60,18 +60,6 @@
            /* padding: 5px 5px 5px 20px;*/
             background-color: #d9edf7;
         }
-        .top_navigation{
-            padding: 10px 0px;
-        }
-        .biiss-lago{
-            float: left;
-        }
-        .right_navigation{
-            float: right;
-        }
-        .right_navigation li{
-            padding: 0 5px 5px 0px;
-        }
         .right_navigation li a{
                 padding: 0;
                 margin: 0;
@@ -79,13 +67,6 @@
                 color: #FF0000 !important;
                 font-size: 14px;
         }
-
-        .right_navigation li a i{
-            font-size:18px;
-            color: #5cb75c !important;
-            
-        }
-        
         .search_wrapper{
             top: 5px;
             background-color: #ffffffb3;
@@ -103,12 +84,6 @@
             color: #FFF;
             padding: 1px 15px;
         }
-        .marquee ul li{
-            font-size: 16px;
-            font-weight: bold;
-            color: #f91919;
-            padding:0px 40px;
-        }
 
         .ticket_header_filter_area{
             /*margin-top: 50px;*/
@@ -121,67 +96,46 @@
         .bx-controls{
             display: none;
         }
+        /*.bxslider, .bxslider li{
+    height: 100% !important;
+}*/
+        @media (min-width: 768px){
 
-        
-@media (min-width: 768px){
-    .ticket_header_filter_area{
-        position: unset;
-        top: 0;
-        z-index: 999;
-        margin-bottom: 0px;
+.ticket_header_filter_area{
+            /*margin-top: 50px;*/
+            position: unset;
+            top: 0;
+            z-index: 999;
+            margin-bottom: 0px;
 
-    }
+        }
 }
 @media (max-width: 768px){
+.modal-dialog {
+    width: 900px;
+    margin: 30px auto;
+}
 .ticket_header_filter_area{
-        position: unset;
-        top: 0;
-        z-index: 999;
-        margin-bottom: 0px;
+            /*margin-top: 50px;*/
+            position: unset;
+            top: 0;
+            z-index: 999;
+            margin-bottom: 0px;
 
-    }
-    .logo{
-        height: 50px;
-        width: 120px;
-    }
-    .navbar-nav {
-        margin: 0.5px -15px;
-    }
-    .navbar-brand {
-        padding: 0 0 0 5px;
-    }
-    .marquee ul li{
-        font-size: 12px;
-        font-weight: bold;
-        color: #f91919;
-        padding:0px 20px;
-    }
-    .marquee:before {
-        content: 'News';
-        position: absolute;
-        z-index: 999;
-        background: #5cb75c;
-        color: #FFF;
-        padding: 0px 15px;
-    }
-    .right_navigation li a i{
-        font-size:18px;
-        color: #5cb75c !important;
-        width: 18px !important;
-        height: 18px !important;
-    }
+        }
 }
 @media (min-width: 1200px){
-    .bx-wrapper img {
-        height: 450px;
-    }
     .ticket_header_filter_area{
-        position: relative;
-        top: -375px;
-        z-index: 999;
-        margin-bottom: -376px;
-    }
-    
+            /*margin-top: 50px;*/
+            position: relative;
+            top: -375px;
+            z-index: 999;
+            margin-bottom: -376px;
+
+        }
+        .bx-wrapper img {
+  height: 450px;
+}
         
 }
  </style>
@@ -189,25 +143,28 @@
 </head>
 
 <body>
-<hr style="padding: 0px;border: .5px solid #e24648;margin:0px;">
 
-<nav class="navbar navbar-default top_navigation">
+
+
+<nav class="navbar navbar-default">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header" style="float: left;">
+        <div class="navbar-header">
 
-            <a class="navbar-brand biiss-lago" href="{{ url('/') }}"><img src="{{Request::root()}}/images/ticket/imgpsh_fullsize.png" class="logo"></a>
+            <a class="navbar-brand biiss-lago" href="{{ url('/') }}"><img src="{{Request::root()}}/images/ticket/imgpsh_fullsize.png"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        
-            
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-11">
+            <ul class="nav navbar-nav">
+                
+            </ul>
 
-            <ul class="nav navbar-nav navbar-right right_navigation">
+            <ul class="nav custom_contact navbar-nav navbar-right right_navigation" style="margin-top: 10px;">
 
-                <li class=""><a href="#" style=""><i class="fa fa-envelope" style=""></i> albarakaexclusive@gmail.com</a></li>
-                <li class=""><a href="#" style=""><i class="fa fa-phone" style=""></i> 01733376701-4</a></li>
-               
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}" style="color: #ff0003 !important;margin-top: 20px;"><i class="fa fa-envelope" style="font-size:18px;color: #5cb75c;"></i> albarakaexclusive@gmail.com</a></li>
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}" style="color: #ff0003 !important;"><i class="fa fa-phone" style="font-size:18px;color: #5cb75c;"></i> 01733376701 <br><i class="fa fa-phone" style="font-size:18px;color: #5cb75c;"></i> 01733376702</a></li>
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}" style="color: #ff0003 !important;"><i class="fa fa-phone" style="font-size:18px;color: #5cb75c;"></i> 01733376703 <br><i class="fa fa-phone" style="font-size:18px;color: #5cb75c;"></i> 01733376704</a></li>
 
 
                 <!--<li><a href="{{ url('/print') }}">Wishlist ({{ Cart::instance('default')->count(false) }})</a></li>-->
@@ -244,7 +201,7 @@
 
 
             </ul>
-        
+        </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
 
@@ -336,7 +293,7 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
                 ?>
                 @foreach($abnews as $news)
                 <?php $count++;?>
-                    <li style="">{{ $news->title }} </li><?php if($count<$i){echo '|';} ?>
+                    <li style="font-size: 16px;font-weight: bold;color: #f91919; padding:0px 40px;">{{ $news->title }} </li><?php if($count<$i){echo '|';} ?>
                 @endforeach
                 </ul>
                     
@@ -357,20 +314,24 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
     <img src="http://localhost:8000/images/image-gallery/slider5.jpg" alt="" />
     <img src="http://localhost:8000/images/image-gallery/slider6.jpg" alt="" />
 </div> -->
-@yield('slider')
-
-
-
-
-
-
-<div class="search_area_for_ticket">
-    <div class="container">
-        
-       @yield('content')
-            
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel panel-default">
+              <div class="panel-heading">User Dashboard</div>
+              <div class="panel-body">
+                <ul class="nav nav-pills nav-stacked">
+                  <li class="active"><a href="#">Home</a></li>
+                  <li><a href="#">Menu 1</a></li>
+                  <li><a href="#">Menu 2</a></li>
+                  <li><a href="#">Menu 3</a></li>
+                </ul>
+              </div>
+            </div>
+        </div>
+        @yield('content')
     </div> 
-</div> 
+</div>
 
 
 <div class="ticket_middile_area">

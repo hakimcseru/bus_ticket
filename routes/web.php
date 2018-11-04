@@ -28,6 +28,8 @@ Route::get('/', function () {
 
 });*/
 Route::get('/', ['as'=>'font_web.index','uses'=>'FrontController@index']);
+//Route::get('/agentdashbord',  ['as'=>'agentdashbord.index','uses'=>'FrontController@agentdashbord']);
+Route::get('/userdashboard',  ['as'=>'userdashboard.index','uses'=>'FrontController@userdashboard']);
 
 
 
@@ -39,6 +41,10 @@ Route::get('/bookingfront/{id}', ['as'=>'bookingfront.index','uses'=>'FrontContr
 
 
 Route::post('/bookingdata/reserve', ['as'=>'bookingdata.index','uses'=>'FrontController@bookingdatafunction']);
+
+
+Route::get('/user/create', ['as'=>'passenger.create','uses'=>'PassengerController@create']);
+Route::post('/user/registration', ['as'=>'passenger.store','uses'=>'PassengerController@store']);
 
 
 /*Route::get('/new-books', function () {
@@ -155,6 +161,16 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth','prevent-back-hist
     Route::get('route/{id}/edit',['as'=>'route.edit','uses'=>'RouteController@edit','middleware' => ['permission:route-edit']]);
     Route::patch('route/{id}',['as'=>'route.update','uses'=>'RouteController@update','middleware' => ['permission:route-edit']]);
     Route::delete('route/{id}',['as'=>'route.destroy','uses'=>'RouteController@destroy','middleware' => ['permission:route-delete']]);
+
+       //AB News 
+    Route::get('albarakanews',['as'=>'albarakanews.index','uses'=>'AlbarakanewsController@index','middleware' => ['permission:albarakanews-list|albarakanews-create|albarakanews-edit|albarakanews-delete']]);
+    Route::get('albarakanews/create',['as'=>'albarakanews.create','uses'=>'AlbarakanewsController@create','middleware' => ['permission:albarakanews-create']]);
+    Route::post('albarakanews/create',['as'=>'albarakanews.store','uses'=>'AlbarakanewsController@store','middleware' => ['permission:albarakanews-create']]);
+    Route::get('albarakanews/{id}',['as'=>'albarakanews.show','uses'=>'AlbarakanewsController@show']);
+    Route::get('albarakanews/{id}/edit',['as'=>'albarakanews.edit','uses'=>'AlbarakanewsController@edit','middleware' => ['permission:albarakanews-edit']]);
+    Route::patch('albarakanews/{id}',['as'=>'albarakanews.update','uses'=>'AlbarakanewsController@update','middleware' => ['permission:albarakanews-edit']]);
+    Route::delete('albarakanews/{id}',['as'=>'albarakanews.destroy','uses'=>'AlbarakanewsController@destroy','middleware' => ['permission:albarakanews-delete']]);
+
 
 
 

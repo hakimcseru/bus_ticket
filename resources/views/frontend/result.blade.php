@@ -64,14 +64,16 @@ use App\Price;
 
 ?>
     @section('content')
-        <div class="row">
+
+        <div class="row m-4">
             <div class="col-xs-12 col-sm-12 col-md-12">
                  @if ($message = Session::get('success'))
                     <div class="alert alert-success">
                         <p>{{ $message }}</p>
                     </div>
                 @endif
-                <table class="table table-bordered">
+                <h3 style="margin-bottom: 2px;">Available Buses </h3><hr style="border-top: 3px solid #e24648;margin-top: 5px;">
+                <table class="table table-hover table-responsive" style="overflow: scroll !important">
                     <tr>
                         <th>No</th>
                         <th>fleet_registration_no</th>

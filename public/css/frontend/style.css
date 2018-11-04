@@ -3,7 +3,7 @@
 }
 .biiss-lago img{}
 .forcolor{
-    background: #dc5363;
+    /*background: #dc5363;*/
     color: #fff;
     padding: 10px;
 }
@@ -312,7 +312,7 @@
     margin-right: -15px;*/
 }
 .marquee{
-    padding: 5px;
+    margin-bottom: 1px;
     background-color: #125c83;
 }
 
@@ -339,5 +339,5 @@
 }
 
 .navbar-default .navbar-nav>li>a, .navbar-default .navbar-text {
-    color: #000 !important;
+    color: #fff;
 }

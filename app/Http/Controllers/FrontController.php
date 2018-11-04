@@ -15,9 +15,11 @@ use App\Assign;
 use App\Bus;
 use App\Price;
 
-
+use App\Role;
 use App\Category;
 use App\Book;
+use App\Albarakanews;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -60,6 +62,9 @@ class FrontController extends Controller
         ->where('start_date', '<=', $start_date)
         ->where('end_date', '>=', $start_date)
         ->get();
+        //$data['abnews'] = Albarakanews::where('status','1')->get();
+        $data['roles'] = Role::where('name','user')->pluck('display_name','id');
+        //dd($data);
 
      /*   $data['availablebus']=Assign::where('start_date', '<=', $start_date)
         ->where('end_date', '>=', $start_date)
@@ -92,7 +97,7 @@ class FrontController extends Controller
              return view('frontend.result',$data)->with('i', ($request->input('page', 1) - 1) * 10);
         }else{
 
-            return view('frontend.app',$data);
+            return view('frontend.index',$data);
         }
 
         //return view('book.index',compact('items'))->with('i', ($request->input('page', 1) - 1) * 5);
@@ -300,6 +305,15 @@ class FrontController extends Controller
         $data['book'] = Book::find($id);
         $data['banners']= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get();
         return view('frontend.single',$data);
+    }
+
+    public function userdashboard(){
+        $user_other_info = User::where('id',Auth::user()->id)->first();
+        if($user_other_info->hasRole('user')) {
+            return view('passenger.index',$user_other_info); 
+        }else{ 
+            return redirect()->route('/login'); 
+        }
     }
 
 

@@ -19,7 +19,6 @@
 
     <!-- Bootstrap Core Css -->
     <link href="{{asset('/plugins/bootstrap/css/bootstrap.css')}}" rel="stylesheet">
-    <link href="{{asset('/plugins/bxslider/jquery.bxslider.css')}}" rel="stylesheet">
     <!-- jQuery news Ticker-->
     <!-- <link href="{{asset('/plugins/jQuery-News-Ticker-master/styles/ticker-style.css')}}" rel="stylesheet"> -->
 
@@ -48,29 +47,14 @@
             background-position: right center;
         }
         .navbar-default .navbar-nav>li>a, .navbar-default .navbar-text {
-            color: #fff;
+            color: #fff !important;
         }
         .navbar-nav>li>a:hover{
             background-color: #e24548 !important;
         }
-        .navbar-collapse {
-            padding-left: 0px;
-        }
         .marquee {
            /* padding: 5px 5px 5px 20px;*/
             background-color: #d9edf7;
-        }
-        .top_navigation{
-            padding: 10px 0px;
-        }
-        .biiss-lago{
-            float: left;
-        }
-        .right_navigation{
-            float: right;
-        }
-        .right_navigation li{
-            padding: 0 5px 5px 0px;
         }
         .right_navigation li a{
                 padding: 0;
@@ -79,13 +63,6 @@
                 color: #FF0000 !important;
                 font-size: 14px;
         }
-
-        .right_navigation li a i{
-            font-size:18px;
-            color: #5cb75c !important;
-            
-        }
-        
         .search_wrapper{
             top: 5px;
             background-color: #ffffffb3;
@@ -103,111 +80,33 @@
             color: #FFF;
             padding: 1px 15px;
         }
-        .marquee ul li{
-            font-size: 16px;
-            font-weight: bold;
-            color: #f91919;
-            padding:0px 40px;
-        }
-
-        .ticket_header_filter_area{
-            /*margin-top: 50px;*/
-            position: relative;
-            top: -375px;
-            z-index: 999;
-            margin-bottom: -376px;
-
-        }
-        .bx-controls{
-            display: none;
-        }
-
-        
-@media (min-width: 768px){
-    .ticket_header_filter_area{
-        position: unset;
-        top: 0;
-        z-index: 999;
-        margin-bottom: 0px;
-
-    }
-}
-@media (max-width: 768px){
-.ticket_header_filter_area{
-        position: unset;
-        top: 0;
-        z-index: 999;
-        margin-bottom: 0px;
-
-    }
-    .logo{
-        height: 50px;
-        width: 120px;
-    }
-    .navbar-nav {
-        margin: 0.5px -15px;
-    }
-    .navbar-brand {
-        padding: 0 0 0 5px;
-    }
-    .marquee ul li{
-        font-size: 12px;
-        font-weight: bold;
-        color: #f91919;
-        padding:0px 20px;
-    }
-    .marquee:before {
-        content: 'News';
-        position: absolute;
-        z-index: 999;
-        background: #5cb75c;
-        color: #FFF;
-        padding: 0px 15px;
-    }
-    .right_navigation li a i{
-        font-size:18px;
-        color: #5cb75c !important;
-        width: 18px !important;
-        height: 18px !important;
-    }
-}
-@media (min-width: 1200px){
-    .bx-wrapper img {
-        height: 450px;
-    }
-    .ticket_header_filter_area{
-        position: relative;
-        top: -375px;
-        z-index: 999;
-        margin-bottom: -376px;
-    }
-    
-        
-}
- </style>
+    </style>
 
 </head>
 
 <body>
-<hr style="padding: 0px;border: .5px solid #e24648;margin:0px;">
 
-<nav class="navbar navbar-default top_navigation">
+
+
+<nav class="navbar navbar-default">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header" style="float: left;">
+        <div class="navbar-header">
 
-            <a class="navbar-brand biiss-lago" href="{{ url('/') }}"><img src="{{Request::root()}}/images/ticket/imgpsh_fullsize.png" class="logo"></a>
+            <a class="navbar-brand biiss-lago" href="{{ url('/') }}"><img src="{{Request::root()}}/images/ticket/imgpsh_fullsize.png"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        
-            
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-11">
+            <ul class="nav navbar-nav">
+                
+            </ul>
 
-            <ul class="nav navbar-nav navbar-right right_navigation">
+            <ul class="nav custom_contact navbar-nav navbar-right right_navigation" style="margin-top: 10px;">
 
-                <li class=""><a href="#" style=""><i class="fa fa-envelope" style=""></i> albarakaexclusive@gmail.com</a></li>
-                <li class=""><a href="#" style=""><i class="fa fa-phone" style=""></i> 01733376701-4</a></li>
-               
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}" style="color: #ff0003 !important;margin-top: 20px;"><i class="fa fa-envelope" style="font-size:18px;color: #5cb75c;"></i> albarakaexclusive@gmail.com</a></li>
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}" style="color: #ff0003 !important;"><i class="fa fa-phone" style="font-size:18px;color: #5cb75c;"></i> 01733376701 <br><i class="fa fa-phone" style="font-size:18px;color: #5cb75c;"></i> 01733376702</a></li>
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}" style="color: #ff0003 !important;"><i class="fa fa-phone" style="font-size:18px;color: #5cb75c;"></i> 01733376703 <br><i class="fa fa-phone" style="font-size:18px;color: #5cb75c;"></i> 01733376704</a></li>
 
 
                 <!--<li><a href="{{ url('/print') }}">Wishlist ({{ Cart::instance('default')->count(false) }})</a></li>-->
@@ -238,13 +137,13 @@
                         <li><a href="{{ url('/login') }}"><span class="forcolor"><i class="fa fa-user" aria-hidden="true"></i> Login</span></a></li>
                         @endif
 
-                @endif
- -->
+                @endif -->
+
 
 
 
             </ul>
-        
+        </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
 
@@ -265,20 +164,20 @@
             <ul class="nav navbar-nav">
                 <li class="{{ request()->is('/') ? 'active' : '' }}"><a href="{{ url('/') }}">Home<span class="sr-only">(current)</span></a></li>
 
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Agent List</a></li>
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Agent Registration</a></li>
                 <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Complain</a></li>
-                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{route('passenger.create')}}">Create Account</a></li>
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ url('/dashboard') }}">Sign In</a></li>
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Create Account</a></li>
                 <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Cancel Ticket</a></li>
+                
 
             </ul>
-
-            
-
-
 
             <ul class="nav navbar-nav navbar-right">
                 <!--<li><a href="{{ url('/print') }}">Wishlist ({{ Cart::instance('default')->count(false) }})</a></li>-->
 
-                @if (Route::has('login'))
+               <!--  @if (Route::has('login'))
 
                         @if (Auth::check())
                             <li class="dropdown">
@@ -286,8 +185,7 @@
                                 <ul class="dropdown-menu">
 
 
-                                    
-                                    
+                                    <li><a href="{{ url('/dashboard') }}" style="border: medium none;background: #fff; padding-left: 28px;">Admin</a></li>
 
                                     <li><a href="#" class="adminHoverChange">
                                             {{--<i class="material-icons">input</i>--}}
@@ -302,10 +200,10 @@
                                 </ul>
                             </li>
                         @else
-                        <li><a href="{{ url('/login') }}"><span class="forcolor"><i class="fa fa-user" aria-hidden="true"></i> Sign In</span></a></li>
+                        <li><a href="{{ url('/login') }}"><span class="forcolor"><i class="fa fa-user" aria-hidden="true"></i> Login</span></a></li>
                         @endif
 
-                @endif
+                @endif -->
 
 
 
@@ -328,15 +226,13 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
                 <marquee behavior="" direction="" class="marquee">
                 <ul class="list-inline" style="margin-bottom: 0px;">
                 <?php 
-                use App\Albarakanews;
-                $abnews = Albarakanews::where('status','1')->get();
                 $count = 0;
                 $i =count($abnews);
                 //dd($i);
                 ?>
                 @foreach($abnews as $news)
                 <?php $count++;?>
-                    <li style="">{{ $news->title }} </li><?php if($count<$i){echo '|';} ?>
+                    <li style="font-size: 16px;font-weight: bold;color: #f91919; padding:0px 40px;">{{ $news->title }} </li><?php if($count<$i){echo '|';} ?>
                 @endforeach
                 </ul>
                     
@@ -351,14 +247,200 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
         <img src="{{Request::root()}}/images/ticket/shadow.png" style="width:100%">
 </div> -->
 
+<style type="text/css">
+/*    body{
+  font-family: 'Lato', sans-serif;
+}
+.carousel-fade .carousel-inner .item {
+  opacity: 0;
+  transition-property: opacity;
+}
 
-<!-- <div id="slider" class="nivoSlider">
-    <img src="http://localhost:8000/images/image-gallery/slider4.jpg" alt="" />
-    <img src="http://localhost:8000/images/image-gallery/slider5.jpg" alt="" />
-    <img src="http://localhost:8000/images/image-gallery/slider6.jpg" alt="" />
-</div> -->
-@yield('slider')
+.carousel-fade .carousel-inner .active {
+  opacity: 1;
+}
 
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right {
+  left: 0;
+  opacity: 0;
+  z-index: 1;
+}
+
+.carousel-fade .carousel-inner .next.left,
+.carousel-fade .carousel-inner .prev.right {
+  opacity: 1;
+}
+
+.carousel-fade .carousel-control {
+  z-index: 2;
+} 
+@media all and (transform-3d), (-webkit-transform-3d) {
+    .carousel-fade .carousel-inner > .item.next,
+    .carousel-fade .carousel-inner > .item.active.right {
+      opacity: 0;
+      -webkit-transform: translate3d(0, 0, 0);
+              transform: translate3d(0, 0, 0);
+    }
+    .carousel-fade .carousel-inner > .item.prev,
+    .carousel-fade .carousel-inner > .item.active.left {
+      opacity: 0;
+      -webkit-transform: translate3d(0, 0, 0);
+              transform: translate3d(0, 0, 0);
+    }
+    .carousel-fade .carousel-inner > .item.next.left,
+    .carousel-fade .carousel-inner > .item.prev.right,
+    .carousel-fade .carousel-inner > .item.active {
+      opacity: 1;
+      -webkit-transform: translate3d(0, 0, 0);
+              transform: translate3d(0, 0, 0);
+    }
+} 
+.carousel-caption {
+    text-shadow: 0 1px 4px rgba(0,0,0,.9);
+  font-size:17px
+}
+.carousel-caption h3 {
+  font-size: 30px;
+  font-family: 'Lato', sans-serif;
+}
+    html,
+    body,
+    .carousel,
+    .carousel-inner,
+    .carousel-inner .item {
+      height: 100%;
+    } 
+    .item:nth-child(1) {
+      background: url('https://snap-photos.s3.amazonaws.com/img-thumbs/960w/HZZKGVVJ6I.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+    }
+
+    .item:nth-child(2) {
+      background: url('https://snap-photos.s3.amazonaws.com/img-thumbs/960w/D2ROMCUEIV.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+    }
+
+    .item:nth-child(3) {
+      background: url('https://snap-photos.s3.amazonaws.com/img-thumbs/960w/PU9HHZB5QW.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+    }*/
+</style>
+{{-- <div id="carouselFade" class="carousel slide carousel-fade" data-ride="carousel">--}}
+
+    <!-- Wrapper for slides -->
+   {{-- <div class="carousel-inner" role="listbox">
+        <div class="item active">  
+            <div class="carousel-caption">
+              <h3>First slide label</h3>
+              <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+            </div>
+        </div>
+        <div class="item"> 
+            <div class="carousel-caption">
+              <h3>Second slide label</h3>
+              <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+            </div>
+        </div>
+        <div class="item"> 
+            <div class="carousel-caption">
+              <h3>Third slide label</h3>
+              <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+            </div>
+        </div>
+    </div>--}}
+
+    <!-- Controls -->
+    {{-- <a class="left carousel-control" href="#carouselFade" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#carouselFade" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div> --}}
+
+<?php $data = array(Request::root().'/images/ticket/header_img.png',Request::root().'/images/ticket/header_img.png',Request::root().'/images/ticket/header_img.png' ); 
+//dd($data);
+?>
+
+<div class="ticket_header_filter_area" style="background-image: url({{Request::root()}}/images/ticket/header_img.png);
+    background-repeat: no-repeat, repeat;
+    background-size: cover;
+    background-position: center;
+    background-position: 100% 100%;
+    padding: 130px 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12 search_wrapper">
+                <div class="ticket_header_filter ticket_header_filter_left">
+                        <h4  style="
+    text-align: center;
+    color: #e34b4d;
+">Online Bus Tickets Booking with Zero Booking Fees</h4>
+                         {!! Form::open(array('route' => 'font_web.index','method'=>'GET')) !!}
+                            <div class="row">
+                                <div class="col-lg-6 col-xs-6">
+                                  <div class="form-group">
+                                    <label for="exampleInputEmail1">From</label>
+                                    
+                                     {!! Form::select('start_point', $locations, [], array('required' => 'required','class' => 'form-control')) !!}
+                                  </div>
+                                </div>
+                                <div class="col-lg-6 col-xs-6">
+                                  <div class="form-group">
+                                    <label for="exampleInputPassword1">To</label>
+                                    
+                                     {!! Form::select('end_point', $locations, [], array('required' => 'required','class' => 'form-control')) !!}
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-xs-6">
+                                  <div class="form-group ticket_custom_calader_icon">
+                                    <label for="exampleInputEmail1">Date of Journey</label>
+                                    <input type="text" name="start_date" class="form-control" id="start_date" placeholder="Start Date">
+                                      <i class="fa fa-calendar" id="start_date5" aria-hidden="true"></i>
+                                  </div>
+                                </div>
+                                <div class="col-lg-6 col-xs-6">
+                                  <div class="form-group ticket_custom_calader_icon">
+                                    <label for="exampleInputPassword1">Date of Return (Optional)</label>
+                                    <input type="text" name="return_date" class="form-control" id="return_date" placeholder="Return Date">
+                                    <i class="fa fa-calendar" id="return_date1" aria-hidden="true"></i>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                {{-- <div class="col-lg-6 col-xs-6">
+                                  <div class="form-group">
+                                   <button type="reset" class="btn btn-danger" style="width:150px">Reset</button>
+                                  </div>
+                                </div> --}}
+                                <div class="col-lg-6 col-xs-6 col-md-6 col-md-offset-3 col-lg-offset-3 col-xs-offset-3">
+                                  <div class="form-group">
+                                    <button type="submit" class="btn btn-success btn-block" style=""><i class="fa fa-search"></i> Search Buses</button>
+                                  </div>
+                                </div>
+                            </div>
+                        {!! Form::close() !!}
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-4 col-xs-12">
+                <div class="ticket_header_filter">
+                      {{--<img  style="width: 73%;float: right;padding-top: 35px;" src="{{Request::root()}}/images/ticket/bus_transparent.png">--}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -499,7 +581,6 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
 <!-- Bootstrap Core Js -->
 <script src="{{asset('/plugins/bootstrap/js/bootstrap.js')}}"></script>
-<script src="{{asset('/plugins/bxslider/jquery.bxslider.js')}}"></script>
 
 
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -516,65 +597,70 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
 
 
   </script>
-
-<script type="text/javascript">
-
-
-$(document).ready(function(){
-        $('.bxslider').bxSlider({
-            mode: 'fade',
-            moveSlides: 1,
-            slideMargin: 40,
-            infiniteLoop: true,
-            slideWidth: 'auto',
-            minSlides: 3,
-            maxSlides: 3,
-            speed: 800,
-            auto:true,
-        });
-    });
-</script>
-
-</script>
-<script>
-
-    function readURL(input) {
-
-        if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function(e) {
-        $('#blah').attr('src', e.target.result);
-        }
-
-        reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-    $("#imgInp").change(function() {
-        readURL(this);
-     });
-
-  </script>
-
   <script type="text/javascript">
-      $(document).on('click','#user_reg',function(e){
-        e.preventDefault();
-        var url = "{{route('passenger.create')}}";
-        $.ajax({
-            method: 'get',
-            url: url,
-            data:{"_token": "{{ csrf_token() }}"},
-            dataType:'json',
-            success:function(data){
-                console.log(data[0].id);
-                $('#type').val(data[0].id);
-            }
-        })
+      $(function(){
+        $('#carouselFade').carousel();
       })
   </script>
 
 
+<script type="text/javascript">
+  //Preload images first 
+// $.fn.preload = function() {
+//     this.each(function(){
+//         $('<img/>')[0].src = this;
+//     });
+// }
+var images = Array("http://localhost:8000/images/ticket/header_img.png",
+                   "http://localhost:8000/images/image-gallery/slider4.jpg",
+                   "http://localhost:8000/images/image-gallery/slider5.jpg",
+                   "http://localhost:8000/images/image-gallery/slider6.jpg");
+
+//$([images[0],images[1],images[2],images[3]]).preload();
+
+// Usage:
+
+var currimg = 0;
+
+$(document).ready(function(){
+   
+    function loadimg(){
+        
+       $('.ticket_header_filter_area').fadeIn(5000,function(){
+
+            //finished animating, minifade out and fade new back in           
+            $('.ticket_header_filter_area').fadeOut(5000,function(){
+                
+                currimg++;
+                
+                if(currimg > images.length-1){
+                    
+                    currimg=0;
+                    
+                }
+                
+                var newimage = images[currimg];
+            
+                //swap out bg src                
+                $('.ticket_header_filter_area').css("background-image", "url("+newimage+")"); 
+            
+                //animate fully back in
+                $('.ticket_header_filter_area').fadeOut(5000,function(){
+
+                    //set timer for next
+                    setTimeout(loadimg,5000);
+
+                });
+
+            });
+        
+        });
+
+     }
+     setTimeout(loadimg,5000);
+  
+});
+</script>
 
 
 @yield('ownjs')
@@ -583,3 +669,4 @@ $(document).ready(function(){
 </body>
 
 </html>
+var data = array('http://localhost:8000/images/ticket/header_img.png','http://localhost:8000/images/ticket/header_mg.png','http://localhost:8000/images/ticket/header_img.png' );
