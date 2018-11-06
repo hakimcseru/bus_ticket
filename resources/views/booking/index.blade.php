@@ -71,7 +71,7 @@ use App\BookIssue;
                             <td>{{ $booking->pickup_location }}</td>
                             <td>{{ $booking->drop_location }}</td>
                            <td>
-                                <!--<a class="btn btn-info" href="{{ route('route.show',$route->id) }}">Show</a>-->
+                                
                                 <a class="btn btn-primary" href="{{ route('booking.edit',$booking->id) }}">Edit</a>
                                 {!! Form::open(['method' => 'DELETE','route' => ['booking.destroy', $booking->id],'style'=>'display:inline', 'class'=>'delete']) !!}
                                 {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}

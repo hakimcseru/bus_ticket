@@ -339,8 +339,11 @@ class FrontController extends Controller
 
     public function userdashboard(){
         $user_other_info = User::where('id',Auth::user()->id)->first();
+        $data['user_other_info'] = $user_other_info;
+        $data['roles'] = Role::where('name','user')->get();
+        $data['user'] = User::where('id',Auth::user()->id)->first();
         if($user_other_info->hasRole('user')) {
-            return view('passenger.index',$user_other_info); 
+            return view('passenger.edit',$data); 
         }else{ 
             return redirect()->route('/login'); 
         }

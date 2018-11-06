@@ -148,14 +148,14 @@ use App\Booking;
     @section('content')
 
         <div class="row m-4">
-            <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="col-xs-12 col-sm-12 col-md-12" style="overflow: scroll !important">
                  @if ($message = Session::get('success'))
                     <div class="alert alert-success">
                         <p>{{ $message }}</p>
                     </div>
                 @endif
                 <h3 style="margin-bottom: 2px;">Available Buses </h3><hr style="border-top: 3px solid #e24648;margin-top: 5px;">
-                <table class="table table-hover table-responsive" style="overflow: scroll !important">
+                <table class="table table-hover table-responsive">
                     <tr>
                         <th>No</th>
                         <th>fleet_registration_no</th>

@@ -1,10 +1,9 @@
-@extends('frontend.app')
+@extends('passenger.master')
 @section('content')
-<div class="container">
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
+
+		<div class="col-md-9">
 		<h3 style="padding: 0px 15px">User Registration</h3><hr style="margin: 0px 15px;border-top: 3px solid #e24648;">
-		{!! Form::open(array('route' => 'passenger.update','method'=>'POST', 'files' => true, 'runat'=>'server', 'style'=>'padding:20px 0px;')) !!}
+		{!! Form::model($user,array('route' => array('passenger.update',Auth::user()->id),'method'=>'POST', 'files' => true, 'runat'=>'server', 'style'=>'padding:20px 0px;')) !!}
 
     <div class="row">
 
@@ -33,7 +32,7 @@
                             </div>
                         </div>
 
-                        <div class="col-xs-12 col-sm-12 col-md-12">
+                        {{-- <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group form-float">
                                 <strong>Password <span style="color: red">*</span> :</strong>
                                 <div class="input-group">
@@ -53,7 +52,7 @@
 
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 								@foreach($roles as $role)
 									{!! Form::hidden('type',$role->id, array('id'=>'type')) !!}
 								@endforeach
@@ -110,14 +109,13 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Update</button>
             </div>
         </div>
     </div>
     {!! Form::close() !!}
 		</div>
-	</div>
-</div>
+
 
 	
 @endsection

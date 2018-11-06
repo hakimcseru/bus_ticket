@@ -49,6 +49,7 @@ Route::get('/userdashboard',  ['as'=>'userdashboard.index','uses'=>'FrontControl
 
 Route::get('/user/create', ['as'=>'passenger.create','uses'=>'PassengerController@create']);
 Route::post('/user/registration', ['as'=>'passenger.store','uses'=>'PassengerController@store']);
+Route::post('/user/update', ['as'=>'passenger.update','uses'=>'PassengerController@update']);
 
 
 

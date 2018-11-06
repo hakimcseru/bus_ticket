@@ -12,6 +12,9 @@ use App\BookReturn;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use Illuminate\Support\Facades\Input;
 
+use Illuminate\Support\Facades\Auth;
+use DB;
+
 class HomeController extends Controller
 {
     /**
@@ -185,6 +188,23 @@ class HomeController extends Controller
 
 
         $data['return_of_week'] = BookReturn::where('created_at', '>=', Carbon::now()->startOfWeek())->take(5)->get();
+
+
+
+        
+
+        $user = DB::table('users')
+                ->join('role_user', 'users.id', '=', 'role_user.user_id')
+                ->where('users.id', Auth::user()->id)
+                ->first();
+
+        if($user -> role_id == 5 || $user -> role_id == 3)
+        {
+            
+            return view('errors.404');
+        }
+
+
 
 
 

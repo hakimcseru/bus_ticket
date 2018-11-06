@@ -26,13 +26,21 @@ class LoginController extends Controller
     |
     */
     protected function authenticated(Request $request, $user){
-        $user_other_info = User::where('id',Auth::user()->id)->first();                                
+
+        $user_other_info = User::where('id',Auth::user()->id)->first();    
+
         if($user_other_info->hasRole('agent')) {
             return redirect()->intended('/agentdashbord');
-        } if($user_other_info->hasRole('user')) {
+        }
+        else if($user_other_info->hasRole('user')) {
             return redirect()->intended('/userdashboard');
-        }   
-        return redirect()->intended('/dashboard');
+        }
+        else if($user_other_info->hasRole('admin')) { 
+            return redirect()->intended('/dashboard');
+        }
+        else{
+            echo 'you are not allowed';
+        }
     }
 
 
@@ -48,7 +56,9 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
+   
+            protected $redirectTo = '/dashboard';
+        
 
     /**
      * Create a new controller instance.

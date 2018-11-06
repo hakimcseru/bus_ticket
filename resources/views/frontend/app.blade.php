@@ -49,7 +49,7 @@
             background-position: right center;
         }
         .navbar-default .navbar-nav>li>a, .navbar-default .navbar-text {
-            color: #fff;
+            color: #fff !important;
         }
         .navbar-nav>li>a:hover{
             background-color: #e24548 !important;
@@ -125,13 +125,13 @@
 
         
 @media (min-width: 768px){
-    .ticket_header_filter_area{
+    /*.ticket_header_filter_area{
         position: unset;
         top: 0;
         z-index: 999;
         margin-bottom: 0px;
 
-    }
+    }*/
 }
 @media (max-width: 768px){
 .ticket_header_filter_area{
@@ -206,8 +206,8 @@
 
             <ul class="nav navbar-nav navbar-right right_navigation">
 
-                <li class=""><a href="#" style=""><i class="fa fa-envelope" style=""></i> albarakaexclusive@gmail.com</a></li>
-                <li class=""><a href="#" style=""><i class="fa fa-phone" style=""></i> 01733376701-4</a></li>
+                <li class=""><a href="#" style="color:#FF0000 !important;"><i class="fa fa-envelope" style=""></i> albarakaexclusive@gmail.com</a></li>
+                <li class=""><a href="#" style="color:#FF0000 !important;"><i class="fa fa-phone" style=""></i> 01733376701-4</a></li>
                
 
 
