@@ -19,7 +19,175 @@
 
     <link href="{{asset('/plugins/bootstrap/css/bootstrap.css')}}" rel="stylesheet">
 
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+
+    @yield('owncss')
+    <style>
+        .adminHoverChange button:hover{
+            background-color: white !important;
+        }
+        .trigger {
+            display: none;
+        }
+        .checker {
+            background-image: url({{asset('images/icon/demo.png')}});
+            background-position: left center;
+            background-size: auto 100%;
+            width: 40px;
+            height: 40px;
+            background-repeat: no-repeat;
+        }
+        .trigger:checked + .checker {
+            background-position: right center;
+        }
+        .navbar-default .navbar-nav>li>a, .navbar-default .navbar-text {
+            color: #fff !important;
+        }
+        .navbar-nav>li>a:hover{
+            background-color: #e24548 !important;
+        }
+        .navbar-collapse {
+            padding-left: 0px;
+        }
+        .marquee {
+           /* padding: 5px 5px 5px 20px;*/
+            background-color: #d9edf7;
+        }
+        .top_navigation{
+            padding: 10px 0px;
+        }
+        .biiss-lago{
+            float: left;
+        }
+        .right_navigation{
+            float: right;
+        }
+        .right_navigation li{
+            padding: 0 5px 5px 0px;
+        }
+        .right_navigation li a{
+                padding: 0;
+                margin: 0;
+                padding-left: 10px;
+                color: #FF0000 !important;
+                font-size: 14px;
+        }
+
+        .right_navigation li a i{
+            font-size:18px;
+            color: #5cb75c !important;
+            
+        }
+        
+        .search_wrapper{
+            top: 5px;
+            background-color: #ffffffb3;
+        }
+
+        .right_navigation li a:hover{
+            background-color:transparent !important;
+            color:#5cb75c !important;
+        }
+        .marquee:before {
+            content: 'News';
+            position: absolute;
+            z-index: 999;
+            background: #5cb75c;
+            color: #FFF;
+            padding: 1px 15px;
+        }
+        .marquee ul li{
+            font-size: 16px;
+            font-weight: bold;
+            color: #f91919;
+            padding:0px 40px;
+        }
+
+        .ticket_header_filter_area{
+            /*margin-top: 50px;*/
+            position: relative;
+            top: -375px;
+            z-index: 999;
+            margin-bottom: -376px;
+
+        }
+        .bx-controls{
+            display: none;
+        }
+
+ [type="checkbox"] + label:before, [type="checkbox"]:not(.filled-in) + label:after{
+     border:0 !important;
+ } 
+ .floatrightcon{
+     padding-left:0 !important;
+ }      
+ .modal-body{
+    overflow: scroll;
+    max-height: 600px;
+ }
+@media (min-width: 768px){
+    /*.ticket_header_filter_area{
+        position: unset;
+        top: 0;
+        z-index: 999;
+        margin-bottom: 0px;
+
+    }*/
+}
+@media (max-width: 768px){
+.ticket_header_filter_area{
+        position: unset;
+        top: 0;
+        z-index: 999;
+        margin-bottom: 0px;
+
+    }
+    .logo{
+        height: 50px;
+        width: 120px;
+    }
+    .navbar-nav {
+        margin: 0.5px -15px;
+    }
+    .navbar-brand {
+        padding: 0 0 0 5px;
+    }
+    .marquee ul li{
+        font-size: 12px;
+        font-weight: bold;
+        color: #f91919;
+        padding:0px 20px;
+    }
+    .marquee:before {
+        content: 'News';
+        position: absolute;
+        z-index: 999;
+        background: #5cb75c;
+        color: #FFF;
+        padding: 0px 15px;
+    }
+    .right_navigation li a i{
+        font-size:18px;
+        color: #5cb75c !important;
+        width: 18px !important;
+        height: 18px !important;
+    }
+}
+@media (min-width: 1200px){
+    .bx-wrapper img {
+        height: 450px;
+    }
+    .ticket_header_filter_area{
+        position: relative;
+        top: -375px;
+        z-index: 999;
+        margin-bottom: -376px;
+    }
+    
+        
+}
+ </style>
 
 
     <link href="{{asset('//plugins/sweetalert/sweetalert.css')}}" rel="stylesheet" />
@@ -240,11 +408,18 @@ use App\Employee;
 <script src="{{asset('/plugins/node-waves/waves.js')}}"></script>
 <script src="{{asset('/js/admin.js')}}"></script>
 
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
 
-
-
+<script>
+  $( function() {
+    $( "#start_date" ).datepicker({ dateFormat: 'yy-mm-dd' });
+    $( "#return_date" ).datepicker({ dateFormat: 'yy-mm-dd' });
+      $( "#start_date1" ).datepicker({ dateFormat: 'yy-mm-dd' });
+      $( "#return_date1" ).datepicker({ dateFormat: 'yy-mm-dd' });
+  } );
+  </script>
 
 
 

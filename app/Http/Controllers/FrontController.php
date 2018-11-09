@@ -100,7 +100,10 @@ class FrontController extends Controller
 
         if(count($data['availablebus'])>0){
              $data['start_date_resarve']=$start_date;
-             return view('frontend.result',$data)->with('i', ($request->input('page', 1) - 1) * 10);
+             if(isset(Auth::user()->id))
+             $theme_page='frontend.result1';
+             else $theme_page='frontend.result';
+             return view($theme_page,$data)->with('i', ($request->input('page', 1) - 1) * 10);
         }else{
 
 
