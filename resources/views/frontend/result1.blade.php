@@ -409,23 +409,23 @@ use App\Booking;
                                         <div class="custom_payment_area">
                                           <p id="total_amount_payable_hidden"></p>
                                            <h4>Total Amount Payable ৳.<span id="total_amount_payable"> 0</span></h4>
-                                           <?php 
-                                           if(isset(Auth::user()->id))
+                                           <?php
+                                           if(Auth::user()->id)
                                            {
-                                            $nagent=AgentsBalance::where('agent_id',Auth::user()->id)->get();    
-                                            if($nagent)
-                                            {
-                                                echo '<h4>Agent commission:'.$nagent->per_ticket_discount.'</h4>';
-                                            }
+                                               $adata=App\Agenttopsheet::where('agent_id',Auth::user()->id)->get()->first();
+                                               if($adata)
+                                               echo '<h4>Your agent balance is:'.$adata->current_balance.'</h4>';     
                                            }
-                                           else {?>
+                                           else{
+                                           ?>
                                           <ul class="nav nav-tabs">
                                             <li class="active"><a data-toggle="tab" href="#home">bKash</a></li>
                                             <li><a data-toggle="tab" href="#menu1">Cash on Delivery</a></li>
                                             <li><a data-toggle="tab" href="#menu2">Credit or Debit Card</a></li>
                                             <li><a data-toggle="tab" href="#menu3">Internet Banking</a></li>
                                           </ul>
-                                           <?php } ?>
+                                           
+                                          
 
                                           <div class="tab-content">
                                             <div id="home" class="tab-pane fade in active">
@@ -445,6 +445,7 @@ use App\Booking;
                                               <p>You would be redirected to a third party payment gateway where you can pay with your internet banking accounts. Your payment transactions are 100% secure. On successful payment, you would get a confirmed ticket.</p>
                                             </div>
                                           </div>
+                                          <?php }?>
 
                                         </div>
                                         </div>

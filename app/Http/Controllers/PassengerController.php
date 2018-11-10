@@ -36,6 +36,24 @@ class PassengerController extends Controller
         return view('users.index',compact('members'))->with('i', ($request->input('page', 1) - 1) * 5);
 
     }
+    public function todaystransaction()
+    {
+        $roles = Role::pluck('display_name','id');
+        return view('users.todaystransaction',compact('roles'));
+    }
+
+    public function alltransaction()
+    {
+        $roles = Role::pluck('display_name','id');
+        return view('users.alltransaction',compact('roles'));
+    }
+
+    public function history()
+    {
+        $roles = Role::pluck('display_name','id');
+        return view('users.history',compact('roles'));
+    }
+
 
     /**
      * Show the form for creating a new resource.

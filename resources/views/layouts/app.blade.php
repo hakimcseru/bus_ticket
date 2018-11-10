@@ -373,9 +373,22 @@ use App\Employee;
                     $checkvalue=false;
                 }
 
-
-
                 ?>
+                 <li class="<?php if(count($currentPathvalue)==1){ echo 'active homeactive'; } ?>">
+                     <a href="{{Request::root()}}/user/todaystransaction">
+                            <span> <img class="custom_nab_image" src="{{Request::root()}}/images/icon/navbar/employeemanagement.png" >Todays Transaction</span>
+                     </a>
+                </li>
+                <li class="<?php if(count($currentPathvalue)==1){ echo 'active homeactive'; } ?>">
+                     <a href="{{Request::root()}}/user/alltransaction">
+                            <span> <img class="custom_nab_image" src="{{Request::root()}}/images/icon/navbar/employeemanagement.png" >All Transaction</span>
+                     </a>
+                </li>
+                <li class="<?php if(count($currentPathvalue)==1){ echo 'active homeactive'; } ?>">
+                     <a href="{{Request::root()}}/user/history">
+                            <span> <img class="custom_nab_image" src="{{Request::root()}}/images/icon/navbar/employeemanagement.png" >History</span>
+                     </a>
+                </li>
              </ul>
         </div>
      

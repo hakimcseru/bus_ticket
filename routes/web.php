@@ -48,6 +48,10 @@ Route::get('/userdashboard',  ['as'=>'userdashboard.index','uses'=>'FrontControl
 
 
 Route::get('/user/create', ['as'=>'passenger.create','uses'=>'PassengerController@create']);
+Route::get('/user/todaystransaction', ['as'=>'passenger.todaystransaction','uses'=>'PassengerController@todaystransaction']);
+Route::get('/user/alltransaction', ['as'=>'passenger.alltransaction','uses'=>'PassengerController@alltransaction']);
+Route::get('/user/history', ['as'=>'passenger.history','uses'=>'PassengerController@history']);
+
 Route::post('/user/registration', ['as'=>'passenger.store','uses'=>'PassengerController@store']);
 Route::post('/user/update', ['as'=>'passenger.update','uses'=>'PassengerController@update']);
 
@@ -159,6 +163,7 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth','prevent-back-hist
     //Route::get('/home', 'HomeController@index');
 
     Route::get('/', ['as'=>'home.index','uses'=>'HomeController@index']);
+    
     Route::get('/home', ['as'=>'home.index','uses'=>'HomeController@index']);
 
     //Route::resource('users','UserController');
@@ -269,6 +274,7 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth','prevent-back-hist
     Route::get('booking/{id}/edit',['as'=>'booking.edit','uses'=>'BookingController@edit','middleware' => ['permission:booking-edit']]);
     Route::patch('booking/{id}',['as'=>'booking.update','uses'=>'BookingController@update','middleware' => ['permission:booking-edit']]);
     Route::delete('booking/{id}',['as'=>'booking.destroy','uses'=>'BookingController@destroy','middleware' => ['permission:booking-delete']]);
+    Route::get('booking/todaystransaction',['as'=>'booking.todaystransaction','uses'=>'BookingController@todaystransaction','middleware' => ['permission:booking-create']]);
 
 
 
