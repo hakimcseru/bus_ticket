@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Session\TokenMismatchException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -44,6 +45,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if($exception instanceof TokenMismatchException){
+            return redirect()->back()->with('serverError','dgdff');
+
+        }
 //        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
 //
 //            if (app(\Illuminate\Session\Middleware\StartSession::class)->handle($request, function ($request) {

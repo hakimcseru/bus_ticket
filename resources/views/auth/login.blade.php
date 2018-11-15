@@ -1,6 +1,9 @@
 @extends('layouts.login_app')
 @section('content')
 
+@if(Session::has('serverError'))
+{{Session::get('serverError')}}
+@endif
 <div class="login-box">
     <div class="logo">
         <a href="javascript:void(0);"><b>ONLINE TICKET SYSTEM LOGIN</b></a>
