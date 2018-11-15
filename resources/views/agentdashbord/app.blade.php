@@ -27,7 +27,7 @@
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
- 
+ @yield('owncss')
     <style>
         .adminHoverChange button:hover{
             background-color: white !important;
@@ -36,12 +36,13 @@
             display: none;
         }
         .checker {
-            background-image: url({{asset('images/icon/demo.png')}});
+            /*background-image: url({{asset('images/icon/demo.png')}});*/
             background-position: left center;
             background-size: auto 100%;
-            width: 40px;
+            width: 60px;
             height: 40px;
             background-repeat: no-repeat;
+            border:1px solid #ccc;
         }
         .trigger:checked + .checker {
             background-position: right center;
@@ -101,20 +102,35 @@
         top: 50%;
         width: 12em;
         margin-top: -2.5em;
-        padding:20px;
+        padding:20px 0 20px 20px;
         background-color:#185C83;
         color:white;
         font-weight:bold;
         font-size:16px;
+        z-index:10000;
         }
+        .agent-search-form{
+            background-color:#057aba;
+            padding:5px 0;
+            color:white;
+        }
+        
     </style>
 
 </head>
 
 <body>
+<?php 
+use App\Options;
+use App\Agentsbalance;
+$amount=Agentsbalance::groupBy('agent_id')
+        ->where('agent_id', $member->id)
+        ->sum('amount');
+?>
+
 <!-- Floating score -->
-<div id=floating-score>
-    Your Balance: 1233.00 TK
+<div id="floating-score">
+    Your Balance:<br /> <?=$amount;?> TK
 </div>
 
 <nav class="navbar navbar-default">
@@ -191,232 +207,59 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="{{ request()->is('/agentdashbord') ? 'active' : '' }}"><a href="{{ url('/agentdashbord') }}">Dashboard<span class="sr-only">(current)</span></a></li>
-
-                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Counter fund</a></li>
-                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Reports</a></li>
-                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">My Account</a></li>
-                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Logout</a></li>
-                
-
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">My Profile</a></li>
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Logout</a></li>         
             </ul>
 
-            <ul class="nav navbar-nav navbar-right">
-           
-                <!--<li><a href="{{ url('/print') }}">Wishlist ({{ Cart::instance('default')->count(false) }})</a></li>-->
-
-               <!--  @if (Route::has('login'))
-
-                        @if (Auth::check())
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="forcolor"> <i class="fa fa-user" aria-hidden="true"></i> {{ Auth::user()->name }} <span class="caret"></span></span></a>
-                                <ul class="dropdown-menu">
-
-
-                                    <li><a href="{{ url('/dashboard') }}" style="border: medium none;background: #fff; padding-left: 28px;">Admin</a></li>
-
-                                    <li><a href="#" class="adminHoverChange">
-                                            {{--<i class="material-icons">input</i>--}}
-
-                                            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="float: left;background: #fff;">
-                                                {{ csrf_field() }}
-                                                <button type="submit" class="" style="border: medium none;background: #fff;">Log Out</button>
-                                            </form>
-
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        @else
-                        <li><a href="{{ url('/login') }}"><span class="forcolor"><i class="fa fa-user" aria-hidden="true"></i> Login</span></a></li>
-                        @endif
-
-                @endif -->
-
-
-
-
-            </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
 
-        <?php
-use App\Options;
-use App\Agentsbalance;
+<?php
 $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get();
 ?>
 <div class="bnews" style="margin-bottom: -6px;">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <marquee behavior="" direction="" class="marquee">
-                    <span style="font-size: 16px;font-weight: bold;color: #f91919;">Welcome to Al-Baraka Exclusive LTD.</span>
-                </marquee>
+            <?php 
+				use App\Location;
+				$locations = Location::pluck('name','name');
+				?>
+               
+                {!! Form::open(array('route' => 'agentdashbord.searchticket','method'=>'GET','class'=>"form-inline agent-search-form")) !!}
+                            <div class="row">
+                               <div class="container">
+                               <div class="col-md-12" style="text-align:center">
+                                  <div class="form-group"  style="margin-right:20px;">
+                                    <label for="exampleInputEmail1">Leaving From:</label>
+                                     {!! Form::select('start_point', $locations, [], array('required' => 'required','class' => 'form-control')) !!}
+                                  </div>
+                                
+                                  <div class="form-group" style="margin-right:20px;">
+                                    <label for="exampleInputPassword1">Going To:</label>
+                                     {!! Form::select('end_point', $locations, [], array('required' => 'required','class' => 'form-control')) !!}
+                                  </div>
+                                
+                                  <div class="form-group ticket_custom_calader_icon"  style="margin-right:20px;">
+                                    <label for="exampleInputEmail1">Date of Journey:</label>
+                                    <input type="text" name="start_date" class="form-control" id="start_date" placeholder="Start Date">
+                                  </div>
+                                
+                                  <div class="form-group">
+                                    <button type="submit" class="btn btn-success btn-block" style=""><i class="fa fa-search"></i> Search Buses</button>
+                                  </div>
+                            </div>
+                            </div>
+                            </div>
+                              
+                           
+                        {!! Form::close() !!}
             </div>
         </div>
     </div>
     
 </div>
-
-<div class="search_area_for_ticket">
-    <div class="container">
-        
-            <div class="row">
-				<div class="col-lg-3 agent-leftside">
-				<h3>Total Sale</h3>
-				<p>p</p>
-				<h3>Today's Online Sale</h3>
-				<p>p</p>
-				<h3>Todays Online Ticket Sale</h3>
-				<p>p</p>
-				<h3>Todays Total Ticket Sale</h3>
-				<p>p</p>
-				<h3>Todays Total Ticket Cancel</h3>
-				<p>p</p>
-				<h3>Todays Deposit</h3>
-				<p>p</p>
-				</div>
-                <div class="col-lg-9" style="padding-top:20px;">
-					<ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#home">Today's Sale History</a></li>
-    <li><a data-toggle="tab" href="#menu1">Today's Cancel History</a></li>
-    <li><a data-toggle="tab" href="#menu2">Todays Migrated History</a></li>
-    <li><a data-toggle="tab" href="#menu3">Today's Online History</a></li>
-  </ul>
-
-  <div class="tab-content">
-    <div id="home" class="tab-pane fade in active">
-      <h3>Agent Information</h3>
-
-                            <table class="table table-bordered">
-							
-                                <tr>
-                                   
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Contact Number</th>
-                                    <th>Roles</th>
-                                   
-                                    <th>Address</th>
-                                    <th>Avatar</th>
-                                    <th>Total Amount</th>
-                                  
-                                </tr>
-                               
-                                    <tr>
-                                       
-                                        <td>{{ $member->name }}</td>
-                                        <td>{{ $member->email }}</td>
-                                        <td>{{ $member->contact_number }}</td>
-                                        <td>
-                                            @if(!empty($member->roles))
-                                                @foreach($member->roles as $v)
-                                                    <label class="label label-success">{{ $v->display_name }}</label>
-                                                @endforeach
-                                            @endif
-                                        </td>
-                                       
-
-                                        <td>{{ $member->address }}</td>
-                                        <td><img src="{{Request::root()}}/uploads/profile/{{ $member->avatar }}" width="60" height="45"></td>
-                                        <td>
-                                            <?php
-
-                                              $amount=Agentsbalance::groupBy('agent_id')
-                                               ->where('agent_id', $member->id)
-                                               ->sum('amount');
-                                               echo $amount;
-                                            ?>
-                                             
-
-                                        </td>
-
-                                        
-                                    </tr>
-                               
-                            </table>
-    </div>
-    <div id="menu1" class="tab-pane fade">
-								<table class="table table-bordered">
-							
-                                <tr>
-                                    <th>Coach</th>
-                                    <th>Company</th>
-                                    <th>Seats</th>
-                                    <th>Journey Date</th>
-                                    <th>Purchase</th>
-                                    <th>Passengers</th>
-                                    <th>Mobile</th>
-									<th>Rute</th>
-                                </tr>
-                                <tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								
-								</tr>
-								</table>
-    </div>
-    <div id="menu2" class="tab-pane fade">
-      <h3>Menu 2</h3>
-      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-    </div>
-    <div id="menu3" class="tab-pane fade">
-      <h3>Menu 3</h3>
-      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-    </div>
-  </div>
-                    <div class="agent_user_information">
-                        
-                    </div>
-                </div>
-            </div>        
-            
-    </div> 
-</div> 
-    
-
-
-
-
-<div class="ticket_middile_area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="ticket_middle">
-                    <ul class="ticket_middle_list">
-                        <li> <i class="fa fa-bus" aria-hidden="true"></i> <span>67000 ROUTES</span></li>
-                        <li> <i class="fa fa-users" aria-hidden="true"></i><span>1800 BUS OPERATORS</span></li>
-                        <li> <i class="fa fa-ticket" aria-hidden="true"></i><span>6,00,000 + TICKETS SOLD</span></li>
-                    </ul>    
-                </div>   
-            </div>
-        </div>
-    </div>
-</div>  
-
-
-<div class="ticket_footer_top_area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="ticket_footer_top">
-                    <ul class="ticket_footer_top_list">
-                        <li> <i class="fa fa-car" aria-hidden="true"></i> <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span></li>
-                        <li> <i class="fa fa-car" aria-hidden="true"></i> <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span></li>
-                        <li> <i class="fa fa-car" aria-hidden="true"></i> <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span></li>
-                      
-                    </ul>    
-                </div>   
-            </div>
-        </div>
-    </div>
-</div> 
 
 <style type="text/css">
     .bank-items ul li img{
@@ -432,7 +275,7 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
     }
 </style>
 
-
+ @yield('content')
 
 <div class="bank-items">
     

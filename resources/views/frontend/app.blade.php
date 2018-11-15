@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 
@@ -185,11 +184,26 @@
     
         
 }
+#floating-help{
+        position: fixed;
+        left: 10%;
+        top: 20%;
+        width: 80%;
+        margin-top: -.5em;
+        padding:20px 0 20px 20px;
+        background-color:#185C83;
+        color:white;
+        font-weight:bold;
+        font-size:16px;
+        z-index:10000;
+        }
  </style>
 
 </head>
 
 <body>
+<div id="floating-help">fsfsdf
+</div>
 <hr style="padding: 0px;border: .5px solid #e24648;margin:0px;">
 
 <nav class="navbar navbar-default top_navigation">

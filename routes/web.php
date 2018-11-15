@@ -39,6 +39,10 @@ Route::get('/home', 'HomeController@index')->name('home');*/
 /*agentdashbord*/
 
  Route::get('/agentdashbord',  ['as'=>'agentdashbord.index','uses'=>'FrontController@agentdashbord']);
+ 
+ Route::get('/agentprofile',  ['as'=>'agentdashbord.agentprofile','uses'=>'FrontController@agentprofile']);
+
+ Route::get('/searchticket',  ['as'=>'agentdashbord.searchticket','uses'=>'FrontController@searchticket']);
 
 Route::get('/userdashboard',  ['as'=>'userdashboard.index','uses'=>'FrontController@userdashboard']);
 
@@ -75,6 +79,7 @@ Route::get('/', function () {
 
 });*/
 Route::get('/', ['as'=>'font_web.index','uses'=>'FrontController@index']);
+
 
 
 

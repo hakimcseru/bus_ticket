@@ -45,29 +45,19 @@ class FrontController extends Controller
      */
     public function index(Request $request)
     {
-
-
-
-
-
         $start_point=trim($request->input('start_point'));
         $end_point=trim($request->input('end_point'));
         $start_date=trim($request->input('start_date'));
         $return_date=trim($request->input('return_date'));
 
+        $data['locations']= Location::pluck('name','name');
+        $data['start_date_resarve']=null;
 
-        //dd($start_point);
-       // exit();
-
-
-       $data['locations']= Location::pluck('name','name');
-       $data['start_date_resarve']=null;
-
-       $data['availablebus']=Assign::where('start_point_name',$start_point)
-        ->where('end_point_name',$end_point)
-        ->where('start_date', '<=', $start_date)
-        ->where('end_date', '>=', $start_date)
-        ->get();
+        $data['availablebus']=Assign::where('start_point_name',$start_point)
+            ->where('end_point_name',$end_point)
+            ->where('start_date', '<=', $start_date)
+            ->where('end_date', '>=', $start_date)
+            ->get();
         //$data['abnews'] = Albarakanews::where('status','1')->get();
         $data['roles'] = Role::where('name','user')->pluck('display_name','id');
         //dd($data);
@@ -126,17 +116,51 @@ class FrontController extends Controller
 
     }
 
-
-    public function agentdashbord(){
-
-        
-
-         $member = User::where('id',Auth::user()->id)->first();
-
+    public function searchticket(Request $request)
+    {
+        $member = User::where('id',Auth::user()->id)->first();
         if($member->hasRole('agent')) {
              $data['member']= $member;
+        }
+        $start_point=trim($request->input('start_point'));
+        $end_point=trim($request->input('end_point'));
+        $start_date=trim($request->input('start_date'));
+        $return_date=trim($request->input('return_date'));
 
-            return view('agentdashbord.app',$data);
+        $data['locations']= Location::pluck('name','name');
+        $data['start_date_resarve']=null;
+
+        $data['availablebus']=Assign::where('start_point_name',$start_point)
+            ->where('end_point_name',$end_point)
+            ->where('start_date', '<=', $start_date)
+            ->where('end_date', '>=', $start_date)
+            ->get();
+        $data['roles'] = Role::where('name','user')->pluck('display_name','id');
+
+        if(count($data['availablebus'])>0){
+             $data['start_date_resarve']=$start_date;
+             if(isset(Auth::user()->id))
+             $theme_page='agentdashbord.searchticket';
+             else $theme_page='agentdashbord.searchticket';
+             return view($theme_page,$data)->with('i', ($request->input('page', 1) - 1) * 10);
+        }else{
+            $data['start_date_resarve']=null;
+            return view('agentdashbord.searchticket',$data);
+        }
+    }
+
+    public function agentdashbord(){
+         $member = User::where('id',Auth::user()->id)->first();
+        if($member->hasRole('agent')) {
+             $data['member']= $member;
+            return view('agentdashbord.dashboard',$data);
+        }
+    }
+     public function agentprofile(){
+         $member = User::where('id',Auth::user()->id)->first();
+        if($member->hasRole('agent')) {
+             $data['member']= $member;
+            return view('agentdashbord.agentprofile',$data);
         }
     }
 
