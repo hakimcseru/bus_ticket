@@ -469,9 +469,6 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="forcolor"> <i class="fa fa-user" aria-hidden="true"></i> {{ Auth::user()->name }} <span class="caret"></span></span></a>
                                 <ul class="dropdown-menu">
-
-
-                                    
                                     
 
                                     <li><a href="#" class="adminHoverChange">
@@ -650,13 +647,13 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
 
 <div class="bottom_navigation">
     <ul class="nav text-center">
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">FAQs</a></li>
-        <li><a href="#">Terms & Conditions</a></li>
-        <li><a href="#">Terms of Use</a></li>
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Feedback</a></li>
-        <li><a href="#">Contact Us</a></li>
+        <li><a href="{{route('about_us')}}">About Us</a></li>
+        <li><a href="{{route('faqs')}}">FAQs</a></li>
+        <li><a href="{{route('terms_and_conditions')}}">Terms & Conditions</a></li>
+        <li><a href="{{route('terms_of_use')}}">Terms of Use</a></li>
+        <li><a href="{{route('privacy_policy')}}">Privacy Policy</a></li>
+        <li><a href="{{route('contact_us')}}">Feedback</a></li>
+        <li><a href="{{route('contact_us')}}">Contact Us</a></li>
     </ul>
 </div>
 <div class="footer_area">

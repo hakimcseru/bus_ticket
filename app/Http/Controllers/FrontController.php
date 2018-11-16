@@ -377,6 +377,27 @@ class FrontController extends Controller
     }
 
 
+    public function contact_us(){
+        return view('frontend.contact_us');
+    }
 
+    public function terms_and_conditions(){
+        return view('frontend.terms_and_conditions');
+    }
+
+    public function privacy_policy(){
+        return view('frontend.privacy_policy');
+    }
+
+    public function terms_of_use(){
+        return view('frontend.terms_of_use');
+    }
+    public function faqs(){
+        return view('frontend.faqs');
+    }
+
+    public function about_us(){
+        return view('frontend.about_us');
+    }
 
 }

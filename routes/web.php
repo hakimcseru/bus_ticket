@@ -34,7 +34,12 @@ Route::get('/home', 'HomeController@index')->name('home');*/
 
 
 
-
+Route::get('/contact_us', ['as'=>'contact_us','uses'=>'FrontController@contact_us']);
+Route::get('/terms_and_conditions', ['as'=>'terms_and_conditions','uses'=>'FrontController@terms_and_conditions']);
+Route::get('/terms_of_use', ['as'=>'terms_of_use','uses'=>'FrontController@terms_of_use']);
+Route::get('/privacy_policy', ['as'=>'privacy_policy','uses'=>'FrontController@privacy_policy']);
+Route::get('/FAQs', ['as'=>'faqs','uses'=>'FrontController@faqs']);
+Route::get('/about_us', ['as'=>'about_us','uses'=>'FrontController@about_us']);
 
 /*agentdashbord*/
 
