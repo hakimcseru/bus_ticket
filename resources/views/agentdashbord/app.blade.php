@@ -95,13 +95,27 @@
 			background-color:#185c83 !important;
 			color:white !important;
 		}
+        #floating-score{
+        position: fixed;
+        left: 0;
+        top: 50%;
+        width: 12em;
+        margin-top: -2.5em;
+        padding:20px;
+        background-color:#185C83;
+        color:white;
+        font-weight:bold;
+        font-size:16px;
+        }
     </style>
 
 </head>
 
 <body>
-
-
+<!-- Floating score -->
+<div id=floating-score>
+    Your Balance: 1233.00 TK
+</div>
 
 <nav class="navbar navbar-default">
     <div class="container">
