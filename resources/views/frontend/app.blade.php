@@ -184,26 +184,194 @@
     
         
 }
-#floating-help{
-        position: fixed;
-        left: 10%;
-        top: 20%;
-        width: 80%;
-        margin-top: -.5em;
-        padding:20px 0 20px 20px;
-        background-color:#185C83;
-        color:white;
-        font-weight:bold;
-        font-size:16px;
-        z-index:10000;
-        }
+.thumbnail{
+    max-height:300px !important;
+    min-height:300px !important;
+    padding:25% 1%;
+    text-align:center;
+    font-size:40px;
+    background-color:#d9edf7;
+}
+
+
+
  </style>
 
 </head>
 
 <body>
-<div id="floating-help">fsfsdf
-</div>
+<!-- help modal -->
+<!--modal-->
+                <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog  modal-lg" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header" style="background-color:#5cb75c; text-align:center">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel" style="color:white">How to buy bus ticket?</h4>
+                          </div>
+                          <div class="modal-body">
+                          <div class="row">
+                            <div class="col-xs-6 col-md-4">
+                                <a href="#" onclick="$('#helpModal').modal('hide');$('#helpModal-buyonline').modal('show');"  class="thumbnail">
+                                    Buy ticket from <br/> online
+                                </a>
+                            </div>
+                            <div class="col-xs-6 col-md-4">
+                                <a href="#" onclick="$('#helpModal').modal('hide');$('#helpModal-buyagent').modal('show');" class="thumbnail">
+                                    Buy ticket from <br />agent
+                                </a>
+                            </div>
+                            <div class="col-xs-6 col-md-4">
+                                <a href="#" onclick="$('#helpModal').modal('hide');$('#helpModal-buycallcenter').modal('show');" class="thumbnail">
+                                    Buy ticket from <br />call center
+                                </a>
+                            </div>
+
+                            </div>
+
+                             
+                          </div>
+                          
+                        </div>
+                    </div>
+                </div>
+<!-- modal -->      
+
+<!--modal-->
+                <div class="modal fade" id="helpModal-buyonline" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog  modal-lg" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header" style="background-color:#5cb75c; text-align:center">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel" style="color:white">How to buy bus ticket?</h4>
+                          </div>
+                          <div class="modal-body">
+                          <div class="row">
+                            <div class="col-xs-6 col-md-4">
+                                <a href="#" class="thumbnail">
+                                    Buy ticket from <br/> online
+                                </a>
+                            </div>
+                            <div class="col-xs-6 col-md-8" style="background-color:#d9edf7;max-height:300px;overflow-y: scroll;">
+                                <p >
+                                   <ol>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+
+                                   </ol>
+                                </p>
+                            </div>
+                            
+
+                            </div>
+
+                             
+                          </div>
+                          
+                        </div>
+                    </div>
+                </div>
+<!-- modal -->   
+
+<!--modal-->
+                <div class="modal fade" id="helpModal-buyagent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog  modal-lg" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header" style="background-color:#5cb75c; text-align:center">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel" style="color:white">How to buy bus ticket?</h4>
+                          </div>
+                          <div class="modal-body">
+                          <div class="row">
+                            <div class="col-xs-6 col-md-4">
+                                <a href="#" class="thumbnail">
+                                    Buy ticket from <br/> agent
+                                </a>
+                            </div>
+                            <div class="col-xs-6 col-md-8" style="background-color:#d9edf7;max-height:300px;overflow-y: scroll;">
+                                <p >
+                                   <ol>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+
+                                   </ol>
+                                </p>
+                            </div>
+                            
+
+                            </div>
+
+                             
+                          </div>
+                          
+                        </div>
+                    </div>
+                </div>
+<!-- modal -->            
+
+
+<!--modal-->
+                <div class="modal fade" id="helpModal-buycallcenter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog  modal-lg" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header" style="background-color:#5cb75c; text-align:center">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel" style="color:white">How to buy bus ticket?</h4>
+                          </div>
+                          <div class="modal-body">
+                          <div class="row">
+                            <div class="col-xs-6 col-md-4">
+                                <a href="#" class="thumbnail">
+                                    Buy ticket from <br/> call center
+                                </a>
+                            </div>
+                            <div class="col-xs-6 col-md-8" style="background-color:#d9edf7;max-height:300px;overflow-y: scroll;">
+                                <p >
+                                   <ol>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+                                    <li style="border-bottom:1px solid white; margin-bottom:5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy </li>
+
+                                   </ol>
+                                </p>
+                            </div>
+                            
+
+                            </div>
+
+                             
+                          </div>
+                          
+                        </div>
+                    </div>
+                </div>
+<!-- modal -->  
 <hr style="padding: 0px;border: .5px solid #e24648;margin:0px;">
 
 <nav class="navbar navbar-default top_navigation">
@@ -284,6 +452,8 @@
                 <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{route('passenger.create')}}">Create Account</a></li>
                 <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Cancel Ticket</a></li>
                 <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Complain</a></li>
+                <li ><a href="javascript:void(0)" onclick="$('#helpModal').modal('show');">Help</a></li>
+                
             </ul>
 
             
@@ -373,10 +543,6 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
     <img src="http://localhost:8000/images/image-gallery/slider6.jpg" alt="" />
 </div> -->
 @yield('slider')
-
-
-
-
 
 
 <div class="search_area_for_ticket">
