@@ -14,6 +14,7 @@ use DB;
 use Hash;
 use App\BookIssue;
 use App\Agentsbalance;
+use App\Agenttopsheet;
 use App\Assign;
 use App\Route;
 use App\Price;
@@ -217,7 +218,16 @@ class AgentsController extends Controller
         $agents_bill->amount=$input['amount'];
         $agents_bill->ticket_amount=$agent_same_amount_user;
         $agents_bill->date_of_bill=$input['date_of_bill'];
-        $agents_bill->save();
+        if($agents_bill->save())
+        {
+            $Agenttopsheet = Agenttopsheet::where('agent_id',$user->id)->get()->first();
+            if(!$Agenttopsheet) $Agenttopsheet= new Agenttopsheet();
+            $Agenttopsheet->total_amount=$Agenttopsheet->total_amount+$input['amount'];
+            $Agenttopsheet->ticket_amount=$Agenttopsheet->ticket_amount+$agent_same_amount_user;
+            $Agenttopsheet->current_balance=$Agenttopsheet->current_balance+$agent_same_amount_user;
+            $Agenttopsheet->total_commission=$Agenttopsheet->ticket_amount-$Agenttopsheet->total_amount;
+            $Agenttopsheet->save();
+        }
 
 
 

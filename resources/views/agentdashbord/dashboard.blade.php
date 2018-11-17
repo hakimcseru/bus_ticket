@@ -7,9 +7,39 @@
 @section('content')
 <?php
 use App\Agentsbalance;
+use App\Agenttopsheet;
+use App\Booking;
+use App\User;
+use App\Cancel;
+//echo date('Y-m-d'); die();
 $amount=Agentsbalance::groupBy('agent_id')
         ->where('agent_id', $member->id)
         ->sum('amount');
+$todays_deposit=Agentsbalance::groupBy('agent_id')
+        ->where('agent_id', $member->id)
+        ->where('date_of_bill', date('Y-m-d'))
+        ->sum('amount');
+ $todays_total_sale=Booking::groupBy('agent_id')
+        ->where('agent_id', $member->id)
+        ->where('booking_date', date('Y-m-d'))
+        ->sum('price');      
+$todays_total_ticket=Booking::groupBy('agent_id')
+        ->where('agent_id', $member->id)
+        ->where('booking_date', date('Y-m-d'))
+        ->sum('total_seat');   
+ $Agenttopsheet=Agenttopsheet::where('agent_id', $member->id)->get()->first(); 
+ $todays_sale_history=Booking::where('agent_id', $member->id)
+        ->where('booking_date', date('Y-m-d'))
+        ->get(); 
+$all_sale_history=Booking::where('agent_id', $member->id)
+        ->get();  
+
+ $todays_cancel_history=Cancel::where('agent_id', $member->id)
+        ->where('cancel_date', date('Y-m-d'))
+        ->get(); 
+$all_cancel_history=Cancel::where('agent_id', $member->id)
+        ->get();           
+//$user=User::find();              
 ?>
 <div class="search_area_for_ticket">
     <div class="container">
@@ -17,75 +47,73 @@ $amount=Agentsbalance::groupBy('agent_id')
             <div class="row">
 				<div class="col-lg-3 agent-leftside">
 				<h3>Total Sale</h3>
-				<p>p</p>
+				<p><?=$Agenttopsheet->total_purchased_amount;?> TK</p>
 				<h3>Today's Online Sale</h3>
-				<p>p</p>
+				<p><?=$todays_total_sale;?></p>
 				<h3>Todays Online Ticket Sale</h3>
-				<p>p</p>
+				<p><?=$todays_total_ticket;?></p>
 				<h3>Todays Total Ticket Sale</h3>
-				<p>p</p>
+				<p><?=$todays_total_ticket;?></p>
 				<h3>Todays Total Ticket Cancel</h3>
 				<p>p</p>
 				<h3>Todays Deposit</h3>
-				<p>p</p>
+				<p><?=$todays_deposit;?> TK</p>
 				</div>
                 <div class="col-lg-9" style="padding-top:20px;">
 					<ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#home">Today's Sale History</a></li>
     <li><a data-toggle="tab" href="#menu1">Today's Cancel History</a></li>
-    <li><a data-toggle="tab" href="#menu2">Todays Migrated History</a></li>
-    <li><a data-toggle="tab" href="#menu3">Today's Online History</a></li>
+    <li><a data-toggle="tab" href="#menu2">All Sale History</a></li>
+    <li><a data-toggle="tab" href="#menu3">All Cancel History</a></li>
   </ul>
 
   <div class="tab-content">
     <div id="home" class="tab-pane fade in active">
-      <h3>Agent Information</h3>
-
-                            <table class="table table-bordered">
+    @if(session('message'))
+	<div class='alert alert-success'>
+		{{ session('message') }}
+	</div>
+	@endif
+	@if(session('error-message'))
+	<div class='alert alert-warning'>
+		{{ session('message') }}
+	</div>
+	@endif
+      <table class="table table-bordered">
 							
                                 <tr>
-                                   
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Contact Number</th>
-                                    <th>Roles</th>
-                                   
-                                    <th>Address</th>
-                                    <th>Avatar</th>
-                                    <th>Total Amount</th>
-                                  
+                                    <th>Coach</th>
+                                    <th>Company</th>
+                                    <th>Seats</th>
+                                    <th>Journey Date</th>
+                                    <th>Purchase</th>
+                                    <th>Passengers</th>
+                                    <th>Mobile</th>
+									<th>Rute</th>
+                                    <th>Action</th>
                                 </tr>
-                               
-                                    <tr>
-                                       
-                                        <td>{{ $member->name }}</td>
-                                        <td>{{ $member->email }}</td>
-                                        <td>{{ $member->contact_number }}</td>
-                                        <td>
-                                            @if(!empty($member->roles))
-                                                @foreach($member->roles as $v)
-                                                    <label class="label label-success">{{ $v->display_name }}</label>
-                                                @endforeach
-                                            @endif
-                                        </td>
-                                       
+                               <?php
+                                foreach($todays_sale_history as $sale):
+                                ?>
+                                <tr>
+								<td>{{$sale->route_name}}</td>
+								<td>{{$member->name}}</td>
+								<td>{{$sale->seat_number}}</td>
+								<td>{{$sale->booking_date}}</td>
+								<td>{{$sale->price}}</td>
+								<td>{{$sale->passenger_name}}</td>
+								<td>{{$sale->passenger_mobile}}</td>
+								<td>{{$sale->route_name}}</td>
+                                <th>
+                                {!! Form::open(['method' => 'get','route' => ['booking.cancel', $sale->id],'style'=>'display:inline', 'class'=>'delete']) !!}
 
-                                        <td>{{ $member->address }}</td>
-                                        <td><img src="{{Request::root()}}/uploads/profile/{{ $member->avatar }}" width="60" height="45"></td>
-                                        <td>
-                                            <?php
-
-                                              
-                                               echo $amount;
-                                            ?>
-                                             
-
-                                        </td>
-
-                                        
-                                    </tr>
-                               
-                            </table>
+                                {!! Form::submit('Cancel', ['class' => 'btn btn-danger']) !!}
+                                {!! Form::close() !!}
+                                </th>
+								
+								</tr>
+                                <?php endforeach;?>
+								</table>
     </div>
     <div id="menu1" class="tab-pane fade">
 								<table class="table table-bordered">
@@ -99,28 +127,86 @@ $amount=Agentsbalance::groupBy('agent_id')
                                     <th>Passengers</th>
                                     <th>Mobile</th>
 									<th>Rute</th>
+                                    
                                 </tr>
+                                <?php
+                                foreach($all_cancel_history as $sale):
+                                ?>
                                 <tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
+								<td>{{$sale->route_name}}</td>
+								<td>{{$member->name}}</td>
+								<td>{{$sale->seat_number}}</td>
+								<td>{{$sale->booking_date}}</td>
+								<td>{{$sale->price}}</td>
+								<td>{{$sale->passenger_name}}</td>
+								<td>{{$sale->passenger_mobile}}</td>
+								<td>{{$sale->route_name}}</td>
 								
 								</tr>
+                                <?php endforeach;?>
 								</table>
     </div>
     <div id="menu2" class="tab-pane fade">
-      <h3>Menu 2</h3>
-      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+								<table class="table table-bordered">
+							
+                                <tr>
+                                    <th>Coach</th>
+                                    <th>Company</th>
+                                    <th>Seats</th>
+                                    <th>Journey Date</th>
+                                    <th>Purchase</th>
+                                    <th>Passengers</th>
+                                    <th>Mobile</th>
+									<th>Rute</th>
+                                </tr>
+                                <?php
+                                foreach($all_sale_history as $sale):
+                                ?>
+                                <tr>
+								<td>{{$sale->route_name}}</td>
+								<td>{{$member->name}}</td>
+								<td>{{$sale->seat_number}}</td>
+								<td>{{$sale->booking_date}}</td>
+								<td>{{$sale->price}}</td>
+								<td>{{$sale->passenger_name}}</td>
+								<td>{{$sale->passenger_mobile}}</td>
+								<td>{{$sale->route_name}}</td>
+								
+								</tr>
+                                <?php endforeach;?>
+								</table>
     </div>
     <div id="menu3" class="tab-pane fade">
-      <h3>Menu 3</h3>
-      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+								<table class="table table-bordered">
+							
+                                <tr>
+                                    <th>Coach</th>
+                                    <th>Company</th>
+                                    <th>Seats</th>
+                                    <th>Journey Date</th>
+                                    <th>Purchase</th>
+                                    <th>Passengers</th>
+                                    <th>Mobile</th>
+									<th>Rute</th>
+                                </tr>
+                                <?php
+                                foreach($all_cancel_history as $sale):
+                                ?>
+                                <tr>
+								<td>{{$sale->route_name}}</td>
+								<td>{{$member->name}}</td>
+								<td>{{$sale->seat_number}}</td>
+								<td>{{$sale->booking_date}}</td>
+								<td>{{$sale->price}}</td>
+								<td>{{$sale->passenger_name}}</td>
+								<td>{{$sale->passenger_mobile}}</td>
+								<td>{{$sale->route_name}}</td>
+								
+								</tr>
+                                <?php endforeach;?>
+								</table>
     </div>
+    
   </div>
                     <div class="agent_user_information">
                         
@@ -167,5 +253,9 @@ $amount=Agentsbalance::groupBy('agent_id')
 
 
 @section('ownjs')
-
+<script>
+        $(".delete").on("submit", function(){
+            return confirm("Do you want to cancel this?");
+        });
+    </script>
 @endsection

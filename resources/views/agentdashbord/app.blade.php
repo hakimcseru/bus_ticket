@@ -123,14 +123,17 @@
 <?php 
 use App\Options;
 use App\Agentsbalance;
+use App\Agenttopsheet;
 $amount=Agentsbalance::groupBy('agent_id')
         ->where('agent_id', $member->id)
         ->sum('amount');
+
+$Agenttopsheet=Agenttopsheet::where('agent_id', $member->id)->get()->first();        
 ?>
 
 <!-- Floating score -->
 <div id="floating-score">
-    Your Balance:<br /> <?=$amount;?> TK
+    Your Balance:<br /> <?=$Agenttopsheet->current_balance;?> TK
 </div>
 
 <nav class="navbar navbar-default">

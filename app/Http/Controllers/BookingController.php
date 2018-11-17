@@ -18,6 +18,8 @@ use App\Route;
 use App\Booking;
 use App\Assign;
 use App\Bus;
+use App\Agenttopsheet;
+use App\Cancel;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -174,8 +176,6 @@ class BookingController  extends Controller
     {
         $this->validate($request, [
             'assign_id' => 'required',
-            'route_name' => 'required',
-            'route_id'=> 'required',
             'booking_date'=> 'required',
             'total_seat'=> 'required',
             'seat_number'=> 'required',
@@ -189,22 +189,28 @@ class BookingController  extends Controller
         ]);
         $input = $request->all();
 
+        $Agenttopsheet = Agenttopsheet::where('agent_id',Auth::user()->id)->get()->first();
+        if($Agenttopsheet->current_balance<$input['price'])
+        return redirect()->back()->with('error-message', 'Your current balance is low!! Please deposit');
+
+        $assig=Assign::find($input['assign_id']);
+
 
         $booking = new Booking();
         $booking->assign_id=$input['assign_id'];
-        $booking->route_id=$input['route_id'];
-        $booking->route_name=$input['route_name'];
+        $booking->route_id=$assig->route_id;
+        $booking->route_name=$assig->route_name;
         $booking->booking_date=$input['booking_date'];
-        $booking->user_id='NULL';
+        $booking->user_id=0;
         $booking->total_seat=$input['total_seat'];
-        $booking->seat_number=$input['seat_number'];
+        $booking->seat_number=json_encode(explode(",",$input['seat_number']));
         $booking->price=$input['price'];
-        $booking->discount=$input['discount'];
+        $booking->discount=0;
         $booking->pickup_location=$input['pickup_location'];
         $booking->drop_location=$input['drop_location'];
         $booking->admin_id=Auth::user()->id;
-        $booking->status=0;
-        $booking->order_status='NULL';
+        //$booking->status=0;
+        //$booking->order_status='NULL';
 
         $booking->currency='BDT';
 
@@ -219,28 +225,19 @@ class BookingController  extends Controller
         $booking->passenger_email=$input['passenger_email'];
         $booking->total_paid=$input['total_paid'];
         $booking->total_refund=$input['total_refund'];
-        $booking->name=$input['name'];
-        $booking->name=$input['name'];
-        $booking->name=$input['name'];
-        $booking->name=$input['name'];
-
-
-
-        $user->start_point=$input['start_point'];
-        $user->start_point_name=Location::find($input['start_point'])->name;
-        $user->end_point=$input['end_point'];
-        $user->end_point_name=Location::find($input['end_point'])->name;
-        $user->stoppage_points=$stoped_points;
        
-        $user->distance=$input['distance'];
-        $user->approximate_time=$input['approximate_time'];
-        $user->status=$input['status'];
-        $user->admin_id=Auth::user()->id;
+       if($booking->save())
+        {
+            $Agenttopsheet->current_balance=$Agenttopsheet->current_balance-$booking->price;
+            $Agenttopsheet->total_purchased_amount=$Agenttopsheet->total_purchased_amount+$booking->price;
+            $Agenttopsheet->save();
+            
+        }
 
-        $user->save();
+        return redirect()->back()->with('message', 'Thanks for the purchase!');
 
-        return redirect()->route('route.index')
-            ->with('success','Route created successfully');
+        //return redirect()->route('route.index')
+        //    ->with('success','Route created successfully');
     }
 
     /**
@@ -335,5 +332,52 @@ class BookingController  extends Controller
         $user->delete();
         return redirect()->route('route.index')
             ->with('success','Route deleted successfully');
+    }
+    public function cancel($id)
+    {
+        
+        $booking=Booking::find($id);
+        $cancel= new Cancel();
+        $cancel->id=$booking->id;
+        $cancel->cancel_date=date('Y-m-d');
+        $cancel->assign_id=$booking->assign_id;
+        $cancel->route_id=$booking->route_id;
+        $cancel->route_name=$booking->route_name;
+        $cancel->booking_date=$booking->booking_date;
+        $cancel->user_id=$booking->user_id;
+        $cancel->total_seat=$booking->total_seat;
+        $cancel->seat_number=$booking->seat_number;
+        $cancel->price=$booking->price;
+        $cancel->discount=$booking->discount;
+        $cancel->pickup_location=$booking->pickup_location;
+        $cancel->drop_location=$booking->drop_location;
+        $cancel->admin_id=$booking->admin_id;
+        $cancel->status=$booking->status;
+        $cancel->order_status=$booking->order_status;
+
+        $cancel->currency=$booking->currency;
+
+        $cancel->agent_id=$booking->agent_id;
+        $cancel->passenger_name=$booking->passenger_name;
+        $cancel->passenger_mobile=$booking->passenger_mobile;
+        $cancel->passenger_gender=$booking->passenger_gender;
+        $cancel->passenger_age=$booking->passenger_age;
+        $cancel->passenger_passport=$booking->passenger_passport;
+        $cancel->passenger_nationality=$booking->passenger_nationality;
+        $cancel->passenger_boarding_place=$booking->passenger_boarding_place;
+        $cancel->passenger_email=$booking->passenger_email;
+        $cancel->total_paid=$booking->total_paid;
+        $cancel->total_refund=$booking->total_refund;
+
+
+        
+        if($cancel->save())
+       { 
+
+           $booking->delete();
+           return redirect()->back()->with('message', 'You have cancel your data');
+       }
+       else return redirect()->back()->with('error-message', 'Something is not correct');
+
     }
 }

@@ -101,6 +101,10 @@ Route::get('/bookingfront/{id}/{data_date}', ['as'=>'bookingfront.index','uses'=
 
 
 Route::post('/bookingdata/reserve', ['as'=>'bookingdata.index','uses'=>'FrontController@bookingdatafunction']);
+Route::post('/bookingdata/agentbooking', ['as'=>'bookingdata.agentbooking','uses'=>'BookingController@agentbooking']);
+
+Route::get('/booking/cancel/{id}', ['as'=>'booking.cancel','uses'=>'BookingController@cancel']);
+
 
 
 /*Route::get('/new-books', function () {

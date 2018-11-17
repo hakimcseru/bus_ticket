@@ -165,6 +165,16 @@ use App\Booking;
 ?>
  <div class="row m-4">
  <div class="container">
+ @if(session('message'))
+	<div class='alert alert-success'>
+		{{ session('message') }}
+	</div>
+	@endif
+	@if(session('error-message'))
+	<div class='alert alert-warning'>
+		{{ session('error-message') }}
+	</div>
+	@endif
             <div class="col-xs-12 col-sm-12 col-md-12" style="overflow: scroll !important">
                  @if ($message = Session::get('success'))
                     <div class="alert alert-success">
@@ -214,6 +224,16 @@ use App\Booking;
                         <tr>
                             <td colspan="9" id="tdata-{{ $available_single_bus->id }}" class="tdata">
                              <div class="row" style="padding:10px">
+                              @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
                                     <div class="col-xs-5 col-sm-5 col-md-5" style="background-color:white;border:1px solid #ccc;">
                                         
                                             <table class="clientonfo" cellspacing="1">
@@ -244,8 +264,14 @@ use App\Booking;
                                         
                                     </div>  
                                     <div class="col-xs-7 col-sm-7 col-md-7" id="bookingdata-item">  
-                                   {!! Form::open(array('route' => 'bookingdata.index','method'=>'POST', 'files' => true, 'runat'=>'server')) !!}
+                                   {!! Form::open(array('route' => 'bookingdata.agentbooking','method'=>'POST', 'files' => true, 'runat'=>'server')) !!}
     
+                                       <input type="hidden" name='assign_id'  value="{{ $available_single_bus->id }}" />
+                                        <input type="hidden" name='booking_date' id='booking_date' value="<?=$_GET['start_date'];?>" />
+                                        <input type="hidden" name='total_seat'  value="" class="total_seat" />
+                                        <input type="hidden" name='seat_number'  value="" class="seat_number" />
+                                        <input type="hidden" name='price'  value="" class="price" />
+                                        
                                         
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group form-float">
@@ -259,14 +285,14 @@ use App\Booking;
                                                         <td width="25%">Discount</td>
                                                       </tr>
                                                       <tr>
-                                                      <td><div id="show_selected_seat"></div>  </td>
+                                                      <td><div id="show_selected_seat-{{ $available_single_bus->id }}"></div>  </td>
                                                         <td></rd>
-                                                        <td><div id="show_price"></div></td>
-                                                        <td><div id="show_discount"></div></td>
+                                                        <td><div id="show_price-{{ $available_single_bus->id }}"></div></td>
+                                                        <td><div id="show_discount-{{ $available_single_bus->id }}"></div></td>
                                                       </tr>
                                                       <tr>
                                                         <td >Total</td>
-                                                        <td colspan="3"><div id="show_total_price"></div></td>
+                                                        <td colspan="3"><div id="show_total_price-{{ $available_single_bus->id }}"></div></td>
                                                        
                                                       </tr>
                                                       <tr>
@@ -274,7 +300,7 @@ use App\Booking;
                                                       </tr>
                                                       <tr>
                                                         <td >Grand Total</td>
-                                                        <td  colspan="3"><div id="grand_total_price"></div></td>
+                                                        <td  colspan="3"><div id="grand_total_price-{{ $available_single_bus->id }}"></div></td>
                                                         
                                                       </tr>
                                                     </tbody>
@@ -288,27 +314,45 @@ use App\Booking;
                                             <table class="clientonfo" cellspacing="1">
                                                 <tr>
                                                   <td width="25%">Passanger Name: </td>
-                                                  <td  width="25%"><input /></td>
+                                                  <td  width="25%">
+                                                  {!! Form::text('passenger_name', null, array( 'required' => 'required','class' => 'form-control')) !!}
+                                                  </td>
                                                   <td  width="25%" style="text-align:right">Mobile no:</td>
-                                                  <td  width="25%"><input /></td>
+                                                  <td  width="25%">
+                                                  {!! Form::text('passenger_mobile', null, array( 'required' => 'required','class' => 'form-control')) !!}
+                                                  </td>
                                                 </tr>
                                                 <tr>
                                                   <td width="25%">Gender: </td>
-                                                  <td  width="25%"><input /></td>
+                                                  <td  width="25%">
+                                                  {!! Form::select('passenger_gender', array('Male'=>'Male','Female'=>'Female'),'Male' ,array( 'required' => 'required','class' => 'form-control')) !!}
+                                                  </td>
                                                   <td  width="25%" style="text-align:right">Age:</td>
-                                                  <td  width="25%"><input /></td>
+                                                  <td  width="25%">
+                                                  {!! Form::text('passenger_age', null, array( 'required' => 'required','class' => 'form-control')) !!}
+                                                  </td>
                                                 </tr>
                                                 <tr>
                                                   <td width="25%">Passport No: </td>
-                                                  <td  width="25%"><input /></td>
+                                                  <td  width="25%">
+                                                  {!! Form::text('passenger_passport', null, array( 'class' => 'form-control')) !!}
+                                                  
+                                                  </td>
                                                   <td  width="25%" style="text-align:right">Nationality:</td>
-                                                  <td  width="25%"><input /></td>
+                                                  <td  width="25%">
+                                                  {!! Form::text('passenger_nationality', null, array( 'class' => 'form-control')) !!}
+
+                                                  </td>
                                                 </tr>
                                                 <tr>
                                                   <td width="25%">Boarding place: </td>
-                                                  <td  width="25%"><input /></td>
+                                                  <td  width="25%">
+                                                  {!! Form::text('passenger_boarding_place', null, array('class' => 'form-control')) !!}
+                                                  </td>
                                                   <td  width="25%" style="text-align:right">Email:</td>
-                                                  <td  width="25%"><input /></td>
+                                                  <td  width="25%">
+                                                  {!! Form::text('passenger_email', null, array('class' => 'form-control')) !!}
+                                                  </td>
                                                 </tr>
                                                 <tr>
                                                   <td width="25%">Boarding point: </td>
@@ -317,29 +361,16 @@ use App\Booking;
                                                   <td  width="25%">{!! Form::select('drop_location', [], null, array('required' => 'required','class' => 'form-control')) !!}</td>
                                                 </tr>
                                                 <tr>
-                                                  <td width="25%">Goods: </td>
-                                                  <td  width="25%"><input /></td>
-                                                  <td  width="25%" style="text-align:right">Gross pay:</td>
-                                                  <td  width="25%"><input /></td>
+                                                  <td width="25%">Total Paid: </td>
+                                                  <td  width="25%">
+                                                  {!! Form::text('total_paid', null, array('class' => 'form-control')) !!}
+                                                  </td>
+                                                  <td  width="25%" style="text-align:right">Total Refund:</td>
+                                                  <td  width="25%">
+                                                  {!! Form::text('total_refund', null, array('class' => 'form-control')) !!}
+                                                  </td>
                                                 </tr>
-                                                 <tr>
-                                                  <td width="25%">Goods discount: </td>
-                                                  <td  width="25%"><input /></td>
-                                                  <td  width="25%" style="text-align:right">Net pay:</td>
-                                                  <td  width="25%"><input /></td>
-                                                </tr>
-                                                <tr>
-                                                  <td width="25%">Total paid:</td>
-                                                  <td  width="25%"><input /></td>
-                                                  <td  width="25%" style="text-align:right">Refund:</td>
-                                                  <td  width="25%"><input /></td>
-                                                </tr>
-                                                <tr>
-                                                  <td width="25%">Ticket no: </td>
-                                                  <td  width="25%"><input /></td>
-                                                  <td  width="25%" style="text-align:right">Offer code:</td>
-                                                  <td  width="25%">{!! Form::text('offer_code', null, array('placeholder' => 'Offer code', 'id'=>'offer_code','class' => 'form-control')) !!}</td>
-                                                </tr>
+                                               
                                             </table>
                                          </div>
                                          <input placeholder="start_date_resarve" id="start_date_resarve" class="form-control" value="<?php if($start_date_resarve!=null){echo $start_date_resarve; } ?>" name="start_date_resarve" type="hidden">
@@ -348,9 +379,13 @@ use App\Booking;
                                         <div id="grand_total_price2"></div>  
                                         <div id="total_seat_reserve"></div>
                                        
-
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <button type="submit" class="btn btn-success bookingnext" style="width:100%">Continue</button>
+                                    <div class="row" style="padding-top:20px;">
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                            <button type="submit" class="btn btn-success " style="width:100%">Continue</button>
+                                        </div>
+                                         <div class="col-xs-6 col-sm-6 col-md-6">
+                                            <button type="submit" class="btn btn-success " style="width:100%">Reset</button>
+                                        </div>
                                         </div>
 
                                         {!! Form::close() !!}
@@ -362,281 +397,6 @@ use App\Booking;
                 </table>
 
 
-                <!--modal-->
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog  modal-lg" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Click on Seat to select / deselect</h4>
-                          </div>
-                          <div class="modal-body">
-
-                                <div class="row">
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
-                                        <div id="seat_plan_number">
-                                        </div>
-                                        
-                                    </div>  
-                                    <div class="col-xs-6 col-sm-6 col-md-6" id="bookingdata-item">  
-                                   {!! Form::open(array('route' => 'bookingdata.index','method'=>'POST', 'files' => true, 'runat'=>'server')) !!}
-    
-                                        
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group form-float">
-
-                                                <table class="table">
-                                                    <tbody>
-                                                      <tr>
-                                                        <td width="50%">Seat</td>
-                                                        <td><div id="show_selected_seat"></div>  </td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td>Price</td>
-                                                        <td><div id="show_price"></div></td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td>Total</td>
-                                                        <td><div id="show_total_price"></div></td>
-                                                       
-                                                      </tr>
-                                                      <tr>
-                                                        <td>Discount</td>
-                                                        <td><div id="show_discount"></div></td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td>Grand Total</td>
-                                                        <td><div id="grand_total_price"></div></td>
-                                                      </tr>
-                                                    </tbody>
-                                                  </table>
-
-
-                                                
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group form-float">
-                                                <strong>pickup_location :</strong>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                               
-                                                     {!! Form::select('pickup_location', [], null, array('required' => 'required','class' => 'form-control')) !!}
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group form-float">
-                                                <strong>drop_location :</strong>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                               
-                                                     {!! Form::select('drop_location', [], null, array('required' => 'required','class' => 'form-control')) !!}
-
-                                                </div>
-                                            </div>
-                                        </div> 
-
-                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group form-float">
-                                                <strong>Offer Code :</strong>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                               
-                                                    {!! Form::text('offer_code', null, array('placeholder' => 'Offer code', 'id'=>'offer_code','class' => 'form-control')) !!}
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group form-float">
-                                              
-
-                                              <input placeholder="start_date_resarve" id="start_date_resarve" class="form-control" value="<?php if($start_date_resarve!=null){echo $start_date_resarve; } ?>" name="start_date_resarve" type="hidden">
-                                            </div>
-                                        </div> 
-
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group form-float">
-                                                <div id="hidden_selected_seat"></div>  
-                                                <div id="hidden_selected_assign"></div>  
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group form-float">
-                                                <div id="grand_total_price2"></div>  
-                                                <div id="total_seat_reserve"></div>  
-                                            </div>
-                                        </div>
-
-                                          
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <button type="submit" class="btn btn-success bookingnext">Continue</button>
-                                        </div>
-
-                                        {!! Form::close() !!}
-                                    </div>  
-                                </div>  
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                           
-                          </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <!--next modal open-->
-                <!--next modal open-->
-                <!--next modal open-->
-                <!--modal-->
-                <div class="modal fade" id="myModalnext" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog  modal-lg" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Buy bus tickets</h4>
-                          </div>
-                          <div class="modal-body">
-                              {!! Form::open(array('route' => 'pay.index','method'=>'GET', 'files' => true, 'runat'=>'server')) !!}
-                                <div class="row">
-                                    <div class="col-xs-8 col-sm-8 col-md-8">
-                                        <div class="passenger_details_total"> 
-                                          <h4>Passenger Details</h4>
-                                          <div class="passenger_details"> 
-                                              
-
-                                            
-                                               <div class="form-group form-float">
-                                                  <div class="input-group" id="pas_details_place">
-                                                  </div>
-                                              </div>
-
-                                             
-                                           
-                                            
-                                              <div class="form-group form-float">
-                                                  <strong>Email <span style="color: red">*</span> :</strong>
-                                                  <div class="input-group">
-                                                      <span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
-                                                      {!! Form::text('email', null, array('placeholder' => 'Email', 'required' => 'required','class' => 'form-control')) !!}
-
-                                                  </div>
-                                              </div>
-                                           
-                                              <div class="form-group form-float">
-                                                  <strong>Contact number <span style="color: red">*</span>:</strong>
-                                                  <div class="input-group">
-                                                      <span class="input-group-addon" id="basic-addon1"><i class="fa fa-phone" aria-hidden="true"></i></span>
-                                                      {!! Form::text('contact_number', null, array('placeholder' => 'Contact number', 'required' => 'required','class' => 'form-control')) !!}
-
-                                                  </div>
-                                              </div>
-                                              <div class="form-group form-float">
-                                                  <div class="input-group" id="order_id_final">
-                                                     
-                                                  </div>
-                                              </div>
-                                            </div>  
-                                         </div>  
-                                    </div>  
-                                  
-                                    <div class="col-xs-4 col-sm-4 col-md-4">  
-                                     
-                                        
-                                              <div class="journey_total">
-                                                 <h4>Journey Details</h4>
-                                                <div class="journal_details">
-                                                   
-
-                                                    <p id="show_selected_seat_final"></p>
-                                                    <p id="start_date_resarve"></p>
-                                                    <p id="drop_location_pickup_location"></p>
-                                                </div>
-                                              </div>
-                                           
-                                         
-                                    </div> 
-                                </div> 
-
-                                <div class="row">   
-                                    <div class="col-xs-8 col-sm-8 col-md-8"> 
-                                      <div class="custom_payment_area_total">    
-                                        <h4 id="paydetails">Payment Details</h4>
-                                        <div class="custom_payment_area">
-                                          <p id="total_amount_payable_hidden"></p>
-                                           <h4>Total Amount Payable ৳.<span id="total_amount_payable"> 0</span></h4>
-                                          <ul class="nav nav-tabs">
-                                            <li class="active"><a data-toggle="tab" href="#home">bKash</a></li>
-                                            <li><a data-toggle="tab" href="#menu1">Cash on Delivery</a></li>
-                                            <li><a data-toggle="tab" href="#menu2">Credit or Debit Card</a></li>
-                                            <li><a data-toggle="tab" href="#menu3">Internet Banking</a></li>
-                                          </ul>
-
-                                          <div class="tab-content">
-                                            <div id="home" class="tab-pane fade in active">
-                                             
-                                              <p>Your journey time is too close. Payment through bKash is not available. Try paying through Credit / Debit Cards or Internet banking.</p>
-                                            </div>
-                                            <div id="menu1" class="tab-pane fade">
-                                             
-                                              <p>Cash on Delivery is not available at this moment. Try paying through bKash, Credit / Debit Cards or Internet banking.</p>
-                                            </div>
-                                            <div id="menu2" class="tab-pane fade">
-                                             
-                                              <p>You would be redirected to a third party payment gateway where you can pay with your credit or debit cards. Your payment transactions are 100% secure. On successful payment, you would get a confirmed ticket.</p>
-                                            </div>
-                                            <div id="menu3" class="tab-pane fade">
-                                             
-                                              <p>You would be redirected to a third party payment gateway where you can pay with your internet banking accounts. Your payment transactions are 100% secure. On successful payment, you would get a confirmed ticket.</p>
-                                            </div>
-                                          </div>
-
-                                        </div>
-                                        </div>
-
-                                   </div> 
-
-                                    <div class="col-xs-4 col-sm-4 col-md-4">
-                                          <div class="fare_total">
-                                             <h4>Fare Details</h4>
-                                             <div class="fare_details">
-                                                       
-
-                                                        <ul>
-                                                          <li>Ticket Price <span id="grand_total_price_final" class="fare_right"></span></li>
-                                                          <li>Albaraka Fee <span id="albaraka_free" class="fare_right">0</span></li>
-                                                          <li>Bank Charges <span id="bankcharge" class="fare_right">0</span></li>
-                                                          <li>Discount <span id="discount" class="fare_right">0</span></li>
-                                                          <li>Total <span id="total_with_bank_free" class="fare_right">0</span></li>
-                                                        </ul>
-                                                    
-                                               </div>
-                                           </div>
-                                     </div>  
-                                  </div> 
-                                  <div class="row">
-                                      <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <button type="submit" class="btn btn-success">Proceed To Order</button>
-                                      </div>
-                                  </div> 
-                                {!! Form::close() !!} 
-                          </div>
-                          <div class="modal-footer">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                           
-                          </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!--next modal open-->
-                <!--next modal open-->
-                <!--next modal open-->
 
                
             </div>       
@@ -746,14 +506,18 @@ use App\Booking;
 
                                  $("#hidden_selected_seat").html('<input type="hidden" class="check" name="order_seat" value="'+show_selected.join(",")+'" required>');
 
-                                 $("#show_selected_seat").html(show_selected.join(", "));
+                                 $("#show_selected_seat-"+assign_id).html(show_selected.join(", "));
 
+                                 $(".total_seat").val(show_selected.length);
+                                 $(".seat_number").val(show_selected.join(", "));
                                 
-                                 $("#show_price").html(data.price_info.price*$("input[type=checkbox]:checked").length);
-                                 $("#show_total_price").html(data.price_info.price*$("input[type=checkbox]:checked").length);
-                                 $("#show_discount").html(discount);
+                                 $("#show_price-"+assign_id).html(data.price_info.price*$("input[type=checkbox]:checked").length);
+                                 $("#show_total_price-"+assign_id).html(data.price_info.price*$("input[type=checkbox]:checked").length);
+                                 $("#show_discount-"+assign_id).html(discount);
                                  grand_total_price=((100-discount)*(data.price_info.price*$("input[type=checkbox]:checked").length))/100
-                                 $("#grand_total_price").html(grand_total_price);
+                                 $("#grand_total_price-"+assign_id).html(grand_total_price);
+                                 $(".price").val(grand_total_price);
+
 
                                  $("#grand_total_price2").html('<input type="hidden" class="check" name="grand_total_price" value="'+grand_total_price+'">');
                                  $("#total_seat_reserve").html('<input type="hidden" class="check" name="total_seat_reserve" value="'+$("input[type=checkbox]:checked").length+'">');
