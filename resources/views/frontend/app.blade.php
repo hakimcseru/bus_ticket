@@ -193,9 +193,7 @@
     background-color:#d9edf7;
 }
 
-
-
- </style>
+</style>
 
 </head>
 
@@ -456,9 +454,7 @@
                 
             </ul>
 
-            
-
-
+        
 
             <ul class="nav navbar-nav navbar-right">
                 <!--<li><a href="{{ url('/print') }}">Wishlist ({{ Cart::instance('default')->count(false) }})</a></li>-->
@@ -488,9 +484,6 @@
                         @endif
 
                 @endif
-
-
-
 
             </ul>
         </div><!-- /.navbar-collapse -->
@@ -652,9 +645,166 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
         <li><a href="{{route('terms_and_conditions')}}">Terms & Conditions</a></li>
         <li><a href="{{route('terms_of_use')}}">Terms of Use</a></li>
         <li><a href="{{route('privacy_policy')}}">Privacy Policy</a></li>
-        <li><a href="{{route('contact_us')}}">Feedback</a></li>
-        <li><a href="{{route('contact_us')}}">Contact Us</a></li>
+        <li><a href="{{route('feedback')}}">Feedback</a></li>
+        <li><a href="{{route('contact')}}">Contact Us</a></li>
     </ul>
+</div>
+<div class="ticket_footer_top_are">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ticket_footer_top">
+                    <div class="row">
+                        <div class="col-md-12">
+                        <div class="text-center">
+                            <h2>Our Routes & Check-Points</h2>
+                        </div><hr>
+                            <h3 class="label label-primary" style="font-size: 100%;">Route: Ramganj - Tongi</h3>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col-md-12">
+                                    <ul class="list-inline">
+                                        <li class="label label-success">Ramganj Counter</li>
+                                        <li class="label label-success">Baluya Chowmuhuni</li>
+                                        <li class="label label-success">Alipur</li>
+                                        <li class="label label-success">Kachua Bazar</li>
+                                        <li class="label label-success">Dashgharia</li>
+                                        <li class="label label-success">Chatkhil</li>
+                                        <li class="label label-success">Halima Dighir Par</li>
+                                        <li class="label label-success">Joyag</li>
+                                        <li class="label label-success">Bawor Court</li>
+                                        <li class="label label-success">Junudpur</li>
+                                        <li class="label label-success">Banglabazar</li>
+                                        <li class="label label-success">Sonaimuri</li>
+                                        <li class="label label-success">Sonaimuri Baipass</li>
+                                        <li class="label label-success">Sonaimuri Chatarpyia</li>
+                                        <li class="label label-success">Bipulsar</li>
+                                        <li class="label label-success">Nather Petuya</li>
+                                        <li class="label label-success">Chandina</li>
+                                        <li class="label label-success">Chittagong Road</li>
+                                        <li class="label label-success">Signboard</li>
+                                        <li class="label label-success">ShanirAkhra</li>
+                                        <li class="label label-success">Saydabad</li>
+                                        <li class="label label-success">Maniknagar</li>
+                                        <li class="label label-success">Malibagh</li>
+                                        <li class="label label-success">Kuril Biswaroad</li>
+                                        <li class="label label-success">Airport</li>
+                                        <li class="label label-success">Uttara</li>
+                                        <li class="label label-success">Tongi</li>
+                                    </ul>
+                                </div>
+                            </div>
+                               
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 class="label label-primary" style="font-size: 100%;">Route: Tongi - Ramganj</h3>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col-md-12">
+                                    <ul class="list-inline">
+                                        <li class="label label-success">Tongi</li>
+                                        <li class="label label-success">Uttara</li>
+                                        <li class="label label-success">Airport</li>
+                                        <li class="label label-success">Kuril Biswaroad</li>
+                                        <li class="label label-success">Malibagh</li>
+                                        <li class="label label-success">Maniknagar</li>
+                                        <li class="label label-success">Saydabad</li>
+                                        <li class="label label-success">ShanirAkhra</li>
+                                        <li class="label label-success">Signboard</li>
+                                        <li class="label label-success">Chittagong Road</li>
+                                        <li class="label label-success">Chandina</li>
+                                        <li class="label label-success">Nather Petuya</li>
+                                        <li class="label label-success">Bipulsar</li>
+                                        <li class="label label-success">Sonaimuri Chatarpyia</li>
+                                        <li class="label label-success">Sonaimuri Baipass</li>
+                                        <li class="label label-success">Sonaimuri</li>
+                                        <li class="label label-success">Banglabazar</li>
+                                        <li class="label label-success">Junudpur</li>
+                                        <li class="label label-success">Bawor Court</li>
+                                        <li class="label label-success">Joyag</li>
+                                        <li class="label label-success">Halima Dighir Par</li>
+                                        <li class="label label-success">Chatkhil</li>
+                                        <li class="label label-success">Dashgharia</li>
+                                        <li class="label label-success">Kachua Bazar</li>
+                                        <li class="label label-success">Alipur</li>
+                                        <li class="label label-success">Baluya Chowmuhuni</li>
+                                        <li class="label label-success">Ramganj Counter</li>
+                                    </ul>
+                                </div>
+                            </div>
+                               
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 class="label label-primary" style="font-size: 100%;">Route: Ramganj - Mirpur</h3>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col-md-12">
+                                    <ul class="list-inline">
+                                        <li class="label label-success">Ramganj Counter</li>
+                                        <li class="label label-success">Baluya Chowmuhuni</li>
+                                        <li class="label label-success">Alipur</li>
+                                        <li class="label label-success">Kachua Bazar</li>
+                                        <li class="label label-success">Dashgharia</li>
+                                        <li class="label label-success">Chatkhil</li>
+                                        <li class="label label-success">Halima Dighir Par</li>
+                                        <li class="label label-success">Joyag</li>
+                                        <li class="label label-success">Bawor Court</li>
+                                        <li class="label label-success">Junudpur</li>
+                                        <li class="label label-success">Banglabazar</li>
+                                        <li class="label label-success">Sonaimuri</li>
+                                        <li class="label label-success">Sonaimuri Baipass</li>
+                                        <li class="label label-success">Sonaimuri Chatarpyia</li>
+                                        <li class="label label-success">Bipulsar</li>
+                                        <li class="label label-success">Nather Petuya</li>
+                                        <li class="label label-success">....</li>
+                                        <li class="label label-success">Mirpur-1</li>
+                                        <li class="label label-success">Mirpur-10</li>
+                                    </ul>
+                                </div>
+                            </div>
+                               
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 class="label label-primary" style="font-size: 100%;">Route: Mirpur - Ramganj</h3>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col-md-12">
+                                    <ul class="list-inline">
+                                        <li class="label label-success">Mirpur-10</li>
+                                        <li class="label label-success">Mirpur-1</li>
+                                        <li class="label label-success">....</li>
+                                        <li class="label label-success">Nather Petuya</li>
+                                        <li class="label label-success">Bipulsar</li>
+                                        <li class="label label-success">Sonaimuri Chatarpyia</li>
+                                        <li class="label label-success">Sonaimuri Baipass</li>
+                                        <li class="label label-success">Sonaimuri</li>
+                                        <li class="label label-success">Banglabazar</li>
+                                        <li class="label label-success">Junudpur</li>
+                                        <li class="label label-success">Bawor Court</li>
+                                        <li class="label label-success">Joyag</li>
+                                        <li class="label label-success">Halima Dighir Par</li>
+                                        <li class="label label-success">Chatkhil</li>
+                                        <li class="label label-success">Dashgharia</li>
+                                        <li class="label label-success">Kachua Bazar</li>
+                                        <li class="label label-success">Alipur</li>
+                                        <li class="label label-success">Baluya Chowmuhuni</li>
+                                        <li class="label label-success">Ramganj Counter</li>
+                                    </ul>
+                                </div>
+                            </div>
+                               
+                        </div>
+                    </div>
+                    <hr>
+                </div>   
+            </div>
+        </div>
+    </div>
 </div>
 <div class="footer_area">
     <div class="container">

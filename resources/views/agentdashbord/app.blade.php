@@ -207,8 +207,14 @@ $amount=Agentsbalance::groupBy('agent_id')
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="{{ request()->is('/agentdashbord') ? 'active' : '' }}"><a href="{{ url('/agentdashbord') }}">Dashboard<span class="sr-only">(current)</span></a></li>
-                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">My Profile</a></li>
-                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Logout</a></li>         
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ url('/agentprofile') }}">My Profile</a></li>
+                <li class="{{ request()->is('contact') ? 'active' : '' }}">
+                <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="float: left;background: #185C83; margin-top:14px;">
+                                                {{ csrf_field() }}
+                                                <button type="submit" class="" style="border: medium none;background: #185C83;color: #fff">Log Out</button>
+                                            </form>
+                
+                </li>         
             </ul>
 
         </div><!-- /.navbar-collapse -->

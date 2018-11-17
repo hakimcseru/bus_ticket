@@ -1,7 +1,7 @@
 <ul id="slider" class="bxslider">
-    <li><img src="http://localhost:8000/images/image-gallery/slider4.jpg" alt=""/></li>
-    <li><img src="http://localhost:8000/images/image-gallery/slider5.jpg" alt=""/></li>
-    <li><img src="http://localhost:8000/images/image-gallery/slider6.jpg" alt=""/></li>
+    <li><img src="{{Request::root()}}/images/image-gallery/slider4.jpg" alt=""/></li>
+    <li><img src="{{Request::root()}}/images/image-gallery/slider5.jpg" alt=""/></li>
+    <li><img src="{{Request::root()}}/images/image-gallery/slider6.jpg" alt=""/></li>
 </ul>
 <div class="ticket_header_filter_area" {{--style="background-image: url(http://127.0.0.1:8000/images/ticket/header_img.png);
     background-repeat: no-repeat, repeat;

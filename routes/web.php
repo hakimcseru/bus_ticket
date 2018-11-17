@@ -32,6 +32,11 @@ Route::get('/home', 'HomeController@index')->name('home');*/
 
 /*sslcommerce url end*/
 
+/// contact page //
+Route::get('/contact', ['as'=>'contact','uses'=>'ContactController@show'] );
+Route::post('/contact',  ['as'=>'contact','uses'=>'ContactController@mailToAdmin']); 
+Route::get('/feedback', ['as'=>'feedback','uses'=>'ContactController@feedback'] );
+// contact p[ahe]
 
 
 Route::get('/contact_us', ['as'=>'contact_us','uses'=>'FrontController@contact_us']);
@@ -121,7 +126,7 @@ Route::get('/top-journals', 'FrontController@topJournals');
 Route::get('/top-seminars', 'FrontController@topSeminars');
 
 
-Route::get('/contact', 'FrontController@contact');
+//Route::get('/contact', 'FrontController@contact');
 
 
 

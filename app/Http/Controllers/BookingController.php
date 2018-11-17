@@ -134,10 +134,6 @@ class BookingController  extends Controller
     public function store(Request $request)
     {
 
-
-
-
-
         $this->validate($request, [
             'name' => 'required',
             'status' => 'required'
@@ -157,6 +153,79 @@ class BookingController  extends Controller
 
         $user = new Route();
         $user->name=$input['name'];
+        $user->start_point=$input['start_point'];
+        $user->start_point_name=Location::find($input['start_point'])->name;
+        $user->end_point=$input['end_point'];
+        $user->end_point_name=Location::find($input['end_point'])->name;
+        $user->stoppage_points=$stoped_points;
+       
+        $user->distance=$input['distance'];
+        $user->approximate_time=$input['approximate_time'];
+        $user->status=$input['status'];
+        $user->admin_id=Auth::user()->id;
+
+        $user->save();
+
+        return redirect()->route('route.index')
+            ->with('success','Route created successfully');
+    }
+
+    public function agentbooking(Request $request)
+    {
+        $this->validate($request, [
+            'assign_id' => 'required',
+            'route_name' => 'required',
+            'route_id'=> 'required',
+            'booking_date'=> 'required',
+            'total_seat'=> 'required',
+            'seat_number'=> 'required',
+            'price'=> 'required',
+            'pickup_location'=> 'required',
+            'drop_location'=> 'required',
+            'passenger_name'=>'required',
+            'passenger_gender'=> 'required',
+            'passenger_age'=> 'required',
+            'total_paid'=> 'required'
+        ]);
+        $input = $request->all();
+
+
+        $booking = new Booking();
+        $booking->assign_id=$input['assign_id'];
+        $booking->route_id=$input['route_id'];
+        $booking->route_name=$input['route_name'];
+        $booking->booking_date=$input['booking_date'];
+        $booking->user_id='NULL';
+        $booking->total_seat=$input['total_seat'];
+        $booking->seat_number=$input['seat_number'];
+        $booking->price=$input['price'];
+        $booking->discount=$input['discount'];
+        $booking->pickup_location=$input['pickup_location'];
+        $booking->drop_location=$input['drop_location'];
+        $booking->admin_id=Auth::user()->id;
+        $booking->status=0;
+        $booking->order_status='NULL';
+
+        $booking->currency='BDT';
+
+        $booking->agent_id=Auth::user()->id;
+        $booking->passenger_name=$input['passenger_name'];
+        $booking->passenger_mobile=$input['passenger_mobile'];
+        $booking->passenger_gender=$input['passenger_gender'];
+        $booking->passenger_age=$input['passenger_age'];
+        $booking->passenger_passport=$input['passenger_passport'];
+        $booking->passenger_nationality=$input['passenger_nationality'];
+        $booking->passenger_boarding_place=$input['passenger_boarding_place'];
+        $booking->passenger_email=$input['passenger_email'];
+        $booking->total_paid=$input['total_paid'];
+        $booking->total_refund=$input['total_refund'];
+        $booking->name=$input['name'];
+        $booking->name=$input['name'];
+        $booking->name=$input['name'];
+        $booking->name=$input['name'];
+
+
+
         $user->start_point=$input['start_point'];
         $user->start_point_name=Location::find($input['start_point'])->name;
         $user->end_point=$input['end_point'];

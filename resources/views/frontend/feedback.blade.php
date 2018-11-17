@@ -17,7 +17,7 @@ hr {
 
 @endsection
 @section('content')
-<h1 class="mb-2 text-center">Contact Us</h1>
+<h1 class="mb-2 text-center">Send your feedback</h1>
 	
 	@if(session('message'))
 	<div class='alert alert-success'>
