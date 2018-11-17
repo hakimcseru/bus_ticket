@@ -738,7 +738,7 @@
                             else {
 
                                 console.log('odd')
-                                $(this).css("color","#fff");
+                                $(this).css("color","#CCC");
                             }
                             console.log(click)
                         });

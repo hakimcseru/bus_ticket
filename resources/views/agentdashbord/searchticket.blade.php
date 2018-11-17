@@ -40,6 +40,9 @@ li
     left: 45%;
   
 }
+.booked_seat div{
+    background-color:#96BDFA ;
+}
 
 .total_seat span ul li input[type="checkbox"]{}
 
@@ -471,7 +474,7 @@ use App\Booking;
                     }
                 else {
                     console.log('odd')
-                    $(this).css("color","#fff");
+                    $(this).css("color","#CCC");
                     }
                     console.log(click)
                 });
@@ -483,7 +486,7 @@ use App\Booking;
                     }
                 else {
                     console.log('odd')
-                    $(this).css("color","#fff");
+                    $(this).css("color","#ccc");
                   }
                  console.log(click)
               });
