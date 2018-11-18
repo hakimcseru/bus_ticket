@@ -221,12 +221,18 @@ class AgentsController extends Controller
         if($agents_bill->save())
         {
             $Agenttopsheet = Agenttopsheet::where('agent_id',$user->id)->get()->first();
-            if(!$Agenttopsheet) $Agenttopsheet= new Agenttopsheet();
+            if(!$Agenttopsheet) 
+            {
+                $Agenttopsheet= new Agenttopsheet();
+              $Agenttopsheet->agent_id=$user->id;      
+            }
+            
             $Agenttopsheet->total_amount=$Agenttopsheet->total_amount+$input['amount'];
             $Agenttopsheet->ticket_amount=$Agenttopsheet->ticket_amount+$agent_same_amount_user;
             $Agenttopsheet->current_balance=$Agenttopsheet->current_balance+$agent_same_amount_user;
             $Agenttopsheet->total_commission=$Agenttopsheet->ticket_amount-$Agenttopsheet->total_amount;
             $Agenttopsheet->save();
+            
         }
 
 

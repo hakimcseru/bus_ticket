@@ -133,7 +133,7 @@ $Agenttopsheet=Agenttopsheet::where('agent_id', $member->id)->get()->first();
 
 <!-- Floating score -->
 <div id="floating-score">
-    Your Balance:<br /> <?=$Agenttopsheet->current_balance;?> TK
+    Your Balance:<br /> <?=$Agenttopsheet?$Agenttopsheet->current_balance:0;?> TK
 </div>
 
 <nav class="navbar navbar-default">

@@ -15,6 +15,7 @@ use App\Cancel;
 $amount=Agentsbalance::groupBy('agent_id')
         ->where('agent_id', $member->id)
         ->sum('amount');
+$refill_history=Agentsbalance::where('agent_id', $member->id)->get();
 $todays_deposit=Agentsbalance::groupBy('agent_id')
         ->where('agent_id', $member->id)
         ->where('date_of_bill', date('Y-m-d'))
@@ -47,7 +48,7 @@ $all_cancel_history=Cancel::where('agent_id', $member->id)
             <div class="row">
 				<div class="col-lg-3 agent-leftside">
 				<h3>Total Sale</h3>
-				<p><?=$Agenttopsheet->total_purchased_amount;?> TK</p>
+				<p><?=$Agenttopsheet?$Agenttopsheet->total_purchased_amount:0;?> TK</p>
 				<h3>Today's Online Sale</h3>
 				<p><?=$todays_total_sale;?></p>
 				<h3>Todays Online Ticket Sale</h3>
@@ -65,6 +66,7 @@ $all_cancel_history=Cancel::where('agent_id', $member->id)
     <li><a data-toggle="tab" href="#menu1">Today's Cancel History</a></li>
     <li><a data-toggle="tab" href="#menu2">All Sale History</a></li>
     <li><a data-toggle="tab" href="#menu3">All Cancel History</a></li>
+    <li><a data-toggle="tab" href="#menu4">Refill History</a></li>
   </ul>
 
   <div class="tab-content">
@@ -202,6 +204,61 @@ $all_cancel_history=Cancel::where('agent_id', $member->id)
 								<td>{{$sale->passenger_mobile}}</td>
 								<td>{{$sale->route_name}}</td>
 								
+								</tr>
+                                <?php endforeach;?>
+								</table>
+    </div>
+    <div id="menu3" class="tab-pane fade">
+								<table class="table table-bordered">
+							
+                                <tr>
+                                    <th>Coach</th>
+                                    <th>Company</th>
+                                    <th>Seats</th>
+                                    <th>Journey Date</th>
+                                    <th>Purchase</th>
+                                    <th>Passengers</th>
+                                    <th>Mobile</th>
+									<th>Rute</th>
+                                </tr>
+                                <?php
+                                foreach($all_cancel_history as $sale):
+                                ?>
+                                <tr>
+								<td>{{$sale->route_name}}</td>
+								<td>{{$member->name}}</td>
+								<td>{{$sale->seat_number}}</td>
+								<td>{{$sale->booking_date}}</td>
+								<td>{{$sale->price}}</td>
+								<td>{{$sale->passenger_name}}</td>
+								<td>{{$sale->passenger_mobile}}</td>
+								<td>{{$sale->route_name}}</td>
+								
+								</tr>
+                                <?php endforeach;?>
+								</table>
+    </div>
+
+    <div id="menu4" class="tab-pane fade">
+	<table class="table table-bordered">
+                                <tr>
+                                    <th>Date of refill</th>
+                                    <th>Refill by</th>
+                                    <th>Contact no</th>
+                                    <th>Deposit amount</th>
+                                    <th>Per ticket discount</th>
+                                    <th>Ticket amount</th>
+                                </tr>
+                                <?php
+                                foreach($refill_history as $rhistory):
+                                ?>
+                                <tr>
+								<td>{{$rhistory->date_of_bill}}</td>
+								<td>{{$rhistory->name}}</td>
+								<td>{{$rhistory->contact_number}}</td>
+								<td>{{$rhistory->amount}}</td>
+								<td>{{$rhistory->per_ticket_discount}}</td>
+								<td>{{$rhistory->ticket_amount}}</td>
 								</tr>
                                 <?php endforeach;?>
 								</table>

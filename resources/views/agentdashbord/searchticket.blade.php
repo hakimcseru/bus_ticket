@@ -200,17 +200,19 @@ use App\Booking;
                     </tr>
                     @foreach ($availablebus as $key => $available_single_bus)
                         <tr>
-                            <td>{{ ++$i }}</td>
+                            <td>{{$_REQUEST['start_date']}} {{ $available_single_bus->start_time }}</td>
                             <td>{{ $available_single_bus->fleet_registration_no }}</td>
                             
-                            <td>{{ $available_single_bus->route_name }}</td>
                             <td>{{ $available_single_bus->start_point_name }}</td>
-                            <td>{{ $available_single_bus->end_point_name }}</td>
-                            
-                            <td>{{ $available_single_bus->start_time }}</td>
-                            <td>{{ $available_single_bus->end_time }}</td>
 
+                            <td>{{ $available_single_bus->end_point_name }}</td>
                             <td>{{ Price::where('route_id',$available_single_bus->route_id)->first()->price }}</td>
+                            <td>0</td>
+                            
+                            <td>0</td>
+                            <td>34</td>
+
+                            
                            
                             <td>
                                

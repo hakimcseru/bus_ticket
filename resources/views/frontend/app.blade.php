@@ -88,7 +88,8 @@
         
         .search_wrapper{
             top: 5px;
-            background-color: #ffffffb3;
+            background-color: #fff;
+            border:2px solid #ccc;
         }
 
         .right_navigation li a:hover{
@@ -560,95 +561,6 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
     </div>
 </div>  
 
-
-<div class="ticket_footer_top_area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="ticket_footer_top">
-                    <ul class="ticket_footer_top_list">
-                        <li> <i class="fa fa-car" aria-hidden="true"></i> <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span></li>
-                        <li> <i class="fa fa-car" aria-hidden="true"></i> <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span></li>
-                        <li> <i class="fa fa-car" aria-hidden="true"></i> <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span></li>
-                      
-                    </ul>    
-                </div>   
-            </div>
-        </div>
-    </div>
-</div> 
-
-<style type="text/css">
-    .bank-items ul li img{
-        border-radius: 5px;
-        box-shadow: 5px 3px 10px 1px #546d79;
-    }
-    .bank-items ul li{
-       padding: 5px;
-    }
-    .border-top{
-        border-top: 1px solid #cacaca;
-        padding-top: 12px;
-    }
-</style>
-
-
-
-<div class="bank-items">
-    
-    <h4 class="text-center text-uppercase">We Accept </h4>
-    <div class="text-center border-top">
-    <ul class="list-inline">
-        <li><img src="{{Request::root()}}/images/payment_system/1.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/2.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/3.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/4.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/5.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/6.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/7.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/8.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/9.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/10.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/11.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/12.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/13.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/14.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/15.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/16.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/17.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/18.png" alt="" class="img-responsive" width="50" ></li>
-        <li><img src="{{Request::root()}}/images/payment_system/19.png" alt="" class="img-responsive" width="50" ></li>
-    </ul>
-        <!-- <img src="{{Request::root()}}/images/payment_system/bank_logo.png" alt="" class="img-responsive" style="width: 100%;padding-bottom: 5px;"> -->
-    </div>
-                
-            
-</div>
-
-
-
-
-
-
-
-<style>
-   
-</style>
-
-
-
-
-<div class="bottom_navigation">
-    <ul class="nav text-center">
-        <li><a href="{{route('about_us')}}">About Us</a></li>
-        <li><a href="{{route('faqs')}}">FAQs</a></li>
-        <li><a href="{{route('terms_and_conditions')}}">Terms & Conditions</a></li>
-        <li><a href="{{route('terms_of_use')}}">Terms of Use</a></li>
-        <li><a href="{{route('privacy_policy')}}">Privacy Policy</a></li>
-        <li><a href="{{route('feedback')}}">Feedback</a></li>
-        <li><a href="{{route('contact')}}">Contact Us</a></li>
-    </ul>
-</div>
 <div class="ticket_footer_top_are">
     <div class="container">
         <div class="row">
@@ -806,6 +718,80 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
         </div>
     </div>
 </div>
+
+
+<style type="text/css">
+    .bank-items ul li img{
+        border-radius: 5px;
+        box-shadow: 5px 3px 10px 1px #546d79;
+    }
+    .bank-items ul li{
+       padding: 5px;
+    }
+    .border-top{
+        border-top: 1px solid #cacaca;
+        padding-top: 12px;
+    }
+</style>
+
+
+
+<div class="bank-items">
+    
+    <h4 class="text-center text-uppercase">We Accept </h4>
+    <div class="text-center border-top">
+    <ul class="list-inline">
+        <li><img src="{{Request::root()}}/images/payment_system/1.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/2.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/3.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/4.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/5.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/6.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/7.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/8.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/9.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/10.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/11.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/12.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/13.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/14.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/15.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/16.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/17.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/18.png" alt="" class="img-responsive" width="50" ></li>
+        <li><img src="{{Request::root()}}/images/payment_system/19.png" alt="" class="img-responsive" width="50" ></li>
+    </ul>
+        <!-- <img src="{{Request::root()}}/images/payment_system/bank_logo.png" alt="" class="img-responsive" style="width: 100%;padding-bottom: 5px;"> -->
+    </div>
+                
+            
+</div>
+
+
+
+
+
+
+
+<style>
+   
+</style>
+
+
+
+
+<div class="bottom_navigation">
+    <ul class="nav text-center">
+        <li><a href="{{route('about_us')}}">About Us</a></li>
+        <li><a href="{{route('faqs')}}">FAQs</a></li>
+        <li><a href="{{route('terms_and_conditions')}}">Terms & Conditions</a></li>
+        <li><a href="{{route('terms_of_use')}}">Terms of Use</a></li>
+        <li><a href="{{route('privacy_policy')}}">Privacy Policy</a></li>
+        <li><a href="{{route('feedback')}}">Feedback</a></li>
+        <li><a href="{{route('contact')}}">Contact Us</a></li>
+    </ul>
+</div>
+
 <div class="footer_area">
     <div class="container">
         

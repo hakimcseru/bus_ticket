@@ -369,11 +369,11 @@ class BookingController  extends Controller
         $cancel->total_paid=$booking->total_paid;
         $cancel->total_refund=$booking->total_refund;
 
-
-        
         if($cancel->save())
        { 
-
+           $Agenttopsheet = Agenttopsheet::where('agent_id',$cancel->agent_id)->get()->first();
+           $Agenttopsheet->current_balance=$Agenttopsheet->current_balance+$cancel->price;
+           $Agenttopsheet->save();
            $booking->delete();
            return redirect()->back()->with('message', 'You have cancel your data');
        }
