@@ -377,6 +377,14 @@ use App\Employee;
                             <span> <img class="custom_nab_image" src="{{Request::root()}}/images/icon/navbar/employeemanagement.png" >History</span>
                      </a>
                 </li>
+
+                <li class="<?php if(count($currentPathvalue)==1){ echo 'active homeactive'; } ?>">
+                     <a href="{{Request::root()}}/user/rechargehistory">
+                            <span> <img class="custom_nab_image" src="{{Request::root()}}/images/icon/navbar/employeemanagement.png" >Recharge History</span>
+                     </a>
+                </li>
+
+                
              </ul>
         </div>
      

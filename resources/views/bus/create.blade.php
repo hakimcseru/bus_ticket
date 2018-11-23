@@ -93,8 +93,8 @@
                                 <div class="input-group">
                                     <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
                                     <div class="form-control tags" id="tags">
-                                          <input type="text" class="labelinput">
-                                          <input type="hidden" value="" name="seat_number">
+                                          <input type="text" class="labelinput" >
+                                          <input type="hidden" value="" name="seat_number" >
                                     </div>
                                 </div>
                             </div>
@@ -121,7 +121,7 @@
                                         <strong>bus_photo :</strong>
                                         <div class="input-group">
                                             <span class="input-group-addon" id="basic-addon1"><i class="fa fa-upload" aria-hidden="true"></i></span>
-                                            {!! Form::file('bus_photo', array('class'=>'form-control','id'=>'imgInp')) !!}
+                                            {!! Form::file('bus_photo', array('class'=>'form-control','id'=>'imgInp','required' => 'required')) !!}
                                         </div>
                                     </div>
                                 </div>

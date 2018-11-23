@@ -70,11 +70,6 @@ class PriceController  extends Controller
      */
     public function store(Request $request)
     {
-
-
-
-
-
         $this->validate($request, [
             'route_id' => 'required',
             'status' => 'required'
@@ -108,8 +103,6 @@ class PriceController  extends Controller
     public function show($id)
     {
         $route = Route::find($id);
-
-
         return view('route.show',compact('route'));
     }
 
@@ -121,15 +114,9 @@ class PriceController  extends Controller
      */
     public function edit($id)
     {
-
-
-
-       $locations = Location::pluck('name','id');
-
-       
-        $route = Route::find($id);
-        return view('route.edit',compact('route','locations'));
-        
+       $route_ides = Route::pluck('name','id');
+       $price = Price::find($id);
+        return view('price.edit',compact('route_ides','price'));        
     }
 
     /**
@@ -142,40 +129,26 @@ class PriceController  extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-           'name' => 'required'
+           'route_id' => 'required',
+            'status' => 'required'
         ]);
 
         $input = $request->all();
 
-
-        $stoped_point=explode(',', $input['stoppage_points']);
-        $stoped_points=json_encode($stoped_point);
-
-        $user = Route::find($id);
-
-
-        $user->name=$input['name'];
-        $user->start_point=$input['start_point'];
-        $user->start_point_name=Location::find($input['start_point'])->name;
-        $user->end_point=$input['end_point'];
-        $user->end_point_name=Location::find($input['end_point'])->name;
-        $user->stoppage_points=$stoped_points;
-       
-        $user->distance=$input['distance'];
-        $user->approximate_time=$input['approximate_time'];
+        $user = Price::find($id);
+        $user->route_id=$input['route_id'];
+        $user->route_name=Route::find($input['route_id'])->name;
+        $user->vehicle_type=$input['vehicle_type'];
+        $user->price=$input['price'];
+        $user->groups_per_person=$input['groups_per_person'];
+        $user->group_members=$input['group_members'];
         $user->status=$input['status'];
         $user->admin_id=Auth::user()->id;
+
         $user->save();
 
-
-
-       
-
-
-
-
-        return redirect()->route('route.index')
-            ->with('success','Route updated successfully');
+        return redirect()->route('price.index')
+            ->with('success','Price updated successfully');
     }
 
     /**
@@ -186,10 +159,10 @@ class PriceController  extends Controller
      */
     public function destroy($id)
     {
-        $user=Route::find($id);
+        $user=Price::find($id);
 
         $user->delete();
-        return redirect()->route('route.index')
+        return redirect()->route('price.index')
             ->with('success','Route deleted successfully');
     }
 }

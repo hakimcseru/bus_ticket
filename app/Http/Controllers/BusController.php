@@ -195,18 +195,16 @@ class BusController extends Controller
      */
     public function destroy($id)
     {
-        $user=Location::find($id);
+        $user=Bus::find($id);
 
         if($user->delete()){
-            //$user_other_info=User::where('id',$user->id)->first();
-            if($user->location_photo!=""){
-                $upload_file="uploads/location/".$user->location_photo;
+            if($user->bus_photo!=""){
+                $upload_file="uploads/bus/".$user->bus_photo;
+                if(file_exists($upload_file))
                 unlink($upload_file);
             }
-           // $user_check_info=Employee::find($user_other_info->id);
-           // $user->delete();
         }
-        return redirect()->route('location.index')
-            ->with('success','Location deleted successfully');
+        return redirect()->route('bus.index')
+            ->with('success','Bus deleted successfully');
     }
 }

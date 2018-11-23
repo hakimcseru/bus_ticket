@@ -124,8 +124,6 @@ class AssignController  extends Controller
     public function show($id)
     {
         $route = Route::find($id);
-
-
         return view('route.show',compact('route'));
     }
 
@@ -137,15 +135,23 @@ class AssignController  extends Controller
      */
     public function edit($id)
     {
+        $drivers = User::whereHas('roles', function ($query) {
+            $query->where('name', '=', 'driver');
+         })->pluck('name','id');
 
 
+        $assistants = User::whereHas('roles', function ($query) {
+            $query->where('name', '=', 'assistants');
+         })->pluck('name','id');
+      
+      
 
-       $locations = Location::pluck('name','id');
+        $fleet_registration_noes = Bus::pluck('registration_no','registration_no');
+        $route_ides = Route::pluck('name','id');
 
-       
-        $route = Route::find($id);
-        return view('route.edit',compact('route','locations'));
-        
+
+        $assign = Assign::find($id);
+        return view('assign.edit',compact('fleet_registration_noes','route_ides','assistants','drivers','assign'));
     }
 
     /**
@@ -158,40 +164,34 @@ class AssignController  extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-           'name' => 'required'
+            'fleet_registration_no' => 'required'
         ]);
 
         $input = $request->all();
+        $user=Assign::find($id);
+        $user->fleet_registration_no=$input['fleet_registration_no'];
+        $user->route_id=$input['route_id'];
+        $user->route_name=Route::find($input['route_id'])->name;
 
+        $user->start_point_name=Route::find($input['route_id'])->start_point_name;
+        $user->end_point_name=Route::find($input['route_id'])->end_point_name;
+        
+        $user->start_date=$input['start_date'];
+        $user->end_date=$input['end_date'];
 
-        $stoped_point=explode(',', $input['stoppage_points']);
-        $stoped_points=json_encode($stoped_point);
+        $user->start_time=$input['start_time'];
+        $user->end_time=$input['end_time'];
 
-        $user = Route::find($id);
-
-
-        $user->name=$input['name'];
-        $user->start_point=$input['start_point'];
-        $user->start_point_name=Location::find($input['start_point'])->name;
-        $user->end_point=$input['end_point'];
-        $user->end_point_name=Location::find($input['end_point'])->name;
-        $user->stoppage_points=$stoped_points;
+        $user->driver_name=$input['driver_name'];
+        $user->assistants=json_encode($input['assistants']);
        
-        $user->distance=$input['distance'];
-        $user->approximate_time=$input['approximate_time'];
+
         $user->status=$input['status'];
         $user->admin_id=Auth::user()->id;
         $user->save();
 
-
-
-       
-
-
-
-
-        return redirect()->route('route.index')
-            ->with('success','Route updated successfully');
+        return redirect()->route('assign.index')
+            ->with('success','Assign updated successfully');
     }
 
     /**
@@ -202,10 +202,10 @@ class AssignController  extends Controller
      */
     public function destroy($id)
     {
-        $user=Route::find($id);
+        $user=Assign::find($id);
 
         $user->delete();
-        return redirect()->route('route.index')
-            ->with('success','Route deleted successfully');
+        return redirect()->route('assign.index')
+            ->with('success','Assign deleted successfully');
     }
 }

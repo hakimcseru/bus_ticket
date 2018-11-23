@@ -1,9 +1,10 @@
 @extends('layouts.app')
 @section('owncss')
-    <link rel="stylesheet" href="{{asset('/date/jquery.datetimepicker.css') }}" />
+
+    <link rel="stylesheet" href="{{asset('/css/select2.min.css') }}" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="{{asset('/tinymce/parsley.css') }}" />
-     <link rel="stylesheet" href="{{asset('/css/tagInput.css') }}" />
+    <link rel="stylesheet" href="{{asset('/css/bootstrap-datetimepicker.min.css') }}" />
+
 @endsection
 
 @section('content')
@@ -28,86 +29,109 @@
         </div>
     @endif
    
-    {!! Form::model($route, ['method' => 'PATCH','route' => ['route.update', $route->id],'files' => true]) !!}
+    {!! Form::model($assign, ['method' => 'PATCH','route' => ['assign.update', $assign->id],'files' => true]) !!}
 
     <div class="row">
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="employee_basic_info">
-
-                
-
                 <div class="row">
-
-
-                        
-                   
-                         <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group form-float">
-                                <strong>Name :</strong>
+                                <strong>fleet_registration_no :</strong>
                                 <div class="input-group">
                                     <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                     {!! Form::text('name', $route->name, array('placeholder' => 'Name', 'required' => 'required','class' => 'form-control')) !!}
+                                     {!! Form::select('fleet_registration_no', $fleet_registration_noes, [], array('required' => 'required','class' => 'form-control multi-select')) !!}
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group form-float">
-                                <strong>start_point :</strong>
+                                <strong>route_name :</strong>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                     {!! Form::select('route_id', $route_ides, [], array('required' => 'required','class' => 'form-control multi-select')) !!}
+
+                                </div>
+                            </div>
+                        </div>
+                        
+
+
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group form-float">
+                                <strong>start_date :</strong>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                     {!! Form::text('start_date', null, array('placeholder' => 'start_date', 'id'=>'start_date', 'required' => 'required','class' => 'form-control')) !!}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group form-float">
+                                <strong>end_date :</strong>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                     {!! Form::text('end_date', null, array('placeholder' => 'end_date', 'id'=>'return_date', 'required' => 'required','class' => 'form-control')) !!}
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                         <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group form-float">
+                                <strong>start_time :</strong>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                     {!! Form::text('start_time', null, array('placeholder' => '00:00:00', 'id'=>'start_time', 'required' => 'required','class' => 'form-control')) !!}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group form-float">
+                                <strong>end_time :</strong>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                     {!! Form::text('end_time', null, array('placeholder' => '00:00:00', 'id'=>'end_time', 'required' => 'required','class' => 'form-control')) !!}
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group form-float">
+                                <strong>driver_name :</strong>
                                 <div class="input-group">
                                     <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
                                
-                                     {!! Form::select('start_point', $locations, $route->start_point, array('required' => 'required','class' => 'form-control')) !!}
+                                     
+                                     {!! Form::select('driver_name', $drivers, [], array('required' => 'required','class' => 'form-control multi-select')) !!}
 
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group form-float">
-                                <strong>end_point :</strong>
+                                <strong>assistants :</strong>
                                 <div class="input-group">
                                     <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                    
-                                      {!! Form::select('end_point', $locations, $route->end_point, array('required' => 'required','class' => 'form-control')) !!}
+                               
+                                     <?php 
+                                              $values=json_decode($assign->assistants);
+                                          ?>
+                                     {!! Form::select('assistants[]', $assistants, $values, array('required' => 'required','class' => 'form-control multi-select','multiple'=>'multiple')) !!}
                                 </div>
                             </div>
                         </div>
                         
-
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group form-float">
-                                <strong>stoppage_points :</strong>
-                                <div class="input-group">
-                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                    <div class="form-control tags" id="tags">
-                                          <input type="text" class="labelinput">
-                                          <?php 
-                                              $values=json_decode($route->stoppage_points);
-                                          ?>
-                                          <input type="hidden" value="{{  implode(",", $values)  }}" name="stoppage_points">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group form-float">
-                                <strong>distance :</strong>
-                                <div class="input-group">
-                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                     {!! Form::text('distance', null, array('placeholder' => 'distance', 'required' => 'required','class' => 'form-control')) !!}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group form-float">
-                                <strong>approximate_time :</strong>
-                                <div class="input-group">
-                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                     {!! Form::text('approximate_time', null, array('placeholder' => 'approximate_time', 'required' => 'required','class' => 'form-control')) !!}
-                                </div>
-                            </div>
-                        </div>
+                       
 
 
                       
@@ -123,12 +147,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
-
-                       
-
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <button type="submit" class="btn btn-success">Submit</button>
                         </div>
@@ -145,35 +163,27 @@
 
 @section('ownjs')
 
-  <script>
+   <script src="{{asset('/js/select22.min.js')}}"></script>
+   <script type="text/javascript">
+      $(".multi-select").select2();
+   </script>
 
-    function readURL(input) {
-
-        if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function(e) {
-        $('#blah').attr('src', e.target.result);
-        }
-
-        reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-    $("#imgInp").change(function() {
-        readURL(this);
-     });
-
-  </script>
-
-
-   <script src="{{asset('/js/tagInput.js') }}"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
-        $(function(){
+      $( function() {
+        $( "#start_date" ).datepicker({ dateFormat: 'yy-mm-dd' });
+        $( "#return_date" ).datepicker({ dateFormat: 'yy-mm-dd' });
+      } );
+    </script>
 
-          $('#tags').tagInput();
 
+     <script src="{{asset('/js/bootstrap-datetimepicker.min.js')}}"></script>
+     <script type="text/javascript">
+      $(function() {
+        $('#datetimepicker3').datetimepicker({
+          pickDate: false
         });
+      });
     </script>
 
 @endsection

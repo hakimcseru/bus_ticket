@@ -47,6 +47,13 @@ class PassengerController extends Controller
         $roles = Role::pluck('display_name','id');
         return view('users.alltransaction',compact('roles'));
     }
+    public function rechargehistory()
+    {
+        $roles = Role::pluck('display_name','id');
+        return view('users.rechargehistory',compact('roles'));
+    }
+
+    
 
     public function history()
     {

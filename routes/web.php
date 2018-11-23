@@ -65,6 +65,7 @@ Route::get('/user/create', ['as'=>'passenger.create','uses'=>'PassengerControlle
 Route::get('/user/todaystransaction', ['as'=>'passenger.todaystransaction','uses'=>'PassengerController@todaystransaction']);
 Route::get('/user/alltransaction', ['as'=>'passenger.alltransaction','uses'=>'PassengerController@alltransaction']);
 Route::get('/user/history', ['as'=>'passenger.history','uses'=>'PassengerController@history']);
+Route::get('/user/rechargehistory', ['as'=>'passenger.rechargehistory','uses'=>'PassengerController@rechargehistory']);
 
 Route::post('/user/registration', ['as'=>'passenger.store','uses'=>'PassengerController@store']);
 Route::post('/user/update', ['as'=>'passenger.update','uses'=>'PassengerController@update']);
