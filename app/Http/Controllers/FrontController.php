@@ -134,6 +134,8 @@ class FrontController extends Controller
             ->where('end_point_name',$end_point)
             ->where('start_date', '<=', $start_date)
             ->where('end_date', '>=', $start_date)
+            ->where('status', '=', '1')
+            ->orderBy("start_time")
             ->get();
         $data['roles'] = Role::where('name','user')->pluck('display_name','id');
 

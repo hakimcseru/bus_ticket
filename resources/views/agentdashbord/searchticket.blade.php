@@ -156,7 +156,9 @@ li
     font-size: 26px;
     font-weight: bold;
 }
-
+.background-red{
+    background-color:red;
+}
 .sold_Male{
 background-color:red;
 }
@@ -208,21 +210,28 @@ use App\Booking;
                         <th>Action</th>
                     </tr>
                     @foreach ($availablebus as $key => $available_single_bus)
+                    <?php
+                    $bdate=strtotime($_REQUEST['start_date']." ".$available_single_bus->start_time);
+                    $pdate=strtotime(date("Y-m-d H:i:s"));
+                    $class="";
+                    if($bdate<$pdate)
+                    $class="background-red";
+                    ?>
                         <tr>
-                            <td>{{$_REQUEST['start_date']}} {{ $available_single_bus->start_time }}</td>
-                            <td>{{ $available_single_bus->fleet_registration_no }}</td>
+                            <td class="{{$class}}">{{$_REQUEST['start_date']}} {{ $available_single_bus->start_time }}</td>
+                            <td class="{{$class}}">{{ $available_single_bus->fleet_registration_no }}</td>
                             
-                            <td>{{ $available_single_bus->start_point_name }}</td>
+                            <td class="{{$class}}">{{ $available_single_bus->start_point_name }}</td>
 
-                            <td>{{ $available_single_bus->end_point_name }}</td>
-                            <td>{{ Price::where('route_id',$available_single_bus->route_id)->first()->price }}</td>
-                            <td>{{ $available_single_bus->sold($_REQUEST['start_date'],$available_single_bus->id)}}</td>
-                            <td>{{ $available_single_bus->booked($_REQUEST['start_date'],$available_single_bus->id)}}</td>
-                            <td>{{ $available_single_bus->fleet->total_seat-($available_single_bus->sold($_REQUEST['start_date'],$available_single_bus->id)+$available_single_bus->booked($_REQUEST['start_date'],$available_single_bus->id))}}</td>
+                            <td class="{{$class}}">{{ $available_single_bus->end_point_name }}</td>
+                            <td class="{{$class}}">{{ Price::where('route_id',$available_single_bus->route_id)->first()->price }}</td>
+                            <td class="{{$class}}">{{ $available_single_bus->sold($_REQUEST['start_date'],$available_single_bus->id)}}</td>
+                            <td class="{{$class}}">{{ $available_single_bus->booked($_REQUEST['start_date'],$available_single_bus->id)}}</td>
+                            <td class="{{$class}}">{{ $available_single_bus->fleet->total_seat-($available_single_bus->sold($_REQUEST['start_date'],$available_single_bus->id)+$available_single_bus->booked($_REQUEST['start_date'],$available_single_bus->id))}}</td>
 
                             
                            
-                            <td>
+                            <td class="{{$class}}">
                                
 
                               

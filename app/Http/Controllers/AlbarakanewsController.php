@@ -185,10 +185,10 @@ class AlbarakanewsController  extends Controller
      */
     public function destroy($id)
     {
-        $user=Route::find($id);
+        $user=Albarakanews::find($id);
 
         $user->delete();
-        return redirect()->route('route.index')
+        return redirect()->route('albarakanews.index')
             ->with('success','Route deleted successfully');
     }
 }

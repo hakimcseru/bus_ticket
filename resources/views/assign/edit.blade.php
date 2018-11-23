@@ -14,7 +14,7 @@
                 <h2>Create new route</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('route.index') }}"> Back</a>
+                <a class="btn btn-primary" href="{{ route('assign.index') }}"> Back</a>
             </div>
         </div>
     </div>
@@ -140,9 +140,17 @@
                             <div class="form-group form-float">
                                 <strong>Status <span style="color: red">*</span> :</strong>
                                 <div class="demo-radio-button">
-                                    <input name="status" type="radio" id="radio_1" value="1" checked="">
+                                    <input name="status" type="radio" id="radio_1" value="1" 
+                                    @if($assign->status)
+                                    {{'checked="checked"'}}
+                                    @endif
+                                    >
                                     <label for="radio_1">Active</label>
-                                    <input name="status" type="radio" id="radio_2" value="0" >
+                                    <input name="status" type="radio" id="radio_2" value="0" 
+                                    @if(!$assign->status)
+                                    {{'checked="checked"'}}
+                                    @endif
+                                    >
                                     <label for="radio_2">Inactive</label>
                                 </div>
                             </div>
