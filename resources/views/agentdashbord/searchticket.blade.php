@@ -152,8 +152,17 @@ li
                                       border:1px solid #ccc;
                                 }  
                                 
+.alert-success{
+    font-size: 26px;
+    font-weight: bold;
+}
 
-
+.sold_Male{
+background-color:red;
+}
+.sold_Female{
+background-color:#F934DE;
+}
 
 
 </style>
@@ -207,10 +216,9 @@ use App\Booking;
 
                             <td>{{ $available_single_bus->end_point_name }}</td>
                             <td>{{ Price::where('route_id',$available_single_bus->route_id)->first()->price }}</td>
-                            <td>0</td>
-                            
-                            <td>0</td>
-                            <td>34</td>
+                            <td>{{ $available_single_bus->sold($_REQUEST['start_date'],$available_single_bus->id)}}</td>
+                            <td>{{ $available_single_bus->booked($_REQUEST['start_date'],$available_single_bus->id)}}</td>
+                            <td>{{ $available_single_bus->fleet->total_seat-($available_single_bus->sold($_REQUEST['start_date'],$available_single_bus->id)+$available_single_bus->booked($_REQUEST['start_date'],$available_single_bus->id))}}</td>
 
                             
                            
@@ -253,8 +261,8 @@ use App\Booking;
                                                     <th style="background-color:#F934DE;">F</th>
                                                     <th  style="background-color:#96BDFA  ;">M</th>
                                                     <th  style="background-color:#BCF9F5  ;">F</th>
-                                                    <th colspan='2'>M</th>
-                                                    <th colspan='2' style="background-color:#AEAEAE;">F</th>
+                                                    <th colspan='2'></th>
+                                                    <th colspan='2' style="background-color:#AEAEAE;"></th>
                                                 </tr>
                                                 <tr>
                                                   <th colspan='2'>0</th>
@@ -318,21 +326,22 @@ use App\Booking;
                                          <div class="col-xs-12 col-sm-12 col-md-12">
                                             <table class="clientonfo" cellspacing="1">
                                                 <tr>
-                                                  <td width="25%">Passanger Name: </td>
+                                                  <td width="25%">Passanger Name:<span style="color: red;">*</span>
+</td>
                                                   <td  width="25%">
                                                   {!! Form::text('passenger_name', null, array( 'required' => 'required','class' => 'form-control')) !!}
                                                   </td>
-                                                  <td  width="25%" style="text-align:right">Mobile no:</td>
+                                                  <td  width="25%" style="text-align:right">Mobile no:<span style="color: red;">*</span></td>
                                                   <td  width="25%">
                                                   {!! Form::text('passenger_mobile', null, array( 'required' => 'required','class' => 'form-control')) !!}
                                                   </td>
                                                 </tr>
                                                 <tr>
-                                                  <td width="25%">Gender: </td>
+                                                  <td width="25%">Gender:<span style="color: red;">*</span> </td>
                                                   <td  width="25%">
                                                   {!! Form::select('passenger_gender', array('Male'=>'Male','Female'=>'Female'),'Male' ,array( 'required' => 'required','class' => 'form-control')) !!}
                                                   </td>
-                                                  <td  width="25%" style="text-align:right">Age:</td>
+                                                  <td  width="25%" style="text-align:right">Age:<span style="color: red;">*</span></td>
                                                   <td  width="25%">
                                                   {!! Form::text('passenger_age', null, array( 'required' => 'required','class' => 'form-control')) !!}
                                                   </td>
@@ -360,19 +369,19 @@ use App\Booking;
                                                   </td>
                                                 </tr>
                                                 <tr>
-                                                  <td width="25%">Boarding point: </td>
+                                                  <td width="25%">Boarding point: <span style="color: red;">*</span></td>
                                                   <td  width="25%">{!! Form::select('pickup_location', [], null, array('required' => 'required','class' => 'form-control')) !!}</td>
-                                                  <td  width="25%" style="text-align:right">Dropping point:</td>
+                                                  <td  width="25%" style="text-align:right">Dropping point:<span style="color: red;">*</span></td>
                                                   <td  width="25%">{!! Form::select('drop_location', [], null, array('required' => 'required','class' => 'form-control')) !!}</td>
                                                 </tr>
                                                 <tr>
-                                                  <td width="25%">Total Paid: </td>
+                                                  <td width="25%">Total Paid: <span style="color: red;">*</span></td>
                                                   <td  width="25%">
-                                                  {!! Form::text('total_paid', null, array('class' => 'form-control')) !!}
+                                                  {!! Form::text('total_paid', null, array('id'=>"total_paid-".$available_single_bus->id, 'required' => 'required','class' => 'form-control')) !!}
                                                   </td>
-                                                  <td  width="25%" style="text-align:right">Total Refund:</td>
+                                                  <td  width="25%" style="text-align:right">Total Refund:<span style="color: red;">*</span></td>
                                                   <td  width="25%">
-                                                  {!! Form::text('total_refund', null, array('class' => 'form-control')) !!}
+                                                  {!! Form::text('total_refund', 0, array('class' => 'form-control')) !!}
                                                   </td>
                                                 </tr>
                                                
@@ -389,7 +398,7 @@ use App\Booking;
                                             <button type="submit" class="btn btn-success " style="width:100%">Continue</button>
                                         </div>
                                          <div class="col-xs-6 col-sm-6 col-md-6">
-                                            <button type="submit" class="btn btn-success " style="width:100%">Reset</button>
+                                            <button type="reset" class="btn btn-success " style="width:100%">Reset</button>
                                         </div>
                                         </div>
 
@@ -406,7 +415,7 @@ use App\Booking;
                
             </div>       
         </div>
-/div>
+
         @endsection
 
 @section('ownjs')
@@ -446,7 +455,7 @@ use App\Booking;
                         }
                                
                     if($.inArray(item, data.bookingcheck) !== -1){
-                        str += '<li class="listiteam'+index+' booked_seat"><div  style="position:relative;"><input disabled readonly type="checkbox" id="'+item+'" class="check trigger" name="select_seat_number" value="'+item+'"> <label for="'+item+'" class="checker"><span class="pob" style="    position: absolute;\n' +
+                        str += '<li class="listiteam'+index+' "><div  style="position:relative;"><input disabled readonly type="checkbox" id="'+item+'" class="check trigger" name="select_seat_number" value="'+item+'"> <label for="'+item+'" class="checker '+data.bookinggender[item]+'"><span class="pob" style="    position: absolute;\n' +
                                 '    left: 30%;\n' +
                                 '    top: 20%;">'+item+'</span></label></div></li>';
                     }else{
@@ -521,6 +530,7 @@ use App\Booking;
                                  $("#show_discount-"+assign_id).html(discount);
                                  grand_total_price=((100-discount)*(data.price_info.price*$("input[type=checkbox]:checked").length))/100
                                  $("#grand_total_price-"+assign_id).html(grand_total_price);
+                                 $("#total_paid-"+assign_id).val(grand_total_price);
                                  $(".price").val(grand_total_price);
 
 

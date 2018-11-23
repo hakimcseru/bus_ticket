@@ -1,7 +1,14 @@
 <ul id="slider" class="bxslider">
-    <li><img src="{{Request::root()}}/images/image-gallery/slider4.jpg" alt=""/></li>
-    <li><img src="{{Request::root()}}/images/image-gallery/slider5.jpg" alt=""/></li>
-    <li><img src="{{Request::root()}}/images/image-gallery/slider6.jpg" alt=""/></li>
+<?php
+$sliders=App\Options::where('details','Slider')->get();
+foreach($sliders as $slide):
+?>
+    <li><img src="{{Request::root()}}/uploads/banners/{{$slide->value}}" alt=""/></li>
+
+<?php
+endforeach;
+?>
+
 </ul>
 <div class="ticket_header_filter_area" {{--style="background-image: url(http://127.0.0.1:8000/images/ticket/header_img.png);
     background-repeat: no-repeat, repeat;
@@ -18,7 +25,7 @@
 				use App\Location;
 				$locations = Location::pluck('name','name');
 				?>
-                         {!! Form::open(array('route' => 'font_web.index','method'=>'GET')) !!}
+                         {!! Form::open(array('route' => 'font_web.index','method'=>'GET',  'autocomplete'=>'off')) !!}
                             <div class="row">
                                 <div class="col-lg-6 col-xs-6">
                                   <div class="form-group">
@@ -40,14 +47,14 @@
                                   <div class="form-group ticket_custom_calader_icon">
                                     <label for="exampleInputEmail1">Date of Journey<span style="color: red;">*</span></label>
                                     <input type="text" name="start_date" class="form-control" id="start_date" placeholder="Start Date">
-                                      <i class="fa fa-calendar" id="start_date5" aria-hidden="true"></i>
+                                      <i class="fa fa-calendar" id="start_date5" onclick="$('#start_date').trigger( 'focus' );"  style="cursor:pointer"   aria-hidden="true"></i>
                                   </div>
                                 </div>
                                 <div class="col-lg-6 col-xs-6">
                                   <div class="form-group ticket_custom_calader_icon">
                                     <label for="exampleInputPassword1">Date of Return</label>
-                                    <input type="text" name="return_date" class="form-control" id="return_date" placeholder="Return Date">
-                                    <i class="fa fa-calendar" id="return_date1" aria-hidden="true"></i>
+                                    <input type="text" name="return_date" class="form-control" id="return_date"     placeholder="Return Date">
+                                    <i class="fa fa-calendar" id="return_date1" aria-hidden="true"  onclick="$('#return_date').trigger( 'focus' );"  style="cursor:pointer"></i>
                                   </div>
                                 </div>
                             </div>

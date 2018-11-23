@@ -376,7 +376,9 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
       $( "#return_date1" ).datepicker({ dateFormat: 'yy-mm-dd' });
   } );
 
-
+$( function() {
+    $( "#floating-score" ).draggable();
+  } );
   </script>
 
 

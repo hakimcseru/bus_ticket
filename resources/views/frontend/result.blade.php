@@ -183,7 +183,7 @@ use App\Booking;
                             <td>{{ $available_single_bus->start_time }}</td>
                             <td>{{ $available_single_bus->end_time }}</td>
 
-                            <td>{{ Price::where('route_id',$available_single_bus->route_id)->first()->price }}</td>
+                            <td>{{ Price::where('route_id',$available_single_bus->route_id)->first()?Price::where('route_id',$available_single_bus->route_id)->first()->price:"Not Set" }}</td>
                            
                             <td>
                                

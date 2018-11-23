@@ -377,8 +377,21 @@
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header" style="float: left;">
+            <?php
+            $logo=App\Options::where('details','Logo')->get()->first();
+            if($logo)
+            {
+            ?>
 
+            <a class="navbar-brand biiss-lago" href="{{ url('/') }}"><img src="{{Request::root()}}/uploads/banners/{{$logo->value}}" class="logo"></a>
+
+            <?php
+            }else{
+            ?>
             <a class="navbar-brand biiss-lago" href="{{ url('/') }}"><img src="{{Request::root()}}/images/ticket/imgpsh_fullsize.png" class="logo"></a>
+            <?php
+            }
+            ?>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->

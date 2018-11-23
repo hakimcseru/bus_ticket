@@ -71,19 +71,6 @@ Route::post('/user/registration', ['as'=>'passenger.store','uses'=>'PassengerCon
 Route::post('/user/update', ['as'=>'passenger.update','uses'=>'PassengerController@update']);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*
 Route::get('/', function () {
    return view('welcome');
@@ -380,9 +367,9 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth','prevent-back-hist
     Route::get('banners/create',['as'=>'banners.create','uses'=>'OptionController@create','middleware' => ['permission:banner-create']]);
     Route::post('banners/create',['as'=>'banners.store','uses'=>'OptionController@store','middleware' => ['permission:banner-create']]);
     Route::get('banners/{id}',['as'=>'banners.show','uses'=>'BookController@show']);
-    Route::get('banners/{id}/edit',['as'=>'banners.edit','uses'=>'OptionController@edit','middleware' => ['permission:book-edit']]);
-    Route::patch('banners/{id}',['as'=>'banners.update','uses'=>'OptionController@update','middleware' => ['permission:book-edit']]);
-    Route::delete('banners/{id}',['as'=>'banners.destroy','uses'=>'OptionController@destroy','middleware' => ['permission:book-delete']]);
+    Route::get('banners/{id}/edit',['as'=>'banners.edit','uses'=>'OptionController@edit','middleware' => ['permission:banner-edit']]);
+    Route::patch('banners/{id}',['as'=>'banners.update','uses'=>'OptionController@update','middleware' => ['permission:banner-edit']]);
+    Route::delete('banners/{id}',['as'=>'banners.destroy','uses'=>'OptionController@destroy','middleware' => ['permission:banner-delete']]);
 
 
 

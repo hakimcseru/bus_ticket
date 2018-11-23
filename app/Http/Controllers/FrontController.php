@@ -91,7 +91,7 @@ class FrontController extends Controller
         if(count($data['availablebus'])>0){
              $data['start_date_resarve']=$start_date;
              if(isset(Auth::user()->id))
-             $theme_page='frontend.result1';
+             $theme_page='frontend.result';
              else $theme_page='frontend.result';
              return view($theme_page,$data)->with('i', ($request->input('page', 1) - 1) * 10);
         }else{
@@ -189,13 +189,17 @@ class FrontController extends Controller
 
 
         $total_selected_seat=[];
+        $total_selected_seat_mf=[];
         $bookingcheck=Booking::where('assign_id',$id)->where('booking_date',$data_date)->get();
         foreach ($bookingcheck as $singlevalue) {
                     $single_selected_seat=json_decode($singlevalue->seat_number);
                     $total_selected_seat=array_merge($total_selected_seat,$single_selected_seat);
+                    foreach($single_selected_seat as $sl):
+                        $total_selected_seat_mf[trim($sl)]='sold_'.$singlevalue->passenger_gender;
+                    endforeach;
         }
-        $bus_info['bookingcheck']=$total_selected_seat;
-                             
+        $bus_info['bookingcheck']=array_map('trim',$total_selected_seat);
+       $bus_info['bookinggender']=$total_selected_seat_mf;                      
        
 
         return json_encode($bus_info);
