@@ -21,12 +21,12 @@
 .total_seat span ul li:nth-child(1n) {
 
 }
-.total_seat span ul li:nth-child(2n) {
-
+.total_seat span ul :nth-child(2n) {
+li
 }
 
 .total_seat span ul li:nth-child(3n) {
-   padding-left: 65px;
+   padding-left: 60px;
 }
 .total_seat span ul li:nth-child(4n) {
 
@@ -40,6 +40,9 @@
     bottom: 0;
     left: 45%;
   
+}
+.booked_seat div{
+    background-color:#96BDFA ;
 }
 
 .total_seat span ul li input[type="checkbox"]{}
@@ -131,23 +134,62 @@
                                       padding-left: 20px;
                                     }
 
-                                        
+                                .tdata{
+                                    display:none;
+                                }  
+                                .clientonfo{
+                                    background-color:#000;
+                                    width:100%
 
-
+                                }
+                                .clientonfo td{
+                                      padding:5px 20px 5px 5px; 
+                                      background-color:#fff;
+                                      border:1px solid #ccc;
+                                }   
+                                .clientonfo th{
+                                    text-align:center;
+                                    background-color:#fff;
+                                      border:1px solid #ccc;
+                                }  
+                                
+.alert-success{
+    font-size: 26px;
+    font-weight: bold;
+}
+.background-red{
+    background-color:red;
+}
+.sold_Male{
+background-color:red;
+}
+.sold_Female{
+background-color:#F934DE;
+}
 
 
 </style>
 @endsection
 
+@section('content')
 <?php
 
 use App\Price;
 use App\Booking;
 
 ?>
-    @section('content')
-
-        <div class="row m-4">
+ <div class="row m-4">
+ <div class="container">
+ @if(session('message'))
+	<div class='alert alert-success'>
+		{{ session('message') }}
+	</div>
+	@endif
+	@if(session('error-message'))
+	<div class='alert alert-warning'>
+		{{ session('error-message') }}
+	</div>
+	@endif
             <div class="col-xs-12 col-sm-12 col-md-12" style="overflow: scroll !important">
                  @if ($message = Session::get('success'))
                     <div class="alert alert-success">
@@ -157,35 +199,40 @@ use App\Booking;
                 <h3 style="margin-bottom: 2px;">Available Buses </h3><hr style="border-top: 3px solid #e24648;margin-top: 5px;">
                 <table class="table table-hover table-responsive">
                     <tr>
-                        <th>No</th>
-                        <th>fleet_registration_no</th>
-                       
-                        <th>route_name</th>
-                        <th>start_point_name</th>
-                        <th>end_point_name</th>
-                       
-                        <th>start_time</th>
-                        <th>end_time</th>
-
+                        <th>Boarding Time & Date</th>
+                        <th>Coach No</th>
+                        <th>Start Counter</th>
+                        <th>End Counter</th>
                         <th>Fare</th>
-
+                       <th>Sold</th>
+                       <th>Book</th>
+                       <th>Available</th>
+                        
                         <th>Action</th>
                     </tr>
                     @foreach ($availablebus as $key => $available_single_bus)
+                    <?php
+                    $bdate=strtotime($_REQUEST['start_date']." ".$available_single_bus->start_time);
+                    $pdate=strtotime(date("Y-m-d H:i:s"));
+                    $class="";
+                    if($bdate<$pdate)
+                    $class="background-red";
+                    ?>
                         <tr>
-                            <td>{{ ++$i }}</td>
-                            <td>{{ $available_single_bus->fleet_registration_no }}</td>
+                            <td class="{{$class}}">{{$_REQUEST['start_date']}} {{ $available_single_bus->start_time }}</td>
+                            <td class="{{$class}}">{{ $available_single_bus->fleet_registration_no }}</td>
                             
-                            <td>{{ $available_single_bus->route_name }}</td>
-                            <td>{{ $available_single_bus->start_point_name }}</td>
-                            <td>{{ $available_single_bus->end_point_name }}</td>
-                            
-                            <td>{{ $available_single_bus->start_time }}</td>
-                            <td>{{ $available_single_bus->end_time }}</td>
+                            <td class="{{$class}}">{{ $available_single_bus->start_point_name }}</td>
 
-                            <td>{{ Price::where('route_id',$available_single_bus->route_id)->first()?Price::where('route_id',$available_single_bus->route_id)->first()->price:"Not Set" }}</td>
+                            <td class="{{$class}}">{{ $available_single_bus->end_point_name }}</td>
+                            <td class="{{$class}}">{{ Price::where('route_id',$available_single_bus->route_id)->first()->price }}</td>
+                            <td class="{{$class}}">{{ $available_single_bus->sold($_REQUEST['start_date'],$available_single_bus->id)}}</td>
+                            <td class="{{$class}}">{{ $available_single_bus->booked($_REQUEST['start_date'],$available_single_bus->id)}}</td>
+                            <td class="{{$class}}">{{ $available_single_bus->fleet->total_seat-($available_single_bus->sold($_REQUEST['start_date'],$available_single_bus->id)+$available_single_bus->booked($_REQUEST['start_date'],$available_single_bus->id))}}</td>
+
+                            
                            
-                            <td>
+                            <td class="{{$class}}">
                                
 
                               
@@ -197,29 +244,58 @@ use App\Booking;
 
                             </td>
                         </tr>
-                    @endforeach
-                </table>
-
-
-                <!--modal-->
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog  modal-lg" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Click on Seat to select / deselect</h4>
-                          </div>
-                          <div class="modal-body">
-
-                                <div class="row">
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
-                                        <div id="seat_plan_number">
+                        <tr>
+                            <td colspan="9" id="tdata-{{ $available_single_bus->id }}" class="tdata">
+                             <div class="row" style="padding:10px">
+                              @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+                                    <div class="col-xs-5 col-sm-5 col-md-5" style="background-color:white;border:1px solid #ccc;">
+                                        
+                                            <table class="clientonfo" cellspacing="1">
+                                                <tr>
+                                                  <th colspan='2'>Sold</th>
+                                                  <th colspan='2'>Booked</th>
+                                                  <th colspan='2'>Available</th>
+                                                  <th colspan='2'>Block</th>
+                                                </tr>
+                                                <tr>
+                                                    <th style="background-color:red;">M</th>
+                                                    <th style="background-color:#F934DE;">F</th>
+                                                    <th  style="background-color:#96BDFA  ;">M</th>
+                                                    <th  style="background-color:#BCF9F5  ;">F</th>
+                                                    <th colspan='2'></th>
+                                                    <th colspan='2' style="background-color:#AEAEAE;"></th>
+                                                </tr>
+                                                <tr>
+                                                  <th colspan='2'>0</th>
+                                                  <th colspan='2'></th>
+                                                  <th colspan='2'></th>
+                                                  <th colspan='2'></th>
+                                                </tr>
+                                            </table>
+                                          
+                                        <div id="seatplan-{{ $available_single_bus->id }}">
                                         </div>
                                         
                                     </div>  
-                                    <div class="col-xs-6 col-sm-6 col-md-6" id="bookingdata-item">  
+                                    <div class="col-xs-7 col-sm-7 col-md-7" id="bookingdata-item">  
+                                   
                                    {!! Form::open(array('route' => 'bookingdata.index','method'=>'POST', 'files' => true, 'runat'=>'server')) !!}
-    
+
+                                       <input type="hidden" name='assign_id'  value="{{ $available_single_bus->id }}" />
+                                        <input type="hidden" name='booking_date' id='booking_date' value="<?=$_GET['start_date'];?>" />
+                                        <input type="hidden" name='total_seat'  value="" class="total_seat" />
+                                        <input type="hidden" name='seat_number'  value="" class="seat_number" />
+                                        <input type="hidden" name='price'  value="" class="price" />
+                                        
                                         
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group form-float">
@@ -227,25 +303,29 @@ use App\Booking;
                                                 <table class="table">
                                                     <tbody>
                                                       <tr>
-                                                        <td width="50%">Seat</td>
-                                                        <td><div id="show_selected_seat"></div>  </td>
+                                                        <td width="25%">Seat No</td>
+                                                        <td width="25%">Ticket No</td>
+                                                        <td width="25%">Fare</td>
+                                                        <td width="25%">Discount</td>
                                                       </tr>
                                                       <tr>
-                                                        <td>Price</td>
-                                                        <td><div id="show_price"></div></td>
+                                                      <td><div id="show_selected_seat-{{ $available_single_bus->id }}"></div>  </td>
+                                                        <td></td>
+                                                        <td><div id="show_price-{{ $available_single_bus->id }}"></div></td>
+                                                        <td><div id="show_discount-{{ $available_single_bus->id }}"></div></td>
                                                       </tr>
                                                       <tr>
-                                                        <td>Total</td>
-                                                        <td><div id="show_total_price"></div></td>
+                                                        <td >Total</td>
+                                                        <td colspan="3"><div id="show_total_price-{{ $available_single_bus->id }}"></div></td>
                                                        
                                                       </tr>
                                                       <tr>
-                                                        <td>Discount</td>
-                                                        <td><div id="show_discount"></div></td>
+                                                        
                                                       </tr>
                                                       <tr>
-                                                        <td>Grand Total</td>
-                                                        <td><div id="grand_total_price"></div></td>
+                                                        <td >Grand Total</td>
+                                                        <td  colspan="3"><div id="grand_total_price-{{ $available_single_bus->id }}"></div></td>
+                                                        
                                                       </tr>
                                                     </tbody>
                                                   </table>
@@ -254,376 +334,194 @@ use App\Booking;
                                                 
                                             </div>
                                         </div>
-
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group form-float">
-                                                <strong>pickup_location :</strong>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                               
-                                                     {!! Form::select('pickup_location', [], null, array('required' => 'required','class' => 'form-control')) !!}
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group form-float">
-                                                <strong>drop_location :</strong>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                               
-                                                     {!! Form::select('drop_location', [], null, array('required' => 'required','class' => 'form-control')) !!}
-
-                                                </div>
-                                            </div>
-                                        </div> 
-
                                          <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group form-float">
-                                                <strong>Offer Code :</strong>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                            <table class="clientonfo" cellspacing="1">
+                                                <tr>
+                                                  <td width="25%">Passanger Name:<span style="color: red;">*</span>
+</td>
+                                                  <td  width="25%">
+                                                  {!! Form::text('passenger_name', null, array( 'required' => 'required','class' => 'form-control')) !!}
+                                                  </td>
+                                                  <td  width="25%" style="text-align:right">Mobile no:<span style="color: red;">*</span></td>
+                                                  <td  width="25%">
+                                                  {!! Form::text('passenger_mobile', null, array( 'required' => 'required','class' => 'form-control')) !!}
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td width="25%">Gender:<span style="color: red;">*</span> </td>
+                                                  <td  width="25%">
+                                                  {!! Form::select('passenger_gender', array('Male'=>'Male','Female'=>'Female'),'Male' ,array( 'required' => 'required','class' => 'form-control')) !!}
+                                                  </td>
+                                                  <td  width="25%" style="text-align:right">Age:<span style="color: red;">*</span></td>
+                                                  <td  width="25%">
+                                                  {!! Form::text('passenger_age', null, array( 'required' => 'required','class' => 'form-control')) !!}
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td width="25%">Passport No: </td>
+                                                  <td  width="25%">
+                                                  {!! Form::text('passenger_passport', null, array( 'class' => 'form-control')) !!}
+                                                  
+                                                  </td>
+                                                  <td  width="25%" style="text-align:right">Nationality:</td>
+                                                  <td  width="25%">
+                                                  {!! Form::text('passenger_nationality', null, array( 'class' => 'form-control')) !!}
+
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td width="25%">Boarding place: </td>
+                                                  <td  width="25%">
+                                                  {!! Form::text('passenger_boarding_place', null, array('class' => 'form-control')) !!}
+                                                  </td>
+                                                  <td  width="25%" style="text-align:right">Email:</td>
+                                                  <td  width="25%">
+                                                  {!! Form::text('passenger_email', null, array('class' => 'form-control')) !!}
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td width="25%">Boarding point: <span style="color: red;">*</span></td>
+                                                  <td  width="25%">{!! Form::select('pickup_location', [], null, array('required' => 'required','class' => 'form-control')) !!}</td>
+                                                  <td  width="25%" style="text-align:right">Dropping point:<span style="color: red;">*</span></td>
+                                                  <td  width="25%">{!! Form::select('drop_location', [], null, array('required' => 'required','class' => 'form-control')) !!}</td>
+                                                </tr>
+                                                <tr>
+                                                  <td width="25%">Total Paid: <span style="color: red;">*</span></td>
+                                                  <td  width="25%">
+                                                  {!! Form::text('total_paid', null, array('id'=>"total_paid-".$available_single_bus->id, 'required' => 'required','class' => 'form-control')) !!}
+                                                  </td>
+                                                  <td  width="25%" style="text-align:right">Total Refund:<span style="color: red;">*</span></td>
+                                                  <td  width="25%">
+                                                  {!! Form::text('total_refund', 0, array('class' => 'form-control')) !!}
+                                                  </td>
+                                                </tr>
                                                
-                                                    {!! Form::text('offer_code', null, array('placeholder' => 'Offer code', 'id'=>'offer_code','class' => 'form-control')) !!}
+                                            </table>
+                                         </div>
+                                         <input placeholder="start_date_resarve" id="start_date_resarve" class="form-control" value="<?php if($start_date_resarve!=null){echo $start_date_resarve; } ?>" name="start_date_resarve" type="hidden">
+                                         <div id="hidden_selected_seat"></div>  
+                                        <div id="hidden_selected_assign"></div>  
+                                        <div id="grand_total_price2"></div>  
+                                        <div id="total_seat_reserve"></div>
 
-                                                </div>
-                                            </div>
+                                       <div id="total_amount_payable_hidden"></div>
+                                       <div id="order_id_final"></div>
+                                       
+                                    <div class="row" style="padding-top:20px;">
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                            <button type="submit" class="btn btn-success " style="width:100%">Continue</button>
                                         </div>
-
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group form-float">
-                                              
-
-                                              <input placeholder="start_date_resarve" id="start_date_resarve" class="form-control" value="<?php if($start_date_resarve!=null){echo $start_date_resarve; } ?>" name="start_date_resarve" type="hidden">
-                                            </div>
-                                        </div> 
-
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group form-float">
-                                                <div id="hidden_selected_seat"></div>  
-                                                <div id="hidden_selected_assign"></div>  
-                                            </div>
+                                         <div class="col-xs-6 col-sm-6 col-md-6">
+                                            <button type="reset" class="btn btn-success " style="width:100%">Reset</button>
                                         </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group form-float">
-                                                <div id="grand_total_price2"></div>  
-                                                <div id="total_seat_reserve"></div>  
-                                            </div>
-                                        </div>
-
-                                          
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <button type="submit" class="btn btn-success bookingnext">Continue</button>
                                         </div>
 
                                         {!! Form::close() !!}
                                     </div>  
-                                </div>  
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                           
-                          </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <!--next modal open-->
-                <!--next modal open-->
-                <!--next modal open-->
-                <!--modal-->
-                <div class="modal fade" id="myModalnext" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog  modal-lg" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Buy bus tickets</h4>
-                          </div>
-                          <div class="modal-body">
-                              {!! Form::open(array('route' => 'pay.index','method'=>'GET', 'files' => true, 'runat'=>'server')) !!}
-                                <div class="row">
-                                    <div class="col-xs-8 col-sm-8 col-md-8">
-                                        <div class="passenger_details_total"> 
-                                          <h4>Passenger Details</h4>
-                                          <div class="passenger_details"> 
-                                              
-
-                                            
-                                               <div class="form-group form-float">
-                                                  <div class="input-group" id="pas_details_place">
-                                                  </div>
-                                              </div>
-
-                                             
-                                           
-                                            
-                                              <div class="form-group form-float">
-                                                  <strong>Email <span style="color: red">*</span> :</strong>
-                                                  <div class="input-group">
-                                                      <span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
-                                                      {!! Form::text('email', null, array('placeholder' => 'Email', 'required' => 'required','class' => 'form-control')) !!}
-
-                                                  </div>
-                                              </div>
-                                           
-                                              <div class="form-group form-float">
-                                                  <strong>Contact number <span style="color: red">*</span>:</strong>
-                                                  <div class="input-group">
-                                                      <span class="input-group-addon" id="basic-addon1"><i class="fa fa-phone" aria-hidden="true"></i></span>
-                                                      {!! Form::text('contact_number', null, array('placeholder' => 'Contact number', 'required' => 'required','class' => 'form-control')) !!}
-
-                                                  </div>
-                                              </div>
-                                              <div class="form-group form-float">
-                                                  <div class="input-group" id="order_id_final">
-                                                     
-                                                  </div>
-                                              </div>
-                                            </div>  
-                                         </div>  
-                                    </div>  
-                                  
-                                    <div class="col-xs-4 col-sm-4 col-md-4">  
-                                     
-                                        
-                                              <div class="journey_total">
-                                                 <h4>Journey Details</h4>
-                                                <div class="journal_details">
-                                                   
-
-                                                    <p id="show_selected_seat_final"></p>
-                                                    <p id="start_date_resarve"></p>
-                                                    <p id="drop_location_pickup_location"></p>
-                                                </div>
-                                              </div>
-                                           
-                                         
-                                    </div> 
                                 </div> 
+                            </td>
+                        </tr>
+                    @endforeach
+                </table>
 
-                                <div class="row">   
-                                    <div class="col-xs-8 col-sm-8 col-md-8"> 
-                                      <div class="custom_payment_area_total">    
-                                        <h4 id="paydetails">Payment Details</h4>
-                                        <div class="custom_payment_area">
-                                          <p id="total_amount_payable_hidden"></p>
-                                           <h4>Total Amount Payable ৳.<span id="total_amount_payable"> 0</span></h4>
-                                          <ul class="nav nav-tabs">
-                                            <li class="active"><a data-toggle="tab" href="#home">bKash</a></li>
-                                            <li><a data-toggle="tab" href="#menu1">Cash on Delivery</a></li>
-                                            <li><a data-toggle="tab" href="#menu2">Credit or Debit Card</a></li>
-                                            <li><a data-toggle="tab" href="#menu3">Internet Banking</a></li>
-                                          </ul>
 
-                                          <div class="tab-content">
-                                            <div id="home" class="tab-pane fade in active">
-                                             
-                                              <p>Your journey time is too close. Payment through bKash is not available. Try paying through Credit / Debit Cards or Internet banking.</p>
-                                            </div>
-                                            <div id="menu1" class="tab-pane fade">
-                                             
-                                              <p>Cash on Delivery is not available at this moment. Try paying through bKash, Credit / Debit Cards or Internet banking.</p>
-                                            </div>
-                                            <div id="menu2" class="tab-pane fade">
-                                             
-                                              <p>You would be redirected to a third party payment gateway where you can pay with your credit or debit cards. Your payment transactions are 100% secure. On successful payment, you would get a confirmed ticket.</p>
-                                            </div>
-                                            <div id="menu3" class="tab-pane fade">
-                                             
-                                              <p>You would be redirected to a third party payment gateway where you can pay with your internet banking accounts. Your payment transactions are 100% secure. On successful payment, you would get a confirmed ticket.</p>
-                                            </div>
-                                          </div>
-
-                                        </div>
-                                        </div>
-
-                                   </div> 
-
-                                    <div class="col-xs-4 col-sm-4 col-md-4">
-                                          <div class="fare_total">
-                                             <h4>Fare Details</h4>
-                                             <div class="fare_details">
-                                                       
-
-                                                        <ul>
-                                                          <li>Ticket Price <span id="grand_total_price_final" class="fare_right"></span></li>
-                                                          <li>Albaraka Fee <span id="albaraka_free" class="fare_right">0</span></li>
-                                                          <li>Bank Charges <span id="bankcharge" class="fare_right">0</span></li>
-                                                          <li>Discount <span id="discount" class="fare_right">0</span></li>
-                                                          <li>Total <span id="total_with_bank_free" class="fare_right">0</span></li>
-                                                        </ul>
-                                                    
-                                               </div>
-                                           </div>
-                                     </div>  
-                                  </div> 
-                                  <div class="row">
-                                      <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <button type="submit" class="btn btn-success">Proceed To Order</button>
-                                      </div>
-                                  </div> 
-                                {!! Form::close() !!} 
-                          </div>
-                          <div class="modal-footer">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                           
-                          </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!--next modal open-->
-                <!--next modal open-->
-                <!--next modal open-->
 
                
             </div>       
         </div>
-    @endsection
 
+        @endsection
 
 @section('ownjs')
-
-
  <script>
-
     $(document).ready(function(){
         $('.booking').click(function(){
-        
                 $.ajaxSetup({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         }
                 });
-             
-               var selected = [];
-               var show_selected = [];
-               var discount =0;
-               var grand_total_price =0;
-              
-                var assign_id=$(this).attr('id');
 
-                var data_date=$(this).attr('data-date');
+        var selected = [];
+        var show_selected = [];
+        var discount =0;
+        var grand_total_price =0;
+        var assign_id=$(this).attr('id');
+        var data_date=$(this).attr('data-date');
 
-
-
-                
-
-                //alert(data_date);
-
-
-                $('#myModal').modal('show');  
-
-                $.ajax({
-                    url: '{{Request::root()}}/bookingfront/'+assign_id+'/'+data_date,
-                    type: "GET",
-                    dataType: "json",
-                    success:function(data) {
-                            console.log(data);
-
-                            /*var str = '<ul>'
-                            $.each(data.seat_number, function(index,item){
-                               
-                              str += '<li class="listiteam'+index+'"><input type="checkbox" class="check" name="select_seat_number" value="'+item+'">'+item+'</li>';
-                               
-                            });
-                            str += '</ul>';
-                            document.getElementById("seat_plan_number").innerHTML = str;*/
-
-                            $("#hidden_selected_assign").html('<input type="hidden" class="check" name="hidden_selected_assign" value="'+data.assign.id+'">');
-
-
-
-
-                            var count=0; 
-                            var str = '<div class="total_seat">'
-                            $.each(data.seat_number, function(index,item){
+        //$('#myModal').modal('show');  
+        $(".tdata").hide();
+        $("#tdata-"+assign_id).show();
+        $.ajax({
+                url: '{{Request::root()}}/bookingfront/'+assign_id+'/'+data_date,
+                type: "GET",
+                dataType: "json",
+                success:function(data) {
+                console.log(data);
+                $("#hidden_selected_assign").html('<input type="hidden" class="check" name="hidden_selected_assign" value="'+data.assign.id+'">');
+                    var count=0; 
+                    var str = '<div class="total_seat">'
+                    $.each(data.seat_number, function(index,item){
                               
-                              count=count+1; 
-                              if(index==0){
-                                str += '<span class="listiteam'+index+'"><ul>'
-                              }
+                    count=count+1; 
+                    if(index==0){
+                        str += '<span class="listiteam'+index+'"><ul>'
+                        }
                                
-                             
-                              if($.inArray(item, data.bookingcheck) !== -1){
-                                 str += '<li class="listiteam'+index+' booked_seat"><div  style="position:relative;"><input disabled readonly type="checkbox" id="'+item+'" class="check trigger" name="select_seat_number" value="'+item+'"> <label for="'+item+'" class="checker"><span class="pob" style="    position: absolute;\n' +
-                                  '    left: 30%;\n' +
-                                  '    top: 20%;">'+item+'</span></label></div></li>';
-                              }else{
-                                 str += '<li class="listiteam'+index+'"><div  style="position:relative;"><input type="checkbox" id="'+item+'" class="check trigger" name="select_seat_number" value="'+item+'"> <label for="'+item+'" class="checker"><span class="pob" style="    position: absolute;\n' +
-                                  '    left: 30%;\n' +
-                                  '    top: 20%;">'+item+'</span></label></div></li>';
-                              }
-
-                             
+                    if($.inArray(item, data.bookingcheck) !== -1){
+                        str += '<li class="listiteam'+index+' "><div  style="position:relative;"><input disabled readonly type="checkbox" id="'+item+'" class="check trigger" name="select_seat_number" value="'+item+'"> <label for="'+item+'" class="checker '+data.bookinggender[item]+'"><span class="pob" style="    position: absolute;\n' +
+                                '    left: 30%;\n' +
+                                '    top: 20%;">'+item+'</span></label></div></li>';
+                    }else{
+                        str += '<li class="listiteam'+index+'"><div  style="position:relative;"><input type="checkbox" id="'+item+'" class="check trigger" name="select_seat_number" value="'+item+'"> <label for="'+item+'" class="checker"><span class="pob" style="    position: absolute;\n' +
+                                '    left: 30%;\n' +
+                                '    top: 20%;">'+item+'</span></label></div></li>';
+                        }
 
 
+                    if(index!=0 && count%4==0){
+                        str += '</ul></span><span class="listiteam'+index+'"><ul>'
+                        }
 
-                              if(index!=0 && count%4==0){
-                                 str += '</ul></span><span class="listiteam'+index+'"><ul>'
-                              }
+                    });
+                    str += '<ul></span></div>';
+                    //document.getElementById("seat_plan_number").innerHTML = str;
+                    document.getElementById("seatplan-"+assign_id).innerHTML = str;
 
+                    
 
-                            });
-                            str += '<ul></span></div>';
-                            document.getElementById("seat_plan_number").innerHTML = str;
+                var click =0;
+                $(".pob").click(function () {
+                click = click+1;
+                if (click % 2 == 0) {
+                    console.log('even')
+                    $(this).css("color","#000");
+                    }
+                else {
+                    console.log('odd')
+                    $(this).css("color","#CCC");
+                    }
+                    console.log(click)
+                });
+            $(".checker").click(function () {
+                click = click+1;
+                if (click % 2 == 0) {
+                    console.log('even')
+                    $(this).css("color","#000");
+                    }
+                else {
+                    console.log('odd')
+                    $(this).css("color","#ccc");
+                  }
+                 console.log(click)
+              });
 
-                       
+             $.each(data.stoppes_pointes, function(index,item){
+             $('select[name="pickup_location"]').append('<option value="'+ item +'">'+ item +'</option>');
+             $('select[name="drop_location"]').append('<option value="'+ item +'">'+ item +'</option>');
+             });
 
-                       
-                        //$(".booked_seat").off('click');
-                        //$( ".pop" ).unbind();
-                        //$( ".checker" ).unbind();
-                       
-
-
-                      var click =0;
-                        $(".pob").click(function () {
-                            click = click+1;
-                            // $(this).css("color","#fff");
-                            if (click % 2 == 0) {
-                                console.log('even')
-                                $(this).css("color","#000");
-                            }
-                            else {
-
-                                console.log('odd')
-                                $(this).css("color","#fff");
-                            }
-                            console.log(click)
-                        });
-                        $(".checker").click(function () {
-                            click = click+1;
-                            // $(this).css("color","#fff");
-                            if (click % 2 == 0) {
-                                console.log('even')
-                                $(this).css("color","#000");
-                            }
-                            else {
-
-                                console.log('odd')
-                                $(this).css("color","#fff");
-                            }
-                            console.log(click)
-                        });
-
-
-
-                            $.each(data.stoppes_pointes, function(index,item){
-                               $('select[name="pickup_location"]').append('<option value="'+ item +'">'+ item +'</option>');
-                               $('select[name="drop_location"]').append('<option value="'+ item +'">'+ item +'</option>');
-                            });
-
-
-
-
-                          
-
-                           
-
-                            
-
+    
                             $("input[type=checkbox]").click(function () {
 
                                 $("#count").html($("input[type=checkbox]:checked").length);
@@ -634,52 +532,27 @@ use App\Booking;
                                      show_selected.splice($.inArray($(this).val(), selected),1);
                                 }  
 
-
-                               /* if($(this).is(':checked')){
-                                     selected.push('<input type="hidden" class="check" name="order_seat" value="'+$(this).val()+'">');
-                                }else{
-                                     selected.splice($.inArray('<input type="hidden" class="check" name="order_seat" value="'+$(this).val()+'">', selected),1);
-                                } */
-
-
-
-                                //console.log(selected);  
-                                // alert("My favourite sports are: " + selected.join(", "));
-                                //document.getElementById("seat_plan_number").innerHTML = selected.join(", ");
-                                 //$("#hidden_selected_seat").html(selected);
                                  $("#hidden_selected_seat").html('<input type="hidden" class="check" name="order_seat" value="'+show_selected.join(",")+'" required>');
 
-                                 $("#show_selected_seat").html(show_selected.join(", "));
-                                     
-                                    //$.each(selected, function(index, value){
-                                       // $("#count").append(selected.join(", "));
-                                   // });
+                                 $("#show_selected_seat-"+assign_id).html(show_selected.join(", "));
+
+                                 $(".total_seat").val(show_selected.length);
+                                 $(".seat_number").val(show_selected.join(", "));
                                 
-                                
-                                 $("#show_price").html(data.price_info.price*$("input[type=checkbox]:checked").length);
-                                 $("#show_total_price").html(data.price_info.price*$("input[type=checkbox]:checked").length);
-                                 $("#show_discount").html(discount);
+                                 $("#show_price-"+assign_id).html(data.price_info.price*$("input[type=checkbox]:checked").length);
+                                 $("#show_total_price-"+assign_id).html(data.price_info.price*$("input[type=checkbox]:checked").length);
+                                 $("#show_discount-"+assign_id).html(discount);
                                  grand_total_price=((100-discount)*(data.price_info.price*$("input[type=checkbox]:checked").length))/100
-                                 $("#grand_total_price").html(grand_total_price);
+                                 $("#grand_total_price-"+assign_id).html(grand_total_price);
+                                 $("#total_paid-"+assign_id).val(grand_total_price);
+                                 $(".price").val(grand_total_price);
+
 
                                  $("#grand_total_price2").html('<input type="hidden" class="check" name="grand_total_price" value="'+grand_total_price+'">');
                                  $("#total_seat_reserve").html('<input type="hidden" class="check" name="total_seat_reserve" value="'+$("input[type=checkbox]:checked").length+'">');
-                               
-
-
 
                             });
-
-                            //if(selected.length>0){
-                               // console.log(selected);
-                           // }
-
-                              
-                                
                             
-
-
-                                                     
                     }
                 });
 
@@ -688,7 +561,6 @@ use App\Booking;
                 $("#count").empty();
         });
     });
-
 
 
 //next booking

@@ -37,12 +37,13 @@
             display: none;
         }
         .checker {
-            background-image: url({{asset('images/icon/demo.png')}});
+            /*background-image: url({{asset('images/icon/demo.png')}});*/
             background-position: left center;
             background-size: auto 100%;
-            width: 40px;
+            width: 60px;
             height: 40px;
             background-repeat: no-repeat;
+            border:1px solid #ccc;
         }
         .trigger:checked + .checker {
             background-position: right center;

@@ -225,30 +225,46 @@ class FrontController extends Controller
 
                
            
-                $user = new Booking();
-                $user->assign_id=$request->hidden_selected_assign;
-                $user->route_id=Assign::find($request->hidden_selected_assign)->route_id;
-                $user->route_name=Assign::find($request->hidden_selected_assign)->route_name;
-                $user->booking_date=$request->start_date_resarve;
-                $user->total_seat=$request->total_seat_reserve;
-                $user->user_id=1;
-                $user->seat_number=$order_seats;
-                $user->price=$request->grand_total_price;
-                $user->pickup_location=$request->pickup_location;
-                $user->drop_location=$request->drop_location;
-                $user->discount=1;
-                $user->admin_id=1;
+                $booking = new Booking();
+                $booking->assign_id=$request->hidden_selected_assign;
+                $booking->route_id=Assign::find($request->hidden_selected_assign)->route_id;
+                $booking->route_name=Assign::find($request->hidden_selected_assign)->route_name;
+                $booking->booking_date=$request->start_date_resarve;
+                $booking->total_seat=$request->total_seat_reserve;
+                $booking->user_id=1;
+                $booking->seat_number=$order_seats;
+                $booking->price=$request->grand_total_price;
+                $booking->pickup_location=$request->pickup_location;
+                $booking->drop_location=$request->drop_location;
+                $booking->discount=1;
+                $booking->admin_id=1;
+
+                $booking->currency='BDT';
+
+                $booking->agent_id=Auth::user()->id;
+                $booking->passenger_name=$request->passenger_name;
+                $booking->passenger_mobile=$request->passenger_mobile;
+                $booking->passenger_gender=$request->passenger_gender;
+                $booking->passenger_age=$request->passenger_age;
+                $booking->passenger_passport=$request->passenger_passport;
+                $booking->passenger_nationality=$request->passenger_nationality;
+                $booking->passenger_boarding_place=$request->passenger_boarding_place;
+                $booking->passenger_email=$request->passenger_email;
+                $booking->total_paid=$request->total_paid;
+                $booking->total_refund=$request->total_refund;
                
 
-                if($user->save()){
-                    $bookinginfo['order_id']=$user->id;
+                if($booking->save()){
+                    $order_id_final=$booking->id;
+                    return redirect()->route('pay.index', ['total_amount_payable_hidden' => $request->grand_total_price,'order_id_final'=>$order_id_final]);
+
                 }
 
-                $bookinginfo['total_seat_reserve']= $request->total_seat_reserve;
+
+               // $bookinginfo['total_seat_reserve']= $request->total_seat_reserve;
 
                
-              
-
+              else die("Nai");
 
 
                
@@ -257,7 +273,7 @@ class FrontController extends Controller
                 ->with('success','Route created successfully');*/
 
 
-              return json_encode($bookinginfo);
+              //return json_encode($bookinginfo);
     }
 
 
