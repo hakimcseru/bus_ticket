@@ -463,8 +463,7 @@
 
                 
                 <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{route('passenger.create')}}">Create Account</a></li>
-                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Cancel Ticket</a></li>
-                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="#">Complain</a></li>
+                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{route('complain')}}">Complain</a></li>
                 <li ><a href="javascript:void(0)" onclick="$('#helpModal').modal('show');">Help</a></li>
                 
             </ul>

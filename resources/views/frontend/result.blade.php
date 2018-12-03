@@ -316,7 +316,7 @@ use App\Booking;
                                                       </tr>
                                                       <tr>
                                                         <td >Total</td>
-                                                        <td colspan="3"><div id="show_total_price-{{ $available_single_bus->id }}"></div></td>
+                                                        <td colspan="3"><div id="show_total_price-{{ $available_single_bus->id }}" style="font-weight:bold !important; color:red;"></div></td>
                                                        
                                                       </tr>
                                                       <tr>
@@ -324,7 +324,7 @@ use App\Booking;
                                                       </tr>
                                                       <tr>
                                                         <td >Grand Total</td>
-                                                        <td  colspan="3"><div id="grand_total_price-{{ $available_single_bus->id }}"></div></td>
+                                                        <td  colspan="3"><div id="grand_total_price-{{ $available_single_bus->id }}" style="font-weight:bold !important; color:red;"></div></td>
                                                         
                                                       </tr>
                                                     </tbody>
@@ -409,7 +409,7 @@ use App\Booking;
                                        
                                     <div class="row" style="padding-top:20px;">
                                         <div class="col-xs-6 col-sm-6 col-md-6">
-                                            <button type="submit" class="btn btn-success " style="width:100%">Continue</button>
+                                            <button type="submit" class="btn btn-success " style="width:100%">Proceed Order</button>
                                         </div>
                                          <div class="col-xs-6 col-sm-6 col-md-6">
                                             <button type="reset" class="btn btn-success " style="width:100%">Reset</button>

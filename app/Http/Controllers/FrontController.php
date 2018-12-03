@@ -241,7 +241,7 @@ class FrontController extends Controller
 
                 $booking->currency='BDT';
 
-                $booking->agent_id=Auth::user()->id;
+                $booking->agent_id=null;
                 $booking->passenger_name=$request->passenger_name;
                 $booking->passenger_mobile=$request->passenger_mobile;
                 $booking->passenger_gender=$request->passenger_gender;

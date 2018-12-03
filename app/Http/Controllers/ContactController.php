@@ -19,6 +19,11 @@ class ContactController extends Controller
     public function feedback() 
 	{
 		return view('frontend.feedback');
+    }
+    
+    public function complain() 
+	{
+		return view('frontend.complain');
 	}
     /*public function mailToAdmin(ContactFormRequest $message, Admin $admin)
 	{        //send the admin an notification

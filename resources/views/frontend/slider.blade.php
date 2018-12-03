@@ -52,9 +52,12 @@ endforeach;
                                 </div>
                                 <div class="col-lg-6 col-xs-6">
                                   <div class="form-group ticket_custom_calader_icon">
-                                    <label for="exampleInputPassword1">Date of Return</label>
-                                    <input type="text" name="return_date" class="form-control" id="return_date"     placeholder="Return Date">
-                                    <i class="fa fa-calendar" id="return_date1" aria-hidden="true"  onclick="$('#return_date').trigger( 'focus' );"  style="cursor:pointer"></i>
+                                    <label for="exampleInputPassword1">Bus type</label>
+                                    <select name="fleet_type"  class="form-control">
+                                        <option value="non-ac">Non AC</option>
+                                        <option value="ac">AC</option>
+                                    </select>
+                                    
                                   </div>
                                 </div>
                             </div>

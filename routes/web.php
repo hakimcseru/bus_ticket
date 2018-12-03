@@ -36,6 +36,7 @@ Route::get('/home', 'HomeController@index')->name('home');*/
 Route::get('/contact', ['as'=>'contact','uses'=>'ContactController@show'] );
 Route::post('/contact',  ['as'=>'contact','uses'=>'ContactController@mailToAdmin']); 
 Route::get('/feedback', ['as'=>'feedback','uses'=>'ContactController@feedback'] );
+Route::get('/complain', ['as'=>'complain','uses'=>'ContactController@complain'] );
 // contact p[ahe]
 
 

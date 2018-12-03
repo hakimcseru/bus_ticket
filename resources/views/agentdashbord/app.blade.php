@@ -236,7 +236,7 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
 				$locations = Location::pluck('name','name');
 				?>
                
-                {!! Form::open(array('route' => 'agentdashbord.searchticket','method'=>'GET','class'=>"form-inline agent-search-form")) !!}
+                {!! Form::open(array('route' => 'agentdashbord.searchticket','method'=>'GET',  'autocomplete'=>'off','class'=>"form-inline agent-search-form")) !!}
                             <div class="row">
                                <div class="container">
                                <div class="col-md-12" style="text-align:center">
