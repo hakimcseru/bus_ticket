@@ -160,13 +160,22 @@ li
 .background-red{
     background-color:red;
 }
+.booked_Male{
+background-color:#96BDFA;
+}
+.booked_Female{
+background-color:#BCF9F5;
+}
 .sold_Male{
 background-color:red;
 }
 .sold_Female{
 background-color:#F934DE;
 }
-
+.c-active{
+	color:#fff;
+	background-color:green;
+}
 
 </style>
 @endsection
@@ -315,7 +324,7 @@ use App\Booking;
                                                         <td><div id="show_discount-{{ $available_single_bus->id }}"></div></td>
                                                       </tr>
                                                       <tr>
-                                                        <td >Total</td>
+                                                        <td style="font-weight:bold">Total</td>
                                                         <td colspan="3"><div id="show_total_price-{{ $available_single_bus->id }}" style="font-weight:bold !important; color:red;"></div></td>
                                                        
                                                       </tr>
@@ -323,7 +332,7 @@ use App\Booking;
                                                         
                                                       </tr>
                                                       <tr>
-                                                        <td >Grand Total</td>
+                                                        <td style="font-weight:bold">Grand Total</td>
                                                         <td  colspan="3"><div id="grand_total_price-{{ $available_single_bus->id }}" style="font-weight:bold !important; color:red;"></div></td>
                                                         
                                                       </tr>
@@ -495,23 +504,24 @@ use App\Booking;
                 click = click+1;
                 if (click % 2 == 0) {
                     console.log('even')
-                    $(this).css("color","#000");
+                    //$(this).css("color","#000");
                     }
                 else {
                     console.log('odd')
-                    $(this).css("color","#CCC");
+                    //$(this).css("color","#CCC");
                     }
                     console.log(click)
                 });
             $(".checker").click(function () {
+				$(this).toggleClass('c-active');
                 click = click+1;
                 if (click % 2 == 0) {
                     console.log('even')
-                    $(this).css("color","#000");
+                    //$(this).css("color","#000");
                     }
                 else {
                     console.log('odd')
-                    $(this).css("color","#ccc");
+                    //$(this).css("color","#ccc");
                   }
                  console.log(click)
               });

@@ -196,8 +196,13 @@ class FrontController extends Controller
         foreach ($bookingcheck as $singlevalue) {
                     $single_selected_seat=json_decode($singlevalue->seat_number);
                     $total_selected_seat=array_merge($total_selected_seat,$single_selected_seat);
+                    if($singlevalue->order_status=='Pending')
+                    {
+                        $preffx='booked_';
+                    }
+                    else $preffx='sold_';
                     foreach($single_selected_seat as $sl):
-                        $total_selected_seat_mf[trim($sl)]='sold_'.$singlevalue->passenger_gender;
+                        $total_selected_seat_mf[trim($sl)]=$preffx.$singlevalue->passenger_gender;
                     endforeach;
         }
         $bus_info['bookingcheck']=array_map('trim',$total_selected_seat);

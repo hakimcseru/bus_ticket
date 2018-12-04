@@ -719,26 +719,27 @@
                             // $(this).css("color","#fff");
                             if (click % 2 == 0) {
                                 console.log('even')
-                                $(this).css("color","#000");
+                                //$(this).css("color","#000");
                             }
                             else {
 
                                 console.log('odd')
-                                $(this).css("color","#fff");
+                                //$(this).css("color","#fff");
                             }
                             console.log(click)
                         });
                         $(".checker").click(function () {
+							$(this).parent('label').toggleClass('c-active');
                             click = click+1;
                             // $(this).css("color","#fff");
                             if (click % 2 == 0) {
                                 console.log('even')
-                                $(this).css("color","#000");
+                               // $(this).css("color","#000");
                             }
                             else {
 
                                 console.log('odd')
-                                $(this).css("color","#CCC");
+                                //$(this).css("color","#CCC");
                             }
                             console.log(click)
                         });
