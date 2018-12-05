@@ -166,8 +166,15 @@ class FrontController extends Controller
         }
     }
 
+public function removependingticket(){
+    $fiveminpretime=date("Y-m-d H:i:s",strtotime(date("Y-m-d H:i:s")." -5 minutes"));
+    Booking::where('order_status','=','Pending')
+    ->where('created_at', '<=', $fiveminpretime)
+    ->delete();
+}
 
     public function bookingfrontfunction($id,$data_date){
+        $this->removependingticket();
         $assign=Assign::where('id',$id)->first();
         $bus=Bus::where('registration_no',$assign->fleet_registration_no)->first();
 
