@@ -31,4 +31,18 @@ class Assign extends Model
         ->sum('total_seat');
         return $total_booked;
     }
+    public function driver()
+    {
+        return $this->hasOne('App\User','id','driver_name');
+    }
+    public function allassigntants($alas)
+    {
+        $cv="";
+        $ccd=json_decode($alas);
+        foreach($ccd as $sc):
+            $cv.=User::find($sc)->name.',';
+        endforeach;
+        return $cv;
+    }
+
 }

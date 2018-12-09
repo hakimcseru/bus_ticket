@@ -63,9 +63,9 @@
                             <div class="form-group form-float">
                                 <strong>Status <span style="color: red">*</span> :</strong>
                                 <div class="demo-radio-button">
-                                    <input name="status" type="radio" id="radio_1" value="1" checked="">
+                                    <input name="status" type="radio" id="radio_1" value="1" <?php if($location->status==1) echo 'checked="checked"';?>>
                                     <label for="radio_1">Active</label>
-                                    <input name="status" type="radio" id="radio_2" value="0" >
+                                    <input name="status" type="radio" id="radio_2" value="0" <?php if($location->status==0) echo 'checked="checked"';?> >
                                     <label for="radio_2">Inactive</label>
                                 </div>
                             </div>

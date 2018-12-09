@@ -50,7 +50,7 @@ class FrontController extends Controller
         $start_date=trim($request->input('start_date'));
         $return_date=trim($request->input('return_date'));
 
-        $data['locations']= Location::pluck('name','name');
+        $data['locations']= Location::where('status','=','1')->pluck('name','name');
         $data['start_date_resarve']=null;
 
         $data['availablebus']=Assign::where('start_point_name',$start_point)

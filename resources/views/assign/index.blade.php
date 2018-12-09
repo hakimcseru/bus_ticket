@@ -56,8 +56,8 @@ use App\BookIssue;
                             <td>{{ $assign->route_name }}</td>
                             <td>{{ $assign->start_date }}</td>
                             <td>{{ $assign->end_date }}</td>
-                            <td>{{ $assign->driver_name }}</td>
-                            <td>{{ $assign->assistants }}</td>
+                            <td>{{ $assign->driver->name }}</td>
+                            <td>{{ $assign->allassigntants($assign->assistants) }}</td>
                            <td>
                                 <!--<a class="btn btn-info" href="{{ route('assign.show',$assign->id) }}">Show</a>-->
                                 <a class="btn btn-primary" href="{{ route('assign.edit',$assign->id) }}">Edit</a>

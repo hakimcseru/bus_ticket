@@ -129,8 +129,8 @@ class BusController extends Controller
     public function edit($id)
     {
 
-        $location = Location::find($id);
-        return view('location.edit',compact('location'));
+        $bus = Bus::find($id);
+        return view('bus.edit',compact('bus'));
         
     }
 

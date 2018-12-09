@@ -42,19 +42,19 @@ use App\BookIssue;
                     <tr>
                         <th>No</th>
                         <th>Name</th>
-                        <th>start_point</th>
-                        <th>end_point</th>
-                        <th>stoppage_points</th>
-                        <th>distance</th>
-                        <th>approximate_time</th>
+                        <th>Start Point</th>
+                        <th>End Point</th>
+                        <th>Stoppage Points</th>
+                        <th>Distance</th>
+                        <th>Approximate Time</th>
                         <th width="280px">Action</th>
                     </tr>
                     @foreach ($routes as $key => $route)
                         <tr>
                             <td>{{ ++$i }}</td>
                             <td>{{ $route->name }}</td>
-                            <td>{{ $route->start_point }}</td>
-                            <td>{{ $route->end_point }}</td>
+                            <td>{{ @$route->start_location->name }}</td>
+                            <td>{{ @$route->end_location->name }}</td>
                             <td>{{ $route->stoppage_points }}</td>
                             <td>{{ $route->distance }}</td>
                             <td>{{ $route->approximate_time }}</td>

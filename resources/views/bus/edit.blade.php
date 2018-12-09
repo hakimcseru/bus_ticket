@@ -10,10 +10,10 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Create new location</h2>
+                <h2>Update Bus</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('location.index') }}"> Back</a>
+                <a class="btn btn-primary" href="{{ route('bus.index') }}"> Back</a>
             </div>
         </div>
     </div>
@@ -28,7 +28,7 @@
         </div>
     @endif
    
-    {!! Form::model($location, ['method' => 'PATCH','route' => ['location.update', $location->id],'files' => true]) !!}
+    {!! Form::model($bus, ['method' => 'PATCH','route' => ['bus.update', $bus->id],'files' => true]) !!}
 
     <div class="row">
 
@@ -41,23 +41,65 @@
                    
                          <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group form-float">
-                                <strong>Name :</strong>
+                                <strong>registration_no :</strong>
                                 <div class="input-group">
                                     <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                     {!! Form::text('name', $location->name, array('placeholder' => 'Name', 'required' => 'required','class' => 'form-control')) !!}
+                                     {!! Form::text('registration_no', null, array('placeholder' => 'registration_no', 'required' => 'required','class' => 'form-control')) !!}
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group form-float">
+                                <strong>fleet_type :</strong>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                    {!! Form::select('fleet_type', ['ac'=>'AC','non-ac'=>'Non AC'], ['ac'=>'AC'], array('class' => 'form-control show-tick')) !!}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group form-float">
+                                <strong>engine_no :</strong>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                     {!! Form::text('engine_no', null, array('placeholder' => 'engine_no', 'required' => 'required','class' => 'form-control')) !!}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group form-float">
+                                <strong>model_no :</strong>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                     {!! Form::text('model_no', null, array('placeholder' => 'model_no', 'required' => 'required','class' => 'form-control')) !!}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group form-float">
+                                <strong>total_seat :</strong>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                     {!! Form::text('total_seat', null, array('placeholder' => 'total_seat', 'required' => 'required','class' => 'form-control')) !!}
+                                </div>
+                            </div>
+                        </div>
+                       
+
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group form-float">
+                                <strong>seat_number :</strong>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                    <div class="form-control tags" id="tags">
+                                          <input type="text" class="labelinput" >
+                                          <input type="hidden" value="" name="seat_number" >
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group form-float">
-                                <strong>Location Description :</strong>
-                                <div class="input-group">
-                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
-                                    {!! Form::textarea('description', $location->description, array('placeholder' => 'description','class' => 'form-control','rows'=>3)) !!}
-                                </div>
-                            </div>
-                        </div>
+                        
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group form-float">
@@ -75,22 +117,16 @@
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-3">
                                     <div class="form-group form-float">
-                                        <strong>Location Image :</strong>
+                                        <strong>bus_photo :</strong>
                                         <div class="input-group">
                                             <span class="input-group-addon" id="basic-addon1"><i class="fa fa-upload" aria-hidden="true"></i></span>
-                                            {!! Form::file('location_photo', array('class'=>'form-control','id'=>'imgInp')) !!}
+                                            {!! Form::file('bus_photo', array('class'=>'form-control','id'=>'imgInp','required' => 'required')) !!}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group form-float">
-                                        <?php
-                                         if($location->location_photo!=''){?>
-                                            <img id="blah" style="width:150px;" src="{{Request::root()}}/uploads/location/{{ $location->location_photo }}" alt="your image" />
-                                        <?php }else{?>
-                                            <img id="blah" style="width:150px;" src="{{Request::root()}}/images/preview_file.png" alt="your image" />
-                                        <?php }
-                                        ?>
+                                       <img id="blah" style="width:150px;" src="{{Request::root()}}/images/preview_file.png" alt="your image" />
                                     </div>
                                 </div>
                             </div>
@@ -132,5 +168,14 @@
      });
 
   </script>
+
+    <script src="{{asset('/js/tagInput.js') }}"></script>
+    <script>
+        $(function(){
+
+          $('#tags').tagInput();
+
+        });
+    </script>
 
 @endsection

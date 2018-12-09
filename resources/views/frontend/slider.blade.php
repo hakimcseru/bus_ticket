@@ -23,7 +23,7 @@ endforeach;
                     <h4  style="text-align: center;color: #e34b4d;">Online Bus Tickets Booking with Zero Booking Fees</h4>
 				<?php 
 				use App\Location;
-				$locations = Location::pluck('name','name');
+				$locations = Location::where('status','=','1')->pluck('name','name');
 				?>
                          {!! Form::open(array('route' => 'font_web.index','method'=>'GET',  'autocomplete'=>'off')) !!}
                             <div class="row">

@@ -143,7 +143,7 @@ class LocationController extends Controller
 
         $user->name=$input['name'];
         $user->description=$input['description'];
-        $user->status=$input['status'];
+        $user->status=$input['status']; //die();
         $user->admin_id=Auth::user()->id;
 
 
