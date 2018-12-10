@@ -54,8 +54,8 @@ use App\BookIssue;
                             <td>{{ ++$i }}</td>
                             <td>{{ $news->title }}</td>
                             <td>{{ $news->description }}</td>
-                            <td>{{ $news->status }}</td>
-                            <td>{{ $news->admin_id }}</td>
+                            <td>{{ $news->getstatus($news->status) }}</td>
+                            <td>{{ $news->user->name }}</td>
                             <td>{{ $news->created_at }}</td>
                            <td>
                                 <!--<a class="btn btn-info" href="{{ route('route.show',$news->id) }}">Show</a>-->
