@@ -19,7 +19,7 @@
             </div>
             
         </div>
-<table id="example" class="table table-striped table-bordered" style="width:100%; background-color:white" >
+<table id="myTable" class="table table-striped table-bordered" style="width:100%; background-color:white" >
         <thead>
             <tr>
                 <th>SN</th>

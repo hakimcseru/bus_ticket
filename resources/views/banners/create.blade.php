@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Add Banners</h2>
+                <h2>Add Resource</h2>
             </div>
             <div class="pull-right">
                 <a class="btn btn-primary" href="{{ route('book_issue.index') }}"> Back</a>
@@ -33,10 +33,10 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group form-float">
-                                <strong>About this photo :</strong>
+                                <strong>Resource type :</strong>
                                 <div class="input-group">
                                     <span class="input-group-addon" id="basic-addon1"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
-                                    {!! Form::textarea('details', null, array('placeholder' => 'Details','class' => 'form-control','rows'=>6)) !!}
+                                    {!! Form::select('details', array('Slider' => 'Slider', 'Logo' => 'Logo'),'Slider' ,array('class' => 'form-control')) !!}
                                 </div>
                             </div>
                         </div>

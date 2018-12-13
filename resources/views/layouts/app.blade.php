@@ -339,7 +339,7 @@ use App\Employee;
                            if(isset($currentPathvalue[1])){ if($currentPathvalue[1]==$value->name){echo 'class="active"';}}
                            if(isset($currentPathvalue[1])){
                                $findcurrenturl = Permission::where("url", '=', $currentPathvalue[1])->where("is_active",'1')->first();
-                               if(sizeof($findcurrenturl)>0){
+                               if(is_array($findcurrenturl) && sizeof($findcurrenturl)>0){
 
                                  if($findcurrenturl->super_parent==$value->id){
                                      echo 'class="active"';
@@ -419,7 +419,14 @@ use App\Employee;
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" ></script>
+    <script>
+     $(document).ready( function () {
+            $('#myTable').DataTable();
+        } );
+            
+    </script>
 
 <script>
   $( function() {

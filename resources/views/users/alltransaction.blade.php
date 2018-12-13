@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{asset('/css/select2.min.css') }}" />
 
     <link rel="stylesheet" type="text/css" href="{{asset('/tagged/css/taggle.css') }}">
+    
     <style>
         .show_images img{
             width: 100%;
@@ -19,7 +20,7 @@
             </div>
             
         </div>
-<table id="example" class="table table-striped table-bordered" style="width:100%; background-color:white" >
+<table id="myTable" class="table table-striped table-bordered" style="width:100%; background-color:white" >
         <thead>
             <tr>
                 <th>SN</th>

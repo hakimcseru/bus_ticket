@@ -564,9 +564,9 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
             <div class="col-lg-12">
                 <div class="ticket_middle">
                     <ul class="ticket_middle_list">
-                        <li> <i class="fa fa-bus" aria-hidden="true"></i> <span>67000 ROUTES</span></li>
-                        <li> <i class="fa fa-users" aria-hidden="true"></i><span>1800 BUS OPERATORS</span></li>
-                        <li> <i class="fa fa-ticket" aria-hidden="true"></i><span>6,00,000 + TICKETS SOLD</span></li>
+                        <li> <i class="fa fa-bus" aria-hidden="true"></i> <span>{{App\Route::count()}} ROUTES</span></li>
+                        <li> <i class="fa fa-users" aria-hidden="true"></i><span>{{App\Assign::count()}} BUS OPERATORS</span></li>
+                        <li> <i class="fa fa-ticket" aria-hidden="true"></i><span>{{App\Booking::count()}} + TICKETS SOLD</span></li>
                     </ul>    
                 </div>   
             </div>
@@ -583,84 +583,33 @@ $bannerss= Options::where('name', 'banner')->orderBy('id','DESC')->limit(3)->get
                         <div class="col-md-12">
                         <div class="text-center">
                             <h2>Our Routes & Check-Points</h2>
-                        </div><hr>
-                            <h3 class="label label-primary" style="font-size: 100%;">Route: Ramganj - Tongi</h3>
-                            <div class="row" style="margin-top: 10px;">
-                                <div class="col-md-12">
-                                    <ul class="list-inline">
-                                        <li class="label label-success">Ramganj Counter</li>
-                                        <li class="label label-success">Baluya Chowmuhuni</li>
-                                        <li class="label label-success">Alipur</li>
-                                        <li class="label label-success">Kachua Bazar</li>
-                                        <li class="label label-success">Dashgharia</li>
-                                        <li class="label label-success">Chatkhil</li>
-                                        <li class="label label-success">Halima Dighir Par</li>
-                                        <li class="label label-success">Joyag</li>
-                                        <li class="label label-success">Bawor Court</li>
-                                        <li class="label label-success">Junudpur</li>
-                                        <li class="label label-success">Banglabazar</li>
-                                        <li class="label label-success">Sonaimuri</li>
-                                        <li class="label label-success">Sonaimuri Baipass</li>
-                                        <li class="label label-success">Sonaimuri Chatarpyia</li>
-                                        <li class="label label-success">Bipulsar</li>
-                                        <li class="label label-success">Nather Petuya</li>
-                                        <li class="label label-success">Chandina</li>
-                                        <li class="label label-success">Chittagong Road</li>
-                                        <li class="label label-success">Signboard</li>
-                                        <li class="label label-success">ShanirAkhra</li>
-                                        <li class="label label-success">Saydabad</li>
-                                        <li class="label label-success">Maniknagar</li>
-                                        <li class="label label-success">Malibagh</li>
-                                        <li class="label label-success">Kuril Biswaroad</li>
-                                        <li class="label label-success">Airport</li>
-                                        <li class="label label-success">Uttara</li>
-                                        <li class="label label-success">Tongi</li>
-                                    </ul>
-                                </div>
-                            </div>
-                               
+                        </div>
                         </div>
                     </div>
                     <hr>
+                    <?php 
+                    $all_routs=App\Route::all();
+                    if(isset($all_routs)){
+                    foreach($all_routs as $rout):?>
                     <div class="row">
                         <div class="col-md-12">
-                            <h3 class="label label-primary" style="font-size: 100%;">Route: Tongi - Ramganj</h3>
+                            <h3 class="label label-primary" style="font-size: 100%;">{{$rout->name}}</h3>
                             <div class="row" style="margin-top: 10px;">
                                 <div class="col-md-12">
                                     <ul class="list-inline">
-                                        <li class="label label-success">Tongi</li>
-                                        <li class="label label-success">Uttara</li>
-                                        <li class="label label-success">Airport</li>
-                                        <li class="label label-success">Kuril Biswaroad</li>
-                                        <li class="label label-success">Malibagh</li>
-                                        <li class="label label-success">Maniknagar</li>
-                                        <li class="label label-success">Saydabad</li>
-                                        <li class="label label-success">ShanirAkhra</li>
-                                        <li class="label label-success">Signboard</li>
-                                        <li class="label label-success">Chittagong Road</li>
-                                        <li class="label label-success">Chandina</li>
-                                        <li class="label label-success">Nather Petuya</li>
-                                        <li class="label label-success">Bipulsar</li>
-                                        <li class="label label-success">Sonaimuri Chatarpyia</li>
-                                        <li class="label label-success">Sonaimuri Baipass</li>
-                                        <li class="label label-success">Sonaimuri</li>
-                                        <li class="label label-success">Banglabazar</li>
-                                        <li class="label label-success">Junudpur</li>
-                                        <li class="label label-success">Bawor Court</li>
-                                        <li class="label label-success">Joyag</li>
-                                        <li class="label label-success">Halima Dighir Par</li>
-                                        <li class="label label-success">Chatkhil</li>
-                                        <li class="label label-success">Dashgharia</li>
-                                        <li class="label label-success">Kachua Bazar</li>
-                                        <li class="label label-success">Alipur</li>
-                                        <li class="label label-success">Baluya Chowmuhuni</li>
-                                        <li class="label label-success">Ramganj Counter</li>
+                                    <?php $allspoints=json_decode($rout->stppage_points,true);
+                                    if(isset($allspoints))
+                                    foreach($allspoints as $point):?>
+                                        <li class="label label-success">{{$point}}</li>
+                                    <?php endforeach;?>    
                                     </ul>
                                 </div>
                             </div>
                                
                         </div>
                     </div>
+                    <?php endforeach;
+                    }?>
                     <hr>
                     <div class="row">
                         <div class="col-md-12">

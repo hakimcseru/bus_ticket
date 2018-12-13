@@ -20,7 +20,8 @@
             
         </div>
         <?php $refill_history=App\Agentsbalance::get();?>
-        <table class="table table-bordered">
+<table id="myTable" class="table table-striped table-bordered" style="width:100%; background-color:white" >
+                            <thead>
                                 <tr>
                                     <th>Date of refill</th>
                                     <th>Agent</th>
@@ -30,6 +31,8 @@
                                     <th>Per ticket discount</th>
                                     <th>Ticket amount</th>
                                 </tr>
+                            </thead>
+                            <tbody>
                                 <?php
                                 foreach($refill_history as $rhistory):
                                 ?>
@@ -44,7 +47,19 @@
 								<td>{{$rhistory->ticket_amount}}</td>
 								</tr>
                                 <?php endforeach;?>
-								</table>
+                            </tbody>
+                        <tfoot>
+                            <tr>
+                                    <th>Date of refill</th>
+                                    <th>Agent</th>
+                                    <th>Refill by</th>
+                                    <th>Contact no</th>
+                                    <th>Deposit amount</th>
+                                    <th>Per ticket discount</th>
+                                    <th>Ticket amount</th>
+                                </tr>
+                                </tfoot>
+							</table>
 
 
 @endsection

@@ -72,7 +72,7 @@ use App\Agentsbalance;
                                     $today = date('Y-m-d');
 
                                     $issueInfo = BookIssue::where('user_id',$member->id)->where('is_returned','0')->whereDate('end_date','<',$today)->first();
-                                    if(count($issueInfo)>0){
+                                    if(is_array($issueInfo) && count($issueInfo)>0){
                                 ?>
                                 <span style="background-color: red" class="badge badge-danger">Expired</span>
 
